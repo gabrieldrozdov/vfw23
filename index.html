@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>VARIABLE FONTS WORKSHOP * RISD Spring 2024</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib/unbrotli.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib-font.browser.js" type="module"></script>
+</head>
+<body>
+	<main class="container">
+		<div class="logo-container">
+			<h1 class="logo">
+				<div class="logo-line-1">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<p><span>V</span><span>A</span><span>R</span><span>I</span><span>A</span><span>B</span><span>L</span><span>E</span></p>
+				</div>
+				<div class="logo-line-2">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<p><span>F</span><span>O</span><span>N</span><span>T</span><span>S</span></p>
+				</div>
+				<div class="logo-line-3">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<p><span>W</span><span>O</span><span>R</span><span>K</span><span>S</span><span>H</span><span>O</span><span>P</span></p>
+				</div>
+			</h1>
+		</div>
+	
+		<div class="nav-container">
+			<nav class="nav" id="nav">
+				<button onclick="menuIn('syllabus')" class="nav-button">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Syllabus</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24"><path d="M22 6h-6v-6l6 6zm-8 2v-8h-12v24h20v-16h-8z"/></svg>
+					</div>
+				</button>
+				<button onclick="menuIn('fontbox')" class="nav-button">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Fonts</textPath></text></svg>
+					<div class="nav-icon">
+						<p>Aa</p>
+					</div>
+				</button>
+				<button onclick="menuIn('toolbox')" class="nav-button">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Instruments</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M11.5 23l-8.5-4.535v-3.953l5.4 3.122 3.1-3.406v8.772zm1-.001v-8.806l3.162 3.343 5.338-2.958v3.887l-8.5 4.534zm-10.339-10.125l-2.161-1.244 3-3.302-3-2.823 8.718-4.505 3.215 2.385 3.325-2.385 8.742 4.561-2.995 2.771 2.995 3.443-2.242 1.241v-.001l-5.903 3.27-3.348-3.541 7.416-3.962-7.922-4.372-7.923 4.372 7.422 3.937v.024l-3.297 3.622-5.203-3.008-.16-.092-.679-.393v.002z"/></svg>
+					</div>
+				</button>
+				<button onclick="settingsIn()" class="nav-button">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Settings</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24"><path d="M24 13.616v-3.232c-1.651-.587-2.694-.752-3.219-2.019v-.001c-.527-1.271.1-2.134.847-3.707l-2.285-2.285c-1.561.742-2.433 1.375-3.707.847h-.001c-1.269-.526-1.435-1.576-2.019-3.219h-3.232c-.582 1.635-.749 2.692-2.019 3.219h-.001c-1.271.528-2.132-.098-3.707-.847l-2.285 2.285c.745 1.568 1.375 2.434.847 3.707-.527 1.271-1.584 1.438-3.219 2.02v3.232c1.632.58 2.692.749 3.219 2.019.53 1.282-.114 2.166-.847 3.707l2.285 2.286c1.562-.743 2.434-1.375 3.707-.847h.001c1.27.526 1.436 1.579 2.019 3.219h3.232c.582-1.636.75-2.69 2.027-3.222h.001c1.262-.524 2.12.101 3.698.851l2.285-2.286c-.744-1.563-1.375-2.433-.848-3.706.527-1.271 1.588-1.44 3.221-2.021zm-12 2.384c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4z"/></svg>
+					</div>
+				</button>
+				<button onclick="navHide()" class="nav-button">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Close Menu</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24"><path d="M23,19.5L15.4,12l7.5-7.6L19.5,1L12,8.6L4.4,1.1L1,4.5L8.6,12l-7.5,7.6L4.5,23l7.6-7.6l7.6,7.5L23,19.5z"/></svg>
+					</div>
+				</button>
+			</nav>
+			<div class="nav" id="settings">
+				<div class="nav-value">
+					<p class="nav-value-label">Font Size</p>
+					<div class="nav-value-buttons">
+						<button onclick="settingsFontSize(-.1)">-</button>
+						<button onclick="settingsFontSize(.1)">+</button>
+					</div>
+				</div>
+				<div class="nav-value">
+					<p class="nav-value-label">Tracking</p>
+					<div class="nav-value-buttons">
+						<button onclick="settingsTracking(-.1)">-</button>
+						<button onclick="settingsTracking(.1)">+</button>
+					</div>
+				</div>
+				<div class="nav-value">
+					<p class="nav-value-label">Leading</p>
+					<div class="nav-value-buttons">
+						<button onclick="settingsLeading(-.1)">-</button>
+						<button onclick="settingsLeading(.1)">+</button>
+					</div>
+				</div>
+				<button class="nav-button" onclick="settingsChangeCase(-.1)">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Change Case</textPath></text></svg>
+					<div class="nav-icon">
+						<p>Aa</p>
+					</div>
+				</button>
+				<button class="nav-button" onclick="settingsChangeColor(-.1)">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Change Color</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M1 12.155c2.256 3.97 4.55 7.918 6.879 11.845h-5.379c-.829 0-1.5-.675-1.5-1.5v-10.345zm2.85.859c3.278 1.952 12.866 7.658 13.121 7.805l-5.162 2.98c-.231.132-.49.201-.751.201-.549 0-1.037-.298-1.299-.75l-5.909-10.236zm1.9-12.813c-.23-.133-.489-.201-.75-.201-.524 0-1.026.277-1.299.75l-3.5 6.062c-.133.23-.201.489-.201.749 0 .527.278 1.028.75 1.3 2.936 1.695 14.58 8.7 17.516 10.396.718.413 1.633.168 2.048-.55l3.5-6.062c.133-.23.186-.488.186-.749 0-.52-.257-1.025-.734-1.3l-17.516-10.395m.25 3.944c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2"/></svg>
+					</div>
+				</button>
+				<button onclick="settingsOut()" class="nav-button">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Close Settings</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24"><path d="M23,19.5L15.4,12l7.5-7.6L19.5,1L12,8.6L4.4,1.1L1,4.5L8.6,12l-7.5,7.6L4.5,23l7.6-7.6l7.6,7.5L23,19.5z"/></svg>
+					</div>
+				</button>
+			</div>
+			<button id="nav-toggle" onclick="navHide()">
+				<svg viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
+			</button>
+		</div>
+
+		<div class="fontbox" id="fontbox">
+			<ul class="fontbox-menu">
+				<li type="file" class="fontbox-menu-item" id="fontbox-menu-item-custom" onclick=""><input id="fontbox-menu-item-custom-input" type="file" hidden>
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Upload a font!</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="jost" onclick="pickFont('jost')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Future</span>
+					<span class="fontbox-menu-item-info">
+						<strong>Jost</strong><br>
+						By Owen Earl
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="bashful" onclick="pickFont('bashful')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Hide</span>
+					<span class="fontbox-menu-item-info">
+						<strong>Bashful</strong><br>
+						By Gabriel Drozdov
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="powerpack" onclick="pickFont('powerpack')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Charge</span>
+					<span class="fontbox-menu-item-info">
+						<strong>PowerPack</strong><br>
+						By Gabriel Drozdov
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="that-then-this" onclick="pickFont('thatthenthis')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Techno</span>
+					<span class="fontbox-menu-item-info">
+						<strong>That Then This</strong><br>
+						By Gabriel Drozdov
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="mini-mochi" onclick="pickFont('minimochi')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Squish</span>
+					<span class="fontbox-menu-item-info">
+						<strong>Mini Mochi</strong><br>
+						By Gabriel Drozdov
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="dreidel" onclick="pickFont('dreidel')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Spin</span>
+					<span class="fontbox-menu-item-info">
+						<strong>Dreidel</strong><br>
+						By Gabriel Drozdov
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="galapagos" onclick="pickFont('galapagos')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Island</span>
+					<span class="fontbox-menu-item-info">
+						<strong>Work Sans Galápagos</strong><br>
+						By Gabriel Drozdov
+					</span>
+					<span class="fontbox-menu-item-credit">
+						Based on <strong>Work Sans</strong><br>
+						By Wei Huang
+					</span>
+				</li>
+				<li class="fontbox-menu-item" data-font="authentic-remixed" onclick="pickFont('authenticremixed')">
+					<svg class="corner-circle-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="fontbox-menu-item-preview">Peek</span>
+					<span class="fontbox-menu-item-info">
+						<strong>AUTHENTIC Remixed</strong><br>
+						By Gabriel Drozdov
+					</span>
+					<span class="fontbox-menu-item-credit">
+						Based on <strong>AUTHENTIC Sans</strong><br>
+						By Christina Janus and Desmond Wong
+					</span>
+				</li>
+			</ul>
+		</div>
+	</main>
+	
+	<script src="script.js"></script>
+</body>
+</html>
