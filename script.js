@@ -51,24 +51,25 @@ function colorCycle() {
 	currentColor = Math.floor(Math.random()*colors.length);
 	let color = colors[currentColor];
 	document.querySelector(':root').style.setProperty("--primary", `var(--${color})`);
-	
 	// Set initial background styling
 	let body = document.querySelector("body");
 	body.style.backgroundImage = `url("graphics/background-${color}.gif")`;
 	body.style.backgroundSize = `${Math.random()*50+50}px ${Math.random()*50+50}px`;
-
+	// Color index iteration
+	currentColor++;
+	if (currentColor >= colors.length) {
+		currentColor = 0;
+	}
 	// Main loop
 	colorLoop = setInterval(() => {
 		if (colorCycleToggle) {
 			// Primary color change
 			let color = colors[currentColor];
 			document.querySelector(':root').style.setProperty("--primary", `var(--${color})`);
-	
 			// Background styling
 			let body = document.querySelector("body");
 			body.style.backgroundImage = `url("graphics/background-${color}.gif")`;
 			body.style.backgroundSize = `${Math.random()*50+50}px ${Math.random()*50+50}px`;
-	
 			// Color index iteration
 			currentColor++;
 			if (currentColor >= colors.length) {
@@ -147,11 +148,9 @@ function settingsChangeColor() {
 	if (currentColor >= colors.length) {
 		currentColor = 0;
 	}
-
 	// Primary color change
 	let color = colors[currentColor];
 	document.querySelector(':root').style.setProperty("--primary", `var(--${color})`);
-
 	// Background styling
 	let body = document.querySelector("body");
 	body.style.backgroundImage = `url("graphics/background-${color}.gif")`;
