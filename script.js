@@ -324,12 +324,12 @@ function getAxisInfo(fontFamily, fontUrl) {
 				temp += `var(--axis${i}-name) var(--axis${i}-calculated)`;
 			}
 			document.querySelector(':root').style.setProperty(`--player-variation`, `${temp}`);
-			initializeInstrumentAxes();
+			initializeInstrument();
 			console.log(getComputedStyle(document.body).getPropertyValue('--player-variation'));
 		} else {
 			console.log("No variable axes!");
 			axesInfo = [];
-			initializeInstrumentAxes();
+			initializeInstrument();
 		}
 	}
 }
@@ -340,27 +340,21 @@ function getAxisInfo(fontFamily, fontUrl) {
 // INSTRUMENTS
 // —————————————————————————————————————————————————————————————————————
 
-let instrumentOptions = ['sequencer'];
+let playerState = false; // If instrument is currently playing, equals true
+let instrumentOptions = ['sequencer']; // ['sequencer', 'oscillator', 'talker', 'texturizer']
 let activeInstrument = "";
-let previousInstrument = "";
-let instrumentPlay = false;
-let variableMultiplier = [0, 0, 0, 0];
 
 function instrumentIn() {
-	let instrumentParent = document.querySelector(".instruments");
-	if (previousInstrument != activeInstrument) {
-		let previousInstrumentDOM = document.querySelector("#"+previousInstrument);
-		previousInstrumentDOM.style.display = "none";
-		previousInstrument = activeInstrument;
+	// Reset all instruments
+	for (let instrument of document.querySelectorAll(".instrument")) {
+		instrument.style.display = "none";
 	}
-	let instrument = document.querySelector("#"+activeInstrument);
-	instrument.style.display = "block";
-	instrumentParent.style.transform = `translateY(0) rotate(0)`;
+	document.querySelector("#"+activeInstrument).style.display = "grid"; // Show active instrument
+	document.querySelector(".instrument-container").style.transform = `translateY(0) rotate(0)`; // Slide in container
 }
 function instrumentOut() {
-	let instrumentParent = document.querySelector(".instruments");
-	instrumentParent.style.transform = "translateY(100vh) rotate(10deg)";
-	instrumentPlay = false;
+	document.querySelector(".instrument-container").style.transform = "translateY(100vh) rotate(10deg)";
+	playerState = false;
 }
 
 // Select instrument from menu
@@ -368,7 +362,7 @@ function pickInstrument(selectedInstrument) {
 	playPercussion('C2');
 	activeInstrument = selectedInstrument;
 	instrumentIn();
-	initializeInstrumentAxes();
+	initializeInstrument();
 	menuOut();
 }
 
@@ -400,35 +394,36 @@ let sequencerTextOptions = [
 	"Next question please",
 	"Im having tears for dinner"
 ]
-function initializeInstrumentAxes() {
-	instrumentPlay = true;
+function initializeInstrument() {
+	playerState = true;
+	let instrumentDOM = document.querySelector("#"+activeInstrument);
 	if (activeInstrument == 'sequencer') {
-		// Make sure current speed button is active
-		let activeSpeed = document.querySelector(`[data-sequencer-speed='${sequencerSpeed}']`);
-		activeSpeed.dataset.sequencerSpeedActive = '1';
-
 		// Initalize all axes to not show
-		let sequencerAxes = document.querySelectorAll(".instrument-sequencer-beats-axis");
+		let sequencerAxes = instrumentDOM.querySelectorAll(".sequencer-beats-axis");
 		sequencerAxes[0].dataset.sequencerAxisActive = '0';
 		sequencerAxes[1].dataset.sequencerAxisActive = '0';
 		sequencerAxes[2].dataset.sequencerAxisActive = '0';
 		sequencerAxes[3].dataset.sequencerAxisActive = '0';
 
 		// Randomize display text
-		let displayText = document.querySelector(`.instrument-sequencer-display-text`);
+		let displayText = document.querySelector(`.instrument-display-text`);
 		displayText.innerText = sequencerTextOptions[Math.floor(Math.random()*sequencerTextOptions.length)];
+
+		// Make sure current speed toggle is active
+		let speedToggle = instrumentDOM.querySelector(`[data-sequencer-speed="${sequencerSpeed}"]`);
+		speedToggle.dataset.buttonState = "1";
 
 		// Check if font is actually variable
 		if (axesInfo.length == 0) {
-			document.querySelector(".instrument-sequencer-triggers").style.display = "none";
-			document.querySelector(".instrument-sequencer-beats").style.display = "none";
-			document.querySelector(".instrument-sequencer-speed").style.display = "none";
-			document.querySelector(".instrument-sequencer-beats-error").style.display = "flex";
+			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "none";
+			}
 		} else {
-			document.querySelector(".instrument-sequencer-triggers").style.display = "grid";
-			document.querySelector(".instrument-sequencer-beats").style.display = "grid";
-			document.querySelector(".instrument-sequencer-speed").style.display = "grid";
-			document.querySelector(".instrument-sequencer-beats-error").style.display = "none";
+			instrumentDOM.querySelector(".instrument-error").style.display = "none";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "grid";
+			}
 			for (let i=0; i<axesInfo.length && i<4; i++) {
 				sequencerAxes[i].dataset.sequencerAxisActive = '1';
 			}
@@ -446,117 +441,111 @@ function initializeInstrumentAxes() {
 	}
 }
 
-// Sequencer
-let sequencerSpeed = 400;
-let sequencerBeat = 0;
-let sequencerSoundsPercussion = [
+
+
+// —————————————————————————————————————————————————————————————————————
+// GENERIC UI FUNCTIONS
+// —————————————————————————————————————————————————————————————————————
+
+// Initalize all state-enabled buttons to show the correct value
+for (let button of document.querySelectorAll(".instrument-state")) {
+	instrumentStateUpdate(button)
+}
+
+// Button with multiple states
+let instrumentStateNotes = ['C3','D3','E3','F3','G3','A3','B3'];
+function instrumentStatePress(e) {
+	let fill = e.querySelector(".instrument-state-fill");
+	let currentState = parseInt(e.dataset.stateValue);
+	let maxState = parseInt(e.dataset.stateMax);
+	currentState++;
+	if (currentState > maxState) {
+		currentState = 0;
+	}
+	e.dataset.stateValue = (currentState).toString();
+	let percentFill = currentState/maxState;
+	fill.style.width = percentFill*100 + "%";
+	fill.style.height = percentFill*100 + "%";
+	playBlock(instrumentStateNotes[currentState]);
+}
+
+// Update button state to match current value
+function instrumentStateUpdate(e) {
+	let fill = e.querySelector(".instrument-state-fill");
+	let currentState = parseInt(e.dataset.stateValue);
+	let maxState = parseInt(e.dataset.stateMax);
+	let percentFill = currentState/maxState;
+	fill.style.width = percentFill*100 + "%";
+	fill.style.height = percentFill*100 + "%";
+}
+
+// Group of toggles with one active option
+function instrumentButtonGroupPress(e, group) {
+	if (e.dataset.buttonState == "1") {
+		e.dataset.buttonState = "0";
+	} else {
+		let groupMembers = document.querySelectorAll(`[data-button-group='${group}'] button`)
+		for (let button of groupMembers) {
+			button.dataset.buttonState = "0";
+		}
+		e.dataset.buttonState = "1";
+	}
+}
+
+
+
+// —————————————————————————————————————————————————————————————————————
+// SEQUENCER
+// —————————————————————————————————————————————————————————————————————
+
+// Sound mode selection
+let sequencerSound = 0;
+let sequencerSoundPercussion = [
 	['A3','D5','E3','E1'],
 	['C3','A1','E0','E4'],
 	['D6','F7','D7','F2'],
 	['C0','G0','B7','B5']
 ];
-let sequencerSoundsToms = [
+let sequencerSoundToms = [
 	['100', '120', '140', '160'],
 	['180', '200', '220', '240'],
 	['260', '280', '300', '320'],
 	['340','360','380','400']
 ];
-let sequencerSoundsNote = [
+let sequencerSoundNote = [
 	['C2','E2','G2','B2'],
 	['C1','E1','G1','B1'],
 	['C3','E3','G3','B3'],
 	['C4','E4','G4','B4']
 ];
-let sequencerSoundsVoice = [
+let sequencerSoundVoice = [
 	['a','b','c','d'],
 	['1','2','3','4'],
 	['e','f','g','h'],
 	['5','6','7','8']
 ];
-let sequencerSoundsVoicePitch = [
+let sequencerSoundVoicePitch = [
 	['C3','D3',"E3"],
 	['C4','D4',"E4"],
 	['C2','D2','E2'],
 	['C1','D1','E1']
 ]
-function sequencerLoop() {
-	setTimeout(() => {
-		if (instrumentPlay == false) {
-			sequencerBeat = 0;
-			return
-		}
-		if (sequencerBeat >= 8) {
-			sequencerBeat = 0;
-		}
-		document.querySelector(".instrument-sequencer-beats-error").style.display = "none";
-		for (let i=0; i<4 && i<axesInfo.length; i++) {
-			let sequencerActive = document.querySelector(`[data-sequencer-axis="${i}"] [data-sequencer-beat="${sequencerBeat}"]`);
-			let currentValue = sequencerActive.dataset.sequencerBeatValue;
-			if (currentValue == 0) {
-				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${0}`);
-			}
-			if (currentValue == 1) {
-				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${.25}`);
-				if (sequencerMode == 0) {
-					playPercussion(sequencerSoundsPercussion[i][0]);
-				} else if (sequencerMode == 1) {
-					playTom(sequencerSoundsToms[i][0]);
-				} else if (sequencerMode == 2) {
-					playPiano(sequencerSoundsNote[i][0]);
-				} else if (sequencerMode == 3) {
-					playVoice(sequencerSoundsVoice[i][0], sequencerSoundsVoicePitch[i], 100);
-				}
-			} else if (currentValue == 2) {
-				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${.5}`);
-				if (sequencerMode == 0) {
-					playPercussion(sequencerSoundsPercussion[i][1]);
-				} else if (sequencerMode == 1) {
-					playTom(sequencerSoundsToms[i][1]);
-				} else if (sequencerMode == 2) {
-					playPiano(sequencerSoundsNote[i][1]);
-				} else if (sequencerMode == 3) {
-					playVoice(sequencerSoundsVoice[i][1], sequencerSoundsVoicePitch[i], 100);
-				}
-			} else if (currentValue == 3) {
-				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${.75}`);
-				if (sequencerMode == 0) {
-					playPercussion(sequencerSoundsPercussion[i][2]);
-				} else if (sequencerMode == 1) {
-					playTom(sequencerSoundsToms[i][2]);
-				} else if (sequencerMode == 2) {
-					playPiano(sequencerSoundsNote[i][2]);
-				} else if (sequencerMode == 3) {
-					playVoice(sequencerSoundsVoice[i][2], sequencerSoundsVoicePitch[i], 100);
-				}
-			} else if (currentValue == 4) {
-				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${1}`);
-				if (sequencerMode == 0) {
-					playPercussion(sequencerSoundsPercussion[i][3]);
-				} else if (sequencerMode == 1) {
-					playTom(sequencerSoundsToms[i][3]);
-				} else if (sequencerMode == 2) {
-					playPiano(sequencerSoundsNote[i][3]);
-				} else if (sequencerMode == 3) {
-					playVoice(sequencerSoundsVoice[i][3], sequencerSoundsVoicePitch[i], 100);
-				}
-			}
-			let sequencerBeats = document.querySelectorAll(`[data-sequencer-axis="${i}"] [data-sequencer-beat]`);
-			for (let beat of sequencerBeats) {
-				beat.style.backgroundColor = "var(--dark)";
-			}
-			sequencerActive.style.backgroundColor = "var(--light)";
-		}
-		sequencerBeat++;
-		sequencerLoop();
-	}, sequencerSpeed)
+function sequencerSoundAdjust() {
+	sequencerSound++;
+	if (sequencerSound >= 5) {
+		sequencerSound = 0;
+	}
 }
-function sequencerRandomizeBeats() {
+
+// Randomize beat values
+function sequencerRandomize() {
 	let iteration = 0;
 	let loop = setInterval(() => {
 		playBlock(Math.random()*150+150);
 		let sequencerBeats = document.querySelectorAll(`[data-sequencer-beat]`);
 		for (let beat of sequencerBeats) {
-			beat.dataset.sequencerBeatValue = Math.floor(Math.random()*5);
+			beat.dataset.stateValue = Math.round(Math.random()*beat.dataset.stateMax);
+			instrumentStateUpdate(beat);
 		}
 		iteration++;
 		if (iteration >= 3) {
@@ -564,53 +553,93 @@ function sequencerRandomizeBeats() {
 		}
 	}, 100)
 }
-let sequencerMode = 0;
-function sequencerChangeMode() {
-	sequencerMode++;
-	if (sequencerMode >= 5) {
-		sequencerMode = 0;
-	}
-}
-function sequencerBeatAdjust(e) {
-	let currentValue = e.dataset.sequencerBeatValue;
-	if (currentValue >= 4) {
-		e.dataset.sequencerBeatValue = 0;
-	} else {
-		e.dataset.sequencerBeatValue++;
-	}
-	if (currentValue == 0) {
-		playBlock('F3');
-	} else if (currentValue == 1) {
-		playBlock('G3');
-	} else if (currentValue == 2) {
-		playBlock('A3');
-	} else if (currentValue == 3) {
-		playBlock('B3');
-	} else if (currentValue == 4) {
-		playBlock('C3');
-	}
-}
+
+// Adjust speed
 function sequencerSpeedAdjust(e) {
-	if (e.dataset.sequencerSpeedActive == '1') {
-		e.dataset.sequencerSpeedActive = '0';
-		instrumentPlay = false;
-		for (let beat of document.querySelectorAll(`[data-sequencer-beat]`)) {
-			beat.style.backgroundColor = "var(--dark)";
-		}
-	} else if (instrumentPlay == true) {
-		sequencerSpeed = e.dataset.sequencerSpeed;
-		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed}ms`);
-		let prevActive = document.querySelector("[data-sequencer-speed-active='1']");
-		prevActive.dataset.sequencerSpeedActive = '0';
-		e.dataset.sequencerSpeedActive = '1';
-	} else {
-		sequencerSpeed = e.dataset.sequencerSpeed;
-		e.dataset.sequencerSpeedActive = '1';
-		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed}ms`);
-		instrumentPlay = true;
+	sequencerSpeed = e.dataset.sequencerSpeed;
+	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed}ms`);
+	if (e.dataset.buttonState == '1') {
+		playerState = false;
+	} else if (playerState == false) {
+		playerState = true;
 		sequencerLoop();
 	}
 }
+
+// Main loop
+let sequencerSpeed = 400;
+let sequencerBeat = 0;
+function sequencerLoop() {
+	document.querySelector("#sequencer .instrument-error").style.display = "none";
+	for (let i=0; i<4 && i<axesInfo.length; i++) {
+		let currentBeat = document.querySelector(`[data-sequencer-axis="${i}"] [data-sequencer-beat="${sequencerBeat}"]`);
+		let beatValue = currentBeat.dataset.stateValue;
+		if (beatValue == 0) {
+			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${0}`);
+		}
+		if (beatValue == 1) {
+			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${.25}`);
+			if (sequencerSound == 0) {
+				playPercussion(sequencerSoundPercussion[i][0]);
+			} else if (sequencerSound == 1) {
+				playTom(sequencerSoundToms[i][0]);
+			} else if (sequencerSound == 2) {
+				playPiano(sequencerSoundNote[i][0]);
+			} else if (sequencerSound == 3) {
+				playVoice(sequencerSoundVoice[i][0], sequencerSoundVoicePitch[i], 100);
+			}
+		} else if (beatValue == 2) {
+			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${.5}`);
+			if (sequencerSound == 0) {
+				playPercussion(sequencerSoundPercussion[i][1]);
+			} else if (sequencerSound == 1) {
+				playTom(sequencerSoundToms[i][1]);
+			} else if (sequencerSound == 2) {
+				playPiano(sequencerSoundNote[i][1]);
+			} else if (sequencerSound == 3) {
+				playVoice(sequencerSoundVoice[i][1], sequencerSoundVoicePitch[i], 100);
+			}
+		} else if (beatValue == 3) {
+			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${.75}`);
+			if (sequencerSound == 0) {
+				playPercussion(sequencerSoundPercussion[i][2]);
+			} else if (sequencerSound == 1) {
+				playTom(sequencerSoundToms[i][2]);
+			} else if (sequencerSound == 2) {
+				playPiano(sequencerSoundNote[i][2]);
+			} else if (sequencerSound == 3) {
+				playVoice(sequencerSoundVoice[i][2], sequencerSoundVoicePitch[i], 100);
+			}
+		} else if (beatValue == 4) {
+			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${1}`);
+			if (sequencerSound == 0) {
+				playPercussion(sequencerSoundPercussion[i][3]);
+			} else if (sequencerSound == 1) {
+				playTom(sequencerSoundToms[i][3]);
+			} else if (sequencerSound == 2) {
+				playPiano(sequencerSoundNote[i][3]);
+			} else if (sequencerSound == 3) {
+				playVoice(sequencerSoundVoice[i][3], sequencerSoundVoicePitch[i], 100);
+			}
+		}
+		for (let beat of document.querySelectorAll(`[data-sequencer-axis="${i}"] [data-sequencer-beat]`)) {
+			beat.style.backgroundColor = "var(--dark)";
+		}
+		currentBeat.style.backgroundColor = "var(--light)";
+	}
+	sequencerBeat++;
+	if (sequencerBeat >= 8) {
+		sequencerBeat = 0;
+	}
+	setTimeout(() => {
+		if (playerState == false) {
+			return
+		}
+		sequencerLoop();
+	}, sequencerSpeed)
+}
+
+
 
 // —————————————————————————————————————————————————————————————————————
 // AUDIO
