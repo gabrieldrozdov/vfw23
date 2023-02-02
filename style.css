@@ -271,6 +271,7 @@ body:hover .intro-text {
 	transition: transform .5s, fill 1s;
 	font-size: 18px;
 	line-height: 1em;
+	height: 100%;
 	fill: var(--dark);
 	font-weight: 500;
 }
@@ -302,6 +303,9 @@ body:hover .intro-text {
 	color: var(--dark);
 	fill: var(--dark);
 	font-weight: 900;
+}
+.nav-icon svg {
+	height: 100%;
 }
 .nav-icon svg, .nav-icon p {
 	transition: transform .5s;
@@ -836,6 +840,7 @@ body:hover .intro-text {
 	justify-content: center;
 	overflow: hidden;
 	position: relative;
+	caret-color: var(--dark);
 	font-size: var(--player-fontsize);
 	letter-spacing: var(--player-letterspacing);
 	line-height: var(--player-lineheight);
@@ -866,6 +871,7 @@ body:hover .intro-text {
 	outline: none;
 }
 .instrument-display:hover {
+	caret-color: var(--primary);
 	background-color: var(--dark) !important;
 	color: var(--dark) !important;
 	-webkit-text-stroke: 1px var(--primary) !important;
@@ -907,7 +913,7 @@ body:hover .intro-text {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* aspect-ratio: 1 / 1; */
+	padding: 0 10px;
 	transition: fill .2s, background-color .2s, border .2s;
 }
 .instrument-button:hover {
@@ -919,7 +925,7 @@ body:hover .intro-text {
 	fill: var(--dark);
 }
 .instrument-button svg {
-	min-width: 10px;
+	min-width: 20px;
 	max-height: 100%;
 }
 .instrument-button[data-button-state="1"] {
@@ -975,6 +981,9 @@ body:hover .intro-text {
 .sequencer-beats-axis[data-sequencer-axis-active="0"] {
 	display: none;
 }
+/* #sequencer-speed {
+	flex: 6 1 auto;
+} */
 
 /* ———————————————————————————————————————————————————————————————————————— */
 /* MOBILE STYLES */
