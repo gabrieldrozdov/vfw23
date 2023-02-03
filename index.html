@@ -243,7 +243,7 @@
 					<span class="menubox-grid-item-info">
 						<strong>Oscillator</strong>
 					</span>
-				</li>
+				</li> -->
 				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom(190)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
@@ -252,7 +252,7 @@
 					<span class="menubox-grid-item-info">
 						<strong>Scrambler</strong>
 					</span>
-				</li> -->
+				</li>
 				<li class="menubox-grid-item" onclick="pickInstrument('analyzer')" onmouseenter="playTom(200)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
@@ -271,7 +271,7 @@
 				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 
 				<!-- DISPLAY -->
-				<div class="instrument-display">
+				<div class="instrument-display instrument-display-edit">
 					<p contenteditable="true" spellcheck="false" class="instrument-display-text">
 						Sequencer
 					</p>
@@ -431,13 +431,70 @@
 				</div>
 			</div>
 
+			<!-- SCRAMBLER -->
+			<div class="instrument instrument-vertical" id="scrambler">
+				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+
+				<!-- DISPLAY -->
+				<div class="instrument-display instrument-display-noedit">
+					<p spellcheck="false" class="instrument-display-text scrambler-display">
+						ABCDEFGHIJKLMNOP
+					</p>
+				</div>
+
+				<!-- CONTROLS -->
+				<div class="instrument-controls-right">
+					
+					<!-- NO VARIABLE AXES ERROR -->
+					<div class="instrument-error">
+						<span>No variable axes found!</span>
+					</div>
+
+					<!-- AXES -->
+					<div class="instrument-button-column instrument-function" data-button-group="scrambler-axes" data-button-group-type="multiple">
+						<button data-scrambler-axis="0" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('C4')">
+							<span></span>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-axis="1" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('B3')">
+							<span></span>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-axis="2" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('A3')">
+							<span></span>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-axis="3" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('A3')">
+							<span></span>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+
+					<!-- SPEED -->
+					<div class="instrument-button-column instrument-function" data-button-group="scrambler-speed" data-button-group-type="toggle">
+						<button data-scrambler-speed="300" data-button-state="0" class="instrument-button" onclick="scramblerSpeedAdjust(this); instrumentButtonGroupPress(this, 'scrambler-speed'); playBlock('C4')">
+							<svg viewBox="0 0 100 56"><polygon points="8 10 8 46 32 28 8 10"/><polygon points="38 10 38 46 62 28 38 10"/><polygon points="68 10 68 46 92 28 68 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-speed="500" data-button-state="0" class="instrument-button" onclick="scramblerSpeedAdjust(this); instrumentButtonGroupPress(this, 'scrambler-speed'); playBlock('B3')">
+							<svg viewBox="0 0 100 56"><polygon points="23 10 23 46 47 28 23 10"/><polygon points="53 10 53 46 77 28 53 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-speed="700" data-button-state="1" class="instrument-button" onclick="scramblerSpeedAdjust(this); instrumentButtonGroupPress(this, 'scrambler-speed'); playBlock('A3')">
+							<svg viewBox="0 0 100 56"><polygon points="38 10 38 46 62 28 38 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+				</div>
+			</div>
+
 			<!-- ANALYZER -->
 			<div class="instrument instrument-horizontal" id="analyzer">
 				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 
 				<!-- DISPLAY -->
-				<div class="instrument-display instrument-display-text-noedit">
-					<p spellcheck="false" class="instrument-display-text instrument-display-text-large">
+				<div class="instrument-display instrument-display-noedit">
+					<p spellcheck="false" class="instrument-display-text analyzer-display">
 						A
 					</p>
 				</div>
@@ -601,28 +658,28 @@
 					<!-- AXES -->
 					<div id="analyzer-axes" class="instrument-slider-set instrument-function">
 						<div class="instrument-slider-container" data-slider-axis="0" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="0" onmousedown="instrumentSlider(this); analyzerSliderStart(this);">
+							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="0" onmousedown="instrumentSlider(this, analyzerSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 						<div class="instrument-slider-container" data-slider-axis="1" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="1" onmousedown="instrumentSlider(this); analyzerSliderStart(this);">
+							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="1" onmousedown="instrumentSlider(this, analyzerSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 						<div class="instrument-slider-container" data-slider-axis="2" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="2" onmousedown="instrumentSlider(this); analyzerSliderStart(this);">
+							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="2" onmousedown="instrumentSlider(this, analyzerSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 						<div class="instrument-slider-container" data-slider-axis="3" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="3" onmousedown="instrumentSlider(this); analyzerSliderStart(this);">
+							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="3" onmousedown="instrumentSlider(this, analyzerSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>

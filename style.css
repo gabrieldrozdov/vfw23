@@ -847,24 +847,15 @@ body:hover .intro-text {
 	line-height: var(--player-lineheight);
 	text-transform: var(--player-texttransform);
 	font-family: var(--activefont);
-	transition: font-size .2s, letter-spacing .2s, line-height .2s, color .2s, -webkit-text-stroke .2s, background-color .2s, border .2s;
+	transition: font-size .2s, letter-spacing .2s, line-height .2s, background-color .2s, border .2s, color .2s, -webkit-text-stroke .2s;
 }
 .instrument-display:hover {
-	background-color: var(--primary) !important;
+	background-color: var(--primary);
 	border: 2px solid var(--dark);
-}
-.instrument-display * {
-	color: var(--dark) !important;
-	-webkit-text-stroke: unset !important;
-}
-.instrument-display:hover * {
-	color: var(--primary) !important;
-	-webkit-text-stroke: 2px var(--dark) !important;
 }
 .instrument-display-text {
 	overflow-wrap: anywhere;
 	padding: 5px;
-	overflow: scroll;
 	width: 100%;
 	height: 100%;
 	text-align: center;
@@ -872,26 +863,36 @@ body:hover .intro-text {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	background-color: unset;
 	font-variation-settings: var(--player-variation);
 	transition: font-variation-settings var(--player-variation-speed);
 }
 .instrument-display-text:focus {
 	outline: none;
 }
-.instrument-display-text-noedit {
+.instrument-display-edit * {
+	background-color: unset !important;
+	color: var(--dark) !important;
+	-webkit-text-stroke: 0px var(--dark) !important;
+}
+.instrument-display-edit:hover * {
+	background-color: unset !important;
+	color: var(--primary) !important;
+	-webkit-text-stroke: 2px var(--dark) !important;
+}
+.instrument-display-noedit {
 	cursor: not-allowed;
 	border: 2px solid var(--dark);
-	background-color: var(--primary) !important;
-	color: var(--dark) !important;
-	-webkit-text-stroke: 0px var(--dark) !important;
+	background-color: var(--primary);
+	color: var(--dark);
+	-webkit-text-stroke: 0px var(--dark);
 }
-.instrument-display-text-noedit:hover * {
-	color: var(--dark) !important;
-	-webkit-text-stroke: 0px var(--dark) !important;
+.instrument-display-noedit:hover * {
+	color: var(--dark);
+	-webkit-text-stroke: 0px var(--dark);
 }
 .instrument-display-text-large {
-	font-size: calc(var(--player-fontsize) * 5);
+	font-size: calc(var(--player-fontsize) * 4);
+	line-height: calc(var(--player-lineheight) * .9);
 }
 
 /* Controls */
@@ -902,6 +903,15 @@ body:hover .intro-text {
 	background-color: var(--dark);
 	padding: 35px;
 	border-radius: 0 0 20px 20px;
+}
+.instrument-controls-right {
+	display: flex;
+	gap: 10px;
+	align-items: stretch;
+	flex-direction: column;
+	background-color: var(--dark);
+	padding: 35px;
+	border-radius: 0 20px 20px 0;
 }
 
 /* Error message if no axes found */
@@ -944,6 +954,7 @@ body:hover .intro-text {
 	color: var(--light);
 }
 .instrument-button:active {
+	color: var(--dark);
 	fill: var(--dark);
 }
 .instrument-button svg {
@@ -960,7 +971,8 @@ body:hover .intro-text {
 	color: var(--dark);
 }
 .instrument-button[data-button-state="1"]:hover {
-	fill: var(--dark);
+	fill: var(--light);
+	color: var(--light);
 }
 .instrument-button[data-button-state="1"] .instrument-button-fill {
 	background-color: var(--primary);
@@ -1162,12 +1174,40 @@ body:hover .intro-text {
 	display: none;
 }
 
+/* Scrambler */
+.scrambler-display {
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.scrambler-display span {
+	transition: font-variation-settings var(--player-variation-speed);
+}
+[data-scrambler-axis-active="0"] {
+	display: none;
+}
+[data-scrambler-axis="0"] span::before {
+	content: var(--axis0-name);
+}
+[data-scrambler-axis="1"] span::before {
+	content: var(--axis1-name);
+}
+[data-scrambler-axis="2"] span::before {
+	content: var(--axis2-name);
+}
+[data-scrambler-axis="3"] span::before {
+	content: var(--axis3-name);
+}
+
 /* Analyzer */
 #analyzer-alphabet {
 	flex: 5 1 auto;
 	display: grid;
 	grid-template-columns: repeat(9, 1fr);
 	gap: 2px;
+}
+.analyzer-display {
+	font-size: calc(var(--player-fontsize) * 4);
+	transition: font-size .2s, letter-spacing .2s, line-height .2s, background-color .2s, border .2s, color .2s, -webkit-text-stroke .2s;
 }
 
 /* ———————————————————————————————————————————————————————————————————————— */

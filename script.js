@@ -373,6 +373,14 @@ function randomSentence() {
 	return `The ${adjective1} ${noun1} ${adverb} ${verb} ${preposition} ${article} ${adjective2} ${noun2}`;
 };
 
+function randomLetters(quantity) {
+	let temp = "";
+	for (let i=0; i<quantity; i++) {
+		temp += "<span>"+voiceSamplerLetters[Math.floor(Math.random()*voiceSamplerLetters.length)].toUpperCase()+"</span>";
+	}
+	return temp;
+}
+
 
 
 // —————————————————————————————————————————————————————————————————————
@@ -380,7 +388,7 @@ function randomSentence() {
 // —————————————————————————————————————————————————————————————————————
 
 let playerState = false; // If instrument is currently playing, equals true
-let instrumentOptions = ['sequencer', 'analyzer']; // ['sequencer', 'oscillator', 'talker', 'texturizer']
+let instrumentOptions = ['sequencer']; // ['oscillator', 'talker', 'texturizer']
 let activeInstrument = "";
 
 function instrumentIn() {
@@ -418,7 +426,7 @@ function initializeInstrument() {
 		sequencerAxes[3].dataset.sequencerAxisActive = '0';
 
 		// Randomize display text
-		let displayText = document.querySelector(`.instrument-display-text`);
+		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
 		displayText.innerText = randomSentence();
 
 		// Make sure current speed toggle is active
@@ -441,6 +449,40 @@ function initializeInstrument() {
 				sequencerAxes[i].dataset.sequencerAxisActive = '1';
 			}
 			sequencerLoop();
+		}
+	}
+	if (activeInstrument == 'scrambler') {
+		// Initalize all axes to not show
+		let scamblerAxes = instrumentDOM.querySelectorAll("[data-scrambler-axis]");
+		scamblerAxes[0].dataset.scramblerAxisActive = '0';
+		scamblerAxes[1].dataset.scramblerAxisActive = '0';
+		scamblerAxes[2].dataset.scramblerAxisActive = '0';
+		scamblerAxes[3].dataset.scramblerAxisActive = '0';
+
+		// Randomize display text
+		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
+		displayText.innerHTML = randomLetters(200);
+
+		// Make sure current speed toggle is active
+		let speedToggle = instrumentDOM.querySelector(`[data-scrambler-speed="${scramblerSpeed}"]`);
+		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
+		speedToggle.dataset.buttonState = "1";
+
+		// Check if font is actually variable and show correct controls
+		if (axesInfo.length == 0) {
+			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "none";
+			}
+		} else {
+			instrumentDOM.querySelector(".instrument-error").style.display = "none";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "grid";
+			}
+			for (let i=0; i<axesInfo.length && i<4; i++) {
+				scamblerAxes[i].dataset.scramblerAxisActive = '1';
+			}
+			scramblerLoop();
 		}
 	}
 	if (activeInstrument == 'analyzer') {
@@ -536,19 +578,26 @@ function instrumentButtonGroupPress(e, group) {
 			}
 			e.dataset.buttonState = "1";
 		}
-	} else {
+	} else if (groupType == "set") {
 		for (let button of groupMembers) {
 			button.dataset.buttonState = "0";
 		}
 		e.dataset.buttonState = "1";
+	} else if (groupType == "multiple") {
+		if (e.dataset.buttonState == "1") {
+			e.dataset.buttonState = "0";
+		} else {
+			e.dataset.buttonState = "1";
+		}
 	}
 }
 
 let activeSlider;
-function instrumentSlider(slider) {
+function instrumentSlider(slider, funct) {
 	activeSlider = slider; 
 	document.onmousemove = instrumentSliderSet;
     document.onmouseup = instrumentSliderStop;
+	funct(slider);
 }
 function instrumentSliderSet() {
 	let e = window.event;
@@ -561,15 +610,15 @@ function instrumentSliderSet() {
 	if (sliderCalc < 1) {
 		activeSlider.dataset.sliderValue = "0";
 		sliderFill.style.height = "0%";
-		playBlock(200);
+		playMono(260);
 	} else if (sliderCalc > 100) {
 		activeSlider.dataset.sliderValue = "100";
 		sliderFill.style.height = "100%";
-		playBlock(300);
+		playMono(520);
 	} else {
 		activeSlider.dataset.sliderValue = sliderCalc;
 		sliderFill.style.height = sliderCalc + "%";
-		playBlock(200+sliderCalc);
+		playMono(260+(sliderCalc/100)*260);
 	}
 }
 function instrumentSliderStop() {
@@ -639,6 +688,7 @@ function sequencerRandomize() {
 }
 
 // Adjust speed
+let sequencerSpeed = 700;
 function sequencerSpeedAdjust(e) {
 	sequencerSpeed = e.dataset.sequencerSpeed;
 	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed*.95}ms`);
@@ -651,10 +701,8 @@ function sequencerSpeedAdjust(e) {
 }
 
 // Main loop
-let sequencerSpeed = 700;
 let sequencerBeat = 0;
 function sequencerLoop() {
-	document.querySelector("#sequencer .instrument-error").style.display = "none";
 	for (let i=0; i<4 && i<axesInfo.length; i++) {
 		let currentBeat = document.querySelector(`[data-sequencer-axis="${i}"] [data-sequencer-beat="${sequencerBeat}"]`);
 		let beatValue = currentBeat.dataset.stateValue;
@@ -720,7 +768,54 @@ function sequencerLoop() {
 			return
 		}
 		sequencerLoop();
-	}, sequencerSpeed)
+	}, sequencerSpeed);
+}
+
+
+
+// —————————————————————————————————————————————————————————————————————
+// SCRAMBLER
+// —————————————————————————————————————————————————————————————————————
+
+// Adjust speed
+let scramblerSpeed = 700;
+function scramblerSpeedAdjust(e) {
+	scramblerSpeed = e.dataset.scramblerSpeed;
+	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
+	if (e.dataset.buttonState == '1') {
+		playerState = false;
+	} else if (playerState == false) {
+		playerState = true;
+		scramblerLoop();
+	}
+}
+
+// Main loop
+function scramblerLoop() {
+	let noteReference = (100/scramblerSpeed);
+	playTom(Math.random()*(noteReference*200) + noteReference*500);
+	let scramblerDOM = document.querySelector("#scrambler");
+	let scramblerLetters = scramblerDOM.querySelectorAll(".scrambler-display span");
+	for (let i=0; i<10; i++) {
+		let activeLetter = scramblerLetters[Math.floor(Math.random()*scramblerLetters.length)];
+		let temp = "";
+		for (let j=0; j<axesInfo.length; j++) {
+			let axis = axesInfo[j].name;
+			let axisRandom = (axesInfo[j].max-axesInfo[j].min)*Math.random() + axesInfo[j].min;
+			temp += `"${axis}" ${axisRandom}` ;
+			if (j<axesInfo.length-1) {
+				temp += ", ";
+			}
+		}
+		activeLetter.style.fontVariationSettings = temp;
+		console.log(temp);
+	}
+	setTimeout(() => {
+		if (playerState == false) {
+			return
+		}
+		scramblerLoop();
+	}, scramblerSpeed);
 }
 
 
@@ -757,16 +852,16 @@ let analyzerAxis = 0;
 function analyzerSliderStart(slider) {
 	analyzerSlider = slider;
 	analyzerAxis = analyzerSlider.dataset.analyzerAxis;
-	window.onmousemove = analyzerSliderSet;
-    window.onmouseup = analyzerSliderStop;
+	document.addEventListener('mousemove', analyzerSliderSet);
+	document.addEventListener('mouseup', analyzerSliderStop);
 }
 function analyzerSliderSet() {
 	let axisValue = analyzerSlider.dataset.sliderValue/100;
 	document.querySelector(':root').style.setProperty(`--axis${analyzerAxis}-percent`, `${axisValue}`);
 }
 function analyzerSliderStop() {
-	window.onmousemove = null;
-    window.onmouseup = null;
+	document.removeEventListener('mousemove', analyzerSliderSet);
+	document.removeEventListener('mouseup', analyzerSliderStop);
 }
 
 
@@ -823,6 +918,25 @@ function playNote(freq) {
 }
 function changeSynth(synthType) {
 	synth.set({oscillator: {type: synthType}});
+}
+
+// Mono synth
+let monoSynth = new Tone.MonoSynth();
+monoSynth.set({
+	oscillator: {
+		type: "sawtooth8"
+	},
+	envelope: {
+		attack: 0.01,
+		decay: 0.01,
+		sustain: 1,
+		release: 0.05
+	},
+	portamento: 0.01,
+	volume: -6
+}).toDestination();
+function playMono(freq) {
+	monoSynth.triggerAttackRelease(freq, .1);
 }
 
 // Piano sampler
