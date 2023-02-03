@@ -314,14 +314,23 @@ function getAxisInfo(fontFamily, fontUrl) {
 
 			// Set CSS variables
 			let temp = "";
-			for (let i=0; i<axesInfo.length && i<4; i++) {
-				document.querySelector(':root').style.setProperty(`--axis${i}-name`, `"${axesInfo[i].name}"`);
-				document.querySelector(':root').style.setProperty(`--axis${i}-min`, `${axesInfo[i].min}`);
-				document.querySelector(':root').style.setProperty(`--axis${i}-max`, `${axesInfo[i].max}`);
-				if (i>0) {
+			let axisNumber = 0;
+			for (axisNumber; axisNumber<axesInfo.length && axisNumber<4; axisNumber++) {
+				for (let axisDisplay of document.querySelectorAll(`.instrument-axesinfo-${axisNumber}`)) {
+					axisDisplay.style.display = "flex";
+				}
+				document.querySelector(':root').style.setProperty(`--axis${axisNumber}-name`, `"${axesInfo[axisNumber].name}"`);
+				document.querySelector(':root').style.setProperty(`--axis${axisNumber}-min`, `${axesInfo[axisNumber].min}`);
+				document.querySelector(':root').style.setProperty(`--axis${axisNumber}-max`, `${axesInfo[axisNumber].max}`);
+				if (axisNumber>0) {
 					temp += ", ";
 				}
-				temp += `var(--axis${i}-name) var(--axis${i}-calculated)`;
+				temp += `var(--axis${axisNumber}-name) var(--axis${axisNumber}-calculated)`;
+			}
+			for (axisNumber; axisNumber<4; axisNumber++) {
+				for (let axisDisplay of document.querySelectorAll(`.instrument-axesinfo-${axisNumber}`)) {
+					axisDisplay.style.display = "none";
+				}
 			}
 			document.querySelector(':root').style.setProperty(`--player-variation`, `${temp}`);
 			initializeInstrument();
@@ -337,11 +346,41 @@ function getAxisInfo(fontFamily, fontUrl) {
 
 
 // —————————————————————————————————————————————————————————————————————
+// RANDOM SENTENCE GENERATOR
+// —————————————————————————————————————————————————————————————————————
+
+let nouns = ["arrangement", "art", "artwork", "build", "body", "character", "construction", "contour", "design", "drawing", "figure", "font", "form", "formation", "glyph", "graphic", "letter", "letterform", "line", "object", "outline", "piece", "scene", "shape", "sketch", "structure", "subject", "typeface", "typography"];
+let verbs = ["adapted", "adjusted", "animated", "altered", "changed", "converted", "diverged", "evolved", "interpolated", "mutated", "reshaped", "reassembled", "reconstructued", "regenerated", "transfigured", "transformed", "transmuted", "translated", "tuned", "turned", "varied"];
+let adjectives = ["abstract", "absorbing", "aesthetic", "appealing", "authentic", "balanced", "bold", "clean", "colorful", "contemplative", "creative", "daring", "dazzling", "decorative", "delicate", "dense", "divine", "dramatic", "dynamic", "elegant", "elevated", "emotional", "exquisite", "fluid", "geometric", "gorgeous", "grand", "harmonious", "imaginative", "impassioned", "impeccable", "inspired", "jagged", "lifelike", "light", "maximalist", "minimalist", "moving", "musical", "organic", "ornamental", "pleasing", "polished", "profound", "radiant", "rich", "stunning", "stylish", "sublime", "surreal", "tasteful", "traditional", "tranquil", "unforgettable", "unpredictable", "varied"];
+let adverbs = ["abnormally", "awkwardly", "beautifully", "briskly", "calmly", "cleverly", "cooly", "deliberately", "delightfully", "elegantly", "energetically", "excitedly", "frantically", "frightfully", "gently", "gleefully", "hastily", "intensely", "jubilantly", "kookily", "lavishly", "lazily", "lightly", "loudly", "lovingly", "majestically", "naturally", "neatly", "nervously", "noisily", "playfully", "precisely", "punctually", "quickly", "quizzically", "randomly", "rapidly", "repeatedly", "sharply", "shockingly", "sleepily", "slowly", "suddenly", "tenderly", "tremendously", "unexpectedly", "viciously", "warmly", "zestfully"];
+let prepositions = ["into", "to", "toward"];
+function isVowel(x) {
+	let result = x == "a" || x == "e" || x == "i" || x == "o" || x == "u";
+	return result;
+}
+function randomSentence() {
+	let noun1 = nouns[Math.floor(Math.random()*nouns.length)];
+	let noun2 = nouns[Math.floor(Math.random()*nouns.length)];
+	let verb = verbs[Math.floor(Math.random()*verbs.length)];
+	let adjective1 = adjectives[Math.floor(Math.random()*adjectives.length)];
+	let adjective2 = adjectives[Math.floor(Math.random()*adjectives.length)];
+	let article = "a";
+	if (isVowel(adjective2.charAt(0)) == true) {
+		article = "an";
+	}
+	let adverb = adverbs[Math.floor(Math.random()*adverbs.length)];
+	let preposition = prepositions[Math.floor(Math.random()*prepositions.length)];
+	return `The ${adjective1} ${noun1} ${adverb} ${verb} ${preposition} ${article} ${adjective2} ${noun2}`;
+};
+
+
+
+// —————————————————————————————————————————————————————————————————————
 // INSTRUMENTS
 // —————————————————————————————————————————————————————————————————————
 
 let playerState = false; // If instrument is currently playing, equals true
-let instrumentOptions = ['sequencer']; // ['sequencer', 'oscillator', 'talker', 'texturizer']
+let instrumentOptions = ['sequencer', 'analyzer']; // ['sequencer', 'oscillator', 'talker', 'texturizer']
 let activeInstrument = "";
 
 function instrumentIn() {
@@ -367,33 +406,6 @@ function pickInstrument(selectedInstrument) {
 }
 
 // Initalize instrument to work with font axes
-let sequencerTextOptions = [
-	"What are you listening to",
-	"I like trains",
-	"ABCDEFGHIJ 0123456789",
-	"Hi mom",
-	"How is the economy today",
-	"Lavender lattes are superior",
-	"Beep boop bop",
-	"Ahhhhhhh Im so scared",
-	"OoOoOoOo EeEeEeEe",
-	"Tonight Im eating a smoothie",
-	"Will you dance with me",
-	"Heres a good joke",
-	"Meep moop",
-	"Oops I got engaged",
-	"Hello father",
-	"Check out my moves",
-	"Sorry I was busy playing Animal Crossing",
-	"Tomorrow Im too busy",
-	"Will you engage with me",
-	"Fourty two",
-	"Next project will be less annoying",
-	"Moonbug moonie chimkin chimmie mayor dinkins LIMMY",
-	"What are we having for dinner",
-	"Next question please",
-	"Im having tears for dinner"
-]
 function initializeInstrument() {
 	playerState = true;
 	let instrumentDOM = document.querySelector("#"+activeInstrument);
@@ -407,13 +419,14 @@ function initializeInstrument() {
 
 		// Randomize display text
 		let displayText = document.querySelector(`.instrument-display-text`);
-		displayText.innerText = sequencerTextOptions[Math.floor(Math.random()*sequencerTextOptions.length)];
+		displayText.innerText = randomSentence();
 
 		// Make sure current speed toggle is active
 		let speedToggle = instrumentDOM.querySelector(`[data-sequencer-speed="${sequencerSpeed}"]`);
+		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed*.95}ms`);
 		speedToggle.dataset.buttonState = "1";
 
-		// Check if font is actually variable
+		// Check if font is actually variable and show correct controls
 		if (axesInfo.length == 0) {
 			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
 			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
@@ -428,6 +441,36 @@ function initializeInstrument() {
 				sequencerAxes[i].dataset.sequencerAxisActive = '1';
 			}
 			sequencerLoop();
+		}
+	}
+	if (activeInstrument == 'analyzer') {
+		// Set transition to instant
+		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `unset`);
+
+		// Initalize all axes to not show
+		let analyzerAxes = instrumentDOM.querySelectorAll(".instrument-slider-container");
+		analyzerAxes[0].dataset.sliderActive = '0';
+		analyzerAxes[1].dataset.sliderActive = '0';
+		analyzerAxes[2].dataset.sliderActive = '0';
+		analyzerAxes[3].dataset.sliderActive = '0';
+		
+		// Check if font is actually variable and show correct controls
+		if (axesInfo.length == 0) {
+			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "none";
+			}
+		} else {
+			instrumentDOM.querySelector(".instrument-error").style.display = "none";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "grid";
+			}
+			for (let i=0; i<axesInfo.length && i<4; i++) {
+				analyzerAxes[i].dataset.sliderActive = '1';
+				let axisSlider = instrumentDOM.querySelector(`[data-analyzer-axis="${i}"]`);
+				let axisSliderValue = axisSlider.dataset.sliderValue;
+				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
+			}
 		}
 	}
 	if (activeInstrument == 'talkbox') {
@@ -481,10 +524,19 @@ function instrumentStateUpdate(e) {
 
 // Group of toggles with one active option
 function instrumentButtonGroupPress(e, group) {
-	if (e.dataset.buttonState == "1") {
-		e.dataset.buttonState = "0";
+	let parent = document.querySelector(`[data-button-group='${group}']`);
+	let groupType = parent.dataset.buttonGroupType;
+	let groupMembers = document.querySelectorAll(`[data-button-group='${group}'] button`);
+	if (groupType == "toggle") {
+		if (e.dataset.buttonState == "1") {
+			e.dataset.buttonState = "0";
+		} else {
+			for (let button of groupMembers) {
+				button.dataset.buttonState = "0";
+			}
+			e.dataset.buttonState = "1";
+		}
 	} else {
-		let groupMembers = document.querySelectorAll(`[data-button-group='${group}'] button`)
 		for (let button of groupMembers) {
 			button.dataset.buttonState = "0";
 		}
@@ -492,6 +544,38 @@ function instrumentButtonGroupPress(e, group) {
 	}
 }
 
+let activeSlider;
+function instrumentSlider(slider) {
+	activeSlider = slider; 
+	document.onmousemove = instrumentSliderSet;
+    document.onmouseup = instrumentSliderStop;
+}
+function instrumentSliderSet() {
+	let e = window.event;
+    e.preventDefault();
+	let mousePos = e.clientY;
+	let sliderHeight = activeSlider.offsetHeight - 8;
+	let sliderTop = activeSlider.getBoundingClientRect().top + 4;
+	let sliderFill = activeSlider.querySelector(".instrument-slider-fill");
+	let sliderCalc = (-((mousePos-sliderTop)/sliderHeight)+1)*100;
+	if (sliderCalc < 1) {
+		activeSlider.dataset.sliderValue = "0";
+		sliderFill.style.height = "0%";
+		playBlock(200);
+	} else if (sliderCalc > 100) {
+		activeSlider.dataset.sliderValue = "100";
+		sliderFill.style.height = "100%";
+		playBlock(300);
+	} else {
+		activeSlider.dataset.sliderValue = sliderCalc;
+		sliderFill.style.height = sliderCalc + "%";
+		playBlock(200+sliderCalc);
+	}
+}
+function instrumentSliderStop() {
+	document.onmouseup = null;
+	document.onmousemove = null;
+}
 
 
 // —————————————————————————————————————————————————————————————————————
@@ -557,7 +641,7 @@ function sequencerRandomize() {
 // Adjust speed
 function sequencerSpeedAdjust(e) {
 	sequencerSpeed = e.dataset.sequencerSpeed;
-	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed}ms`);
+	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${sequencerSpeed*.95}ms`);
 	if (e.dataset.buttonState == '1') {
 		playerState = false;
 	} else if (playerState == false) {
@@ -567,7 +651,7 @@ function sequencerSpeedAdjust(e) {
 }
 
 // Main loop
-let sequencerSpeed = 400;
+let sequencerSpeed = 700;
 let sequencerBeat = 0;
 function sequencerLoop() {
 	document.querySelector("#sequencer .instrument-error").style.display = "none";
@@ -637,6 +721,52 @@ function sequencerLoop() {
 		}
 		sequencerLoop();
 	}, sequencerSpeed)
+}
+
+
+
+// —————————————————————————————————————————————————————————————————————
+// ANALYZER
+// —————————————————————————————————————————————————————————————————————
+
+// Set active letter
+let activeLetter = "a";
+function analyzerLetterSet(e) {
+	let analyzerDisplay = document.querySelector("#analyzer .instrument-display-text");
+	let letter = e.dataset.analyzerLetter;
+	activeLetter = letter;
+	analyzerDisplay.innerText = letter;
+	playVoice(letter, ['C3','D3','E3'], 100);
+}
+
+// Key press to activate letter
+window.addEventListener('keydown', function (e) {
+	if (activeInstrument == "analyzer") {
+		let letter = e.key.toUpperCase();
+		if (voiceSamplerLetters.includes(letter.toLowerCase())) {
+			let analyzerLetter = document.querySelector(`[data-analyzer-letter="${letter}"]`);
+			instrumentButtonGroupPress(analyzerLetter, 'analyzer-alphabet');
+			analyzerLetterSet(analyzerLetter);
+		}
+	}
+});
+
+// Set variable axes on slider change
+let analyzerSlider;
+let analyzerAxis = 0;
+function analyzerSliderStart(slider) {
+	analyzerSlider = slider;
+	analyzerAxis = analyzerSlider.dataset.analyzerAxis;
+	window.onmousemove = analyzerSliderSet;
+    window.onmouseup = analyzerSliderStop;
+}
+function analyzerSliderSet() {
+	let axisValue = analyzerSlider.dataset.sliderValue/100;
+	document.querySelector(':root').style.setProperty(`--axis${analyzerAxis}-percent`, `${axisValue}`);
+}
+function analyzerSliderStop() {
+	window.onmousemove = null;
+    window.onmouseup = null;
 }
 
 

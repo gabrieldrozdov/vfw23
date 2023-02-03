@@ -18,7 +18,7 @@
 
 	/* Player settings */
 	--activefont: Jost;
-	--player-fontsize: 5vw;
+	--player-fontsize: 4vw;
 	--player-letterspacing: 0px;
 	--player-lineheight: 1em;
 	--player-texttransform: unset;
@@ -796,7 +796,7 @@ body:hover .intro-text {
 	transition: background-color .2s;
 }
 .instrument-horizontal {
-	grid-template-rows: minmax(0, 3fr) minmax(0, 1fr);
+	grid-template-rows: minmax(0, 3fr) minmax(0, 1.5fr);
 }
 .instrument-vertical {
 	grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
@@ -833,7 +833,7 @@ body:hover .intro-text {
 
 /* Display */
 .instrument-display {
-	margin: 40px;
+	margin: 35px;
 	background-color: var(--light);
 	display: flex;
 	align-items: center;
@@ -841,20 +841,29 @@ body:hover .intro-text {
 	overflow: hidden;
 	position: relative;
 	caret-color: var(--dark);
+	border: 2px solid var(--light);
 	font-size: var(--player-fontsize);
 	letter-spacing: var(--player-letterspacing);
 	line-height: var(--player-lineheight);
 	text-transform: var(--player-texttransform);
 	font-family: var(--activefont);
-	transition: font-size .2s, letter-spacing .2s, line-height .2s, color .2s, -webkit-text-stroke .2s, background-color .2s;
+	transition: font-size .2s, letter-spacing .2s, line-height .2s, color .2s, -webkit-text-stroke .2s, background-color .2s, border .2s;
+}
+.instrument-display:hover {
+	background-color: var(--primary) !important;
+	border: 2px solid var(--dark);
 }
 .instrument-display * {
 	color: var(--dark) !important;
 	-webkit-text-stroke: unset !important;
-	background-color: unset !important;
+}
+.instrument-display:hover * {
+	color: var(--primary) !important;
+	-webkit-text-stroke: 2px var(--dark) !important;
 }
 .instrument-display-text {
 	overflow-wrap: anywhere;
+	padding: 5px;
 	overflow: scroll;
 	width: 100%;
 	height: 100%;
@@ -870,11 +879,19 @@ body:hover .intro-text {
 .instrument-display-text:focus {
 	outline: none;
 }
-.instrument-display:hover {
-	caret-color: var(--primary);
-	background-color: var(--dark) !important;
+.instrument-display-text-noedit {
+	cursor: not-allowed;
+	border: 2px solid var(--dark);
+	background-color: var(--primary) !important;
 	color: var(--dark) !important;
-	-webkit-text-stroke: 1px var(--primary) !important;
+	-webkit-text-stroke: 0px var(--dark) !important;
+}
+.instrument-display-text-noedit:hover * {
+	color: var(--dark) !important;
+	-webkit-text-stroke: 0px var(--dark) !important;
+}
+.instrument-display-text-large {
+	font-size: calc(var(--player-fontsize) * 5);
 }
 
 /* Controls */
@@ -883,7 +900,7 @@ body:hover .intro-text {
 	gap: 10px;
 	align-items: stretch;
 	background-color: var(--dark);
-	padding: 40px;
+	padding: 35px;
 	border-radius: 0 0 20px 20px;
 }
 
@@ -914,26 +931,51 @@ body:hover .intro-text {
 	align-items: center;
 	justify-content: center;
 	padding: 0 10px;
-	transition: fill .2s, background-color .2s, border .2s;
+	color: var(--primary);
+	font-family: jost, sans-serif;
+	text-transform: uppercase;
+	font-weight: 500;
+	position: relative;
+	transition: fill .2s, background-color .2s, border .2s, color .2s;
 }
 .instrument-button:hover {
 	border: 2px solid var(--light);
 	fill: var(--light);
+	color: var(--light);
 }
 .instrument-button:active {
-	background-color: var(--light);
 	fill: var(--dark);
 }
 .instrument-button svg {
 	min-width: 20px;
 	max-height: 100%;
+	max-width: 50px;
+	z-index: 1;
+}
+.instrument-button span {
+	z-index: 1;
 }
 .instrument-button[data-button-state="1"] {
-	background-color: var(--primary);
 	fill: var(--dark);
+	color: var(--dark);
 }
 .instrument-button[data-button-state="1"]:hover {
 	fill: var(--dark);
+}
+.instrument-button[data-button-state="1"] .instrument-button-fill {
+	background-color: var(--primary);
+}
+.instrument-button-fill {
+	top: 2px;
+	left: 2px;
+	width: calc(100% - 4px);
+	height: calc(100% - 4px);
+	position: absolute;
+	z-index: 0;
+	transition: background-color .2s;
+}
+.instrument-button:active .instrument-button-fill {
+	background-color: var(--light);
 }
 
 /* States */
@@ -965,7 +1007,93 @@ body:hover .intro-text {
 	background-color: var(--light);
 }
 
-/* Sequencer Beats */
+/* Slider */
+.instrument-slider-set {
+	flex: 2 0 auto;
+	display: grid;
+	grid-auto-columns: 1fr;
+	grid-auto-flow: column;
+	gap: 2px;
+}
+.instrument-slider-container {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+.instrument-slider {
+	flex-grow: 1;
+	border: 2px solid var(--primary);
+	background-color: var(--dark);
+	display: flex;
+	align-items: flex-end;
+	cursor: pointer;
+	transition: border .2s;
+	padding: 2px;
+}
+.instrument-slider:hover {
+	border: 2px solid var(--light);
+}
+.instrument-slider:active .instrument-slider-fill {
+	background-color: var(--light);
+}
+.instrument-slider-fill {
+	width: 100%;
+	height: 50%;
+	background-color: var(--primary);
+	transition: background-color .2s;
+}
+.instrument-slider-axis-value, .instrument-slider-axis-label {
+	font-weight: 500;
+	letter-spacing: .02em;
+	text-align: center;
+	font-size: 10px;
+	padding: 2px 4px 2px 3px;
+	color: var(--dark);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1em;
+	text-transform: uppercase;
+}
+.instrument-slider-axis-label {
+	background-color: var(--primary);
+}
+.instrument-slider-axis-value {
+	background-color: var(--light);
+}
+.instrument-slider-container[data-slider-axis="0"] .instrument-slider-axis-label::before {
+	content: var(--axis0-name);
+}
+.instrument-slider-container[data-slider-axis="0"] .instrument-slider-axis-value::before {
+	counter-reset: x var(--axis0-calculated);
+	content: counter(x);
+}
+.instrument-slider-container[data-slider-axis="1"] .instrument-slider-axis-label::before {
+	content: var(--axis1-name);
+}
+.instrument-slider-container[data-slider-axis="1"] .instrument-slider-axis-value::before {
+	counter-reset: x var(--axis1-calculated);
+	content: counter(x);
+}
+.instrument-slider-container[data-slider-axis="2"] .instrument-slider-axis-label::before {
+	content: var(--axis2-name);
+}
+.instrument-slider-container[data-slider-axis="2"] .instrument-slider-axis-value::before {
+	counter-reset: x var(--axis2-calculated);
+	content: counter(x);
+}
+.instrument-slider-container[data-slider-axis="3"] .instrument-slider-axis-label::before {
+	content: var(--axis3-name);
+}
+.instrument-slider-container[data-slider-axis="3"] .instrument-slider-axis-value::before {
+	counter-reset: x var(--axis3-calculated);
+	content: counter(x);
+}
+.instrument-slider-container[data-slider-active="0"] {
+	display: none;
+}
+
+/* Sequencer */
 #sequencer-beats {
 	flex: 6 1 auto;
 	display: grid;
@@ -974,16 +1102,73 @@ body:hover .intro-text {
 }
 .sequencer-beats-axis {
 	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(8, 1fr);
+	display: flex;
 	gap: 2px;
+}
+.sequencer-beats-axis p {
+	font-weight: 500;
+	letter-spacing: .02em;
+	text-align: center;
+	font-size: 10px;
+	padding: 2px 4px 2px 3px;
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+	transform: rotate(-180deg);
+	color: var(--dark);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1em;
+	text-transform: uppercase;
+}
+.sequencer-beats-axis-label {
+	background-color: var(--primary);
+}
+.sequencer-beats-axis-value {
+	background-color: var(--light);
+}
+.sequencer-beats-axis[data-sequencer-axis="0"] .sequencer-beats-axis-label::before {
+	content: var(--axis0-name);
+}
+.sequencer-beats-axis[data-sequencer-axis="0"] .sequencer-beats-axis-value::before {
+	counter-reset: x var(--axis0-calculated);
+	content: counter(x);
+}
+.sequencer-beats-axis[data-sequencer-axis="1"] .sequencer-beats-axis-label::before {
+	content: var(--axis1-name);
+}
+.sequencer-beats-axis[data-sequencer-axis="1"] .sequencer-beats-axis-value::before {
+	counter-reset: x var(--axis1-calculated);
+	content: counter(x);
+}
+.sequencer-beats-axis[data-sequencer-axis="2"] .sequencer-beats-axis-label::before {
+	content: var(--axis2-name);
+}
+.sequencer-beats-axis[data-sequencer-axis="2"] .sequencer-beats-axis-value::before {
+	counter-reset: x var(--axis2-calculated);
+	content: counter(x);
+}
+.sequencer-beats-axis[data-sequencer-axis="3"] .sequencer-beats-axis-label::before {
+	content: var(--axis3-name);
+}
+.sequencer-beats-axis[data-sequencer-axis="3"] .sequencer-beats-axis-value::before {
+	counter-reset: x var(--axis3-calculated);
+	content: counter(x);
+}
+.sequencer-beats-axis button {
+	flex-grow: 1;
 }
 .sequencer-beats-axis[data-sequencer-axis-active="0"] {
 	display: none;
 }
-/* #sequencer-speed {
-	flex: 6 1 auto;
-} */
+
+/* Analyzer */
+#analyzer-alphabet {
+	flex: 5 1 auto;
+	display: grid;
+	grid-template-columns: repeat(9, 1fr);
+	gap: 2px;
+}
 
 /* ———————————————————————————————————————————————————————————————————————— */
 /* MOBILE STYLES */
