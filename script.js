@@ -247,6 +247,7 @@ let fontOptions = [
 // Select font from menu
 function pickFont(selectedFont) {
 	document.querySelector(':root').style.setProperty("--activefont", `${selectedFont}`);
+	fontReset();
 	getAxisInfo(selectedFont, `fonts/${selectedFont}.ttf`);
 	playPercussion('C2');
 	menuOut();
@@ -343,6 +344,14 @@ function getAxisInfo(fontFamily, fontUrl) {
 	}
 }
 
+// Reset font settings
+function fontReset() {
+	document.querySelector(':root').style.setProperty(`--player-fontsize`, `4vw`);
+	document.querySelector(':root').style.setProperty(`--player-letterspacing`, `0px`);
+	document.querySelector(':root').style.setProperty(`--player-lineheight`, `1em`);
+	document.querySelector(':root').style.setProperty(`--player-texttransform`, `1em`);
+}
+
 
 
 // —————————————————————————————————————————————————————————————————————
@@ -372,11 +381,20 @@ function randomSentence() {
 	let preposition = prepositions[Math.floor(Math.random()*prepositions.length)];
 	return `The ${adjective1} ${noun1} ${adverb} ${verb} ${preposition} ${article} ${adjective2} ${noun2}`;
 };
-
+// Generate random letters
 function randomLetters(quantity) {
 	let temp = "";
 	for (let i=0; i<quantity; i++) {
-		temp += "<span>"+voiceSamplerLetters[Math.floor(Math.random()*voiceSamplerLetters.length)].toUpperCase()+"</span>";
+		temp += voiceSamplerLetters[Math.floor(Math.random()*voiceSamplerLetters.length)].toUpperCase();
+	}
+	return temp;
+}
+// Generate a whole bunch of the same letter
+function randomLettersRepeat(quantity) {
+	let temp = "";
+	let letter = voiceSamplerLetters[Math.floor(Math.random()*voiceSamplerLetters.length)].toUpperCase();
+	for (let i=0; i<quantity; i++) {
+		temp += letter;
 	}
 	return temp;
 }
@@ -388,7 +406,7 @@ function randomLetters(quantity) {
 // —————————————————————————————————————————————————————————————————————
 
 let playerState = false; // If instrument is currently playing, equals true
-let instrumentOptions = ['sequencer']; // ['oscillator', 'talker', 'texturizer']
+let instrumentOptions = ['sequencer', 'scrambler', 'analyzer']; // ['oscillator', 'talker', 'texturizer']
 let activeInstrument = "";
 
 function instrumentIn() {
@@ -407,6 +425,7 @@ function instrumentOut() {
 // Select instrument from menu
 function pickInstrument(selectedInstrument) {
 	playPercussion('C2');
+	fontReset();
 	activeInstrument = selectedInstrument;
 	instrumentIn();
 	initializeInstrument();
@@ -424,6 +443,9 @@ function initializeInstrument() {
 		sequencerAxes[1].dataset.sequencerAxisActive = '0';
 		sequencerAxes[2].dataset.sequencerAxisActive = '0';
 		sequencerAxes[3].dataset.sequencerAxisActive = '0';
+
+		// Reset sound setting
+		sequencerSound = 0;
 
 		// Randomize display text
 		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
@@ -452,16 +474,13 @@ function initializeInstrument() {
 		}
 	}
 	if (activeInstrument == 'scrambler') {
-		// Initalize all axes to not show
-		let scamblerAxes = instrumentDOM.querySelectorAll("[data-scrambler-axis]");
-		scamblerAxes[0].dataset.scramblerAxisActive = '0';
-		scamblerAxes[1].dataset.scramblerAxisActive = '0';
-		scamblerAxes[2].dataset.scramblerAxisActive = '0';
-		scamblerAxes[3].dataset.scramblerAxisActive = '0';
+		// Reset sound setting
+		scramblerSound = 0;
 
 		// Randomize display text
 		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
-		displayText.innerHTML = randomLetters(200);
+		displayText.innerText = randomSentence();
+		displayText.innerHTML = wrapLetters(displayText.innerText);
 
 		// Make sure current speed toggle is active
 		let speedToggle = instrumentDOM.querySelector(`[data-scrambler-speed="${scramblerSpeed}"]`);
@@ -478,9 +497,6 @@ function initializeInstrument() {
 			instrumentDOM.querySelector(".instrument-error").style.display = "none";
 			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
 				control.style.display = "grid";
-			}
-			for (let i=0; i<axesInfo.length && i<4; i++) {
-				scamblerAxes[i].dataset.scramblerAxisActive = '1';
 			}
 			scramblerLoop();
 		}
@@ -515,8 +531,39 @@ function initializeInstrument() {
 			}
 		}
 	}
-	if (activeInstrument == 'talkbox') {
-		// TO DO ——————————————————————————————————————————————————————————————————————
+	if (activeInstrument == 'conversator') {
+		// Initalize all axes to not show
+		let scamblerAxes = instrumentDOM.querySelectorAll("[data-scrambler-axis]");
+		scamblerAxes[0].dataset.scramblerAxisActive = '0';
+		scamblerAxes[1].dataset.scramblerAxisActive = '0';
+		scamblerAxes[2].dataset.scramblerAxisActive = '0';
+		scamblerAxes[3].dataset.scramblerAxisActive = '0';
+
+		// Randomize display text
+		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
+		displayText.innerHTML = randomLetters(200);
+
+		// Make sure current speed toggle is active
+		let speedToggle = instrumentDOM.querySelector(`[data-scrambler-speed="${scramblerSpeed}"]`);
+		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
+		speedToggle.dataset.buttonState = "1";
+
+		// Check if font is actually variable and show correct controls
+		if (axesInfo.length == 0) {
+			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "none";
+			}
+		} else {
+			instrumentDOM.querySelector(".instrument-error").style.display = "none";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "grid";
+			}
+			for (let i=0; i<axesInfo.length && i<4; i++) {
+				scamblerAxes[i].dataset.scramblerAxisActive = '1';
+			}
+			scramblerLoop();
+		}
 	}
 	if (activeInstrument == 'texturizer') {
 		// TO DO ——————————————————————————————————————————————————————————————————————
@@ -670,6 +717,20 @@ function sequencerSoundAdjust() {
 	}
 }
 
+// Generate random text
+function sequencerGenerateText() {
+	let selection = Math.floor(Math.random()*3);
+	let sequencerDOM = document.querySelector("#sequencer");
+	let displayText = sequencerDOM.querySelector(`.instrument-display-text`);
+	if (selection == 0) {
+		displayText.innerText = randomSentence();
+	} else if (selection == 1) {
+		displayText.innerText = randomLetters(50);
+	} else {
+		displayText.innerText = randomLettersRepeat(50);
+	}
+}
+
 // Randomize beat values
 function sequencerRandomize() {
 	let iteration = 0;
@@ -777,26 +838,30 @@ function sequencerLoop() {
 // SCRAMBLER
 // —————————————————————————————————————————————————————————————————————
 
-// Adjust speed
-let scramblerSpeed = 700;
-function scramblerSpeedAdjust(e) {
-	scramblerSpeed = e.dataset.scramblerSpeed;
-	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
-	if (e.dataset.buttonState == '1') {
-		playerState = false;
-	} else if (playerState == false) {
-		playerState = true;
-		scramblerLoop();
+// Sound mode selection
+let scramblerSound = 0;
+let scramblerVoice = [
+	['C4','D4','E4'],
+	['C3','D3',"E3"],
+	['C1','D1',"E1"]
+];
+let scramblerPiano = [
+	['C3','E3','G3','B3'],
+	['C2','E2','G2','B2'],
+	['C1','E1','G1','B1'],
+];
+function scramblerSoundAdjust() {
+	scramblerSound++;
+	if (scramblerSound >= 5) {
+		scramblerSound = 0;
 	}
 }
 
-// Main loop
-function scramblerLoop() {
-	let noteReference = (100/scramblerSpeed);
-	playTom(Math.random()*(noteReference*200) + noteReference*500);
+// Randomize scramble values
+function scramblerRandomize() {
 	let scramblerDOM = document.querySelector("#scrambler");
 	let scramblerLetters = scramblerDOM.querySelectorAll(".scrambler-display span");
-	for (let i=0; i<10; i++) {
+	for (let i=0; i<scramblerLetters.length; i++) {
 		let activeLetter = scramblerLetters[Math.floor(Math.random()*scramblerLetters.length)];
 		let temp = "";
 		for (let j=0; j<axesInfo.length; j++) {
@@ -808,8 +873,148 @@ function scramblerLoop() {
 			}
 		}
 		activeLetter.style.fontVariationSettings = temp;
-		console.log(temp);
 	}
+	// Sounds
+	playBlock(Math.random()*200+100);
+	setTimeout(() => {
+		playBlock(Math.random()*200+100);
+	}, 100);
+	setTimeout(() => {
+		playBlock(Math.random()*200+100);
+	}, 200);
+}
+
+// Generate random text
+function scramblerGenerateText() {
+	let selection = Math.floor(Math.random()*3);
+	let scramblerDOM = document.querySelector("#scrambler");
+	let displayText = scramblerDOM.querySelector(`.instrument-display-text`);
+	if (selection == 0) {
+		displayText.innerText = randomSentence();
+	} else if (selection == 1) {
+		displayText.innerText = randomLetters(50);
+	} else {
+		displayText.innerText = randomLettersRepeat(50);
+	}
+	displayText.innerHTML = wrapLetters(displayText.innerText);
+}
+
+// Adjust quantity
+let scramblerQuantity = 0.25;
+function scramblerQuantityAdjust(e) {
+	scramblerQuantity = e.dataset.scramblerQuantity;
+}
+
+// Adjust speed
+let scramblerSpeed = 500;
+function scramblerSpeedAdjust(e) {
+	scramblerSpeed = e.dataset.scramblerSpeed;
+	document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
+	if (e.dataset.buttonState == '1') {
+		playerState = false;
+	} else if (playerState == false) {
+		playerState = true;
+		scramblerLoop();
+	}
+}
+
+// Helper functions for forcing all letters in <span> tags and saving caret position
+function wrapLetters(textContent) {
+	return textContent.split('').map(function(letter) {
+		return '<span>' + letter + '</span>';
+	}).join('');
+}
+function saveCaretPosition(context) {
+	let selection = window.getSelection();
+	let range = selection.getRangeAt(0);
+	range.setStart(context, 0);
+	let len = range.toString().length;
+
+	return function restore() {
+		let pos = getTextNodeAtPosition(context, len);
+		selection.removeAllRanges();
+		let range = new Range();
+		range.setStart(pos.node, pos.position);
+		selection.addRange(range);
+	}
+}
+function getTextNodeAtPosition(root, index) {
+	let lastNode = null;
+	let treeWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, function next(elem) {
+		if (index > elem.textContent.length) {
+		index -= elem.textContent.length;
+		lastNode = elem;
+		return NodeFilter.FILTER_REJECT
+		}
+		return NodeFilter.FILTER_ACCEPT;
+	});
+	var c = treeWalker.nextNode();
+	return {
+		node: c ? c : root,
+		position: c ? index : 0
+	};
+}
+let scramblerDisplay = document.querySelector("#scrambler .scrambler-display");
+scramblerDisplay.addEventListener('input', function(e) {
+	let restoreCaret = saveCaretPosition(this);
+	scramblerDisplay.innerHTML = wrapLetters(scramblerDisplay.innerText);
+	restoreCaret();
+});
+  
+// Main loop
+function scramblerLoop() {
+	let noteReference = (100/scramblerSpeed);
+	let scramblerDOM = document.querySelector("#scrambler");
+	let scramblerLetters = scramblerDOM.querySelectorAll(".scrambler-display span");
+	if (scramblerLetters.length != 0) {
+		let scrambleSize = scramblerLetters.length*scramblerQuantity;
+		// Sounds
+		for (let i=0; i<scramblerQuantity*4; i++) {
+			if (scramblerSound == 0) { // Percussion
+				setTimeout(() => {
+					playPercussion("random");
+				}, i*40);
+			} else if (scramblerSound == 1) { // Toms
+				setTimeout(() => {
+					playTom(Math.random()*(noteReference*200) + noteReference*500);
+				}, i*80);
+			} else if (scramblerSound == 2) { // Piano
+				let scramblerPianoSelection = scramblerPiano[0];
+				if (scramblerSpeed == 500) {
+					scramblerPianoSelection = scramblerPiano[1];
+				} else if (scramblerSpeed == 700) {
+					scramblerPianoSelection = scramblerPiano[2];
+				}
+				setTimeout(() => {
+					playPiano(scramblerPianoSelection[Math.floor(Math.random()*scramblerPianoSelection.length)]);
+				}, i*80);
+			} else if (scramblerSound == 3) { // Voice
+				let scramblerVoiceSelection = scramblerVoice[0];
+				if (scramblerSpeed == 500) {
+					scramblerVoiceSelection = scramblerVoice[1];
+				} else if (scramblerSpeed == 700) {
+					scramblerVoiceSelection = scramblerVoice[2];
+				}
+				setTimeout(() => {
+					playVoice(voiceSamplerLetters[Math.floor(Math.random()*voiceSamplerLetters.length)], scramblerVoiceSelection, 80);
+				}, i*80);
+			}
+		}
+		// Change font variation properties
+		for (let i=0; i<scrambleSize; i++) {
+			let activeLetter = scramblerLetters[Math.floor(Math.random()*scramblerLetters.length)];
+			let temp = "";
+			for (let j=0; j<axesInfo.length; j++) {
+				let axis = axesInfo[j].name;
+				let axisRandom = (axesInfo[j].max-axesInfo[j].min)*Math.random() + axesInfo[j].min;
+				temp += `"${axis}" ${axisRandom}` ;
+				if (j<axesInfo.length-1) {
+					temp += ", ";
+				}
+			}
+			activeLetter.style.fontVariationSettings = temp;
+		}
+	} 
 	setTimeout(() => {
 		if (playerState == false) {
 			return
@@ -933,7 +1138,7 @@ monoSynth.set({
 		release: 0.05
 	},
 	portamento: 0.01,
-	volume: -6
+	volume: -10
 }).toDestination();
 function playMono(freq) {
 	monoSynth.triggerAttackRelease(freq, .1);
