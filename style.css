@@ -239,7 +239,7 @@ body:hover .intro-text {
 	right: 40px;
 	gap: 10px;
 	transition: transform .5s;
-	transform: translate(300px) rotate(-30deg);
+	transform: translate(400px) rotate(-30deg);
 	z-index: 999;
 }
 .nav-button {

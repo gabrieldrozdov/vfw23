@@ -120,7 +120,7 @@ function navIn() {
 }
 function navOut() {
 	let nav = document.querySelector("#nav");
-	nav.style.transform = "translateX(300px) rotate(-30deg)";
+	nav.style.transform = "translateX(400px) rotate(-30deg)";
 }
 let navState = true;
 function navHide() {
@@ -148,7 +148,7 @@ function settingsIn() {
 }
 function settingsOut() {
 	let settings = document.querySelector("#settings");
-	settings.style.transform = "translateX(300px) rotate(-30deg)";
+	settings.style.transform = "translateX(400px) rotate(-30deg)";
 	setTimeout(() => {
 		navIn();
 	}, 250);
