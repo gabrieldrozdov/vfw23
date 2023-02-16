@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Variable Fonts Workshop * RISD Spring 2023</title>
+	<title>Variable Fonts Workshop / RISD Spring 2023</title>
 	<link rel="icon" type="png" href="graphics/favicon.png">
 	<link rel="stylesheet" href="style.css">
 	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib/unbrotli.js"></script>
@@ -39,6 +39,7 @@
 	
 		<!-- NAV MENU + SETTINGS -->
 		<div class="nav-container">
+
 			<!-- MAIN NAV -->
 			<nav class="nav" id="nav">
 				<a onclick="playPercussion('B0')" onmouseenter="playPercussion('A0')" class="nav-button" href="https://drive.google.com/drive/folders/199d_T-g5QBdyqfX4n-mKCLG_zgl8kWyG?usp=share_link" target="_blank">
@@ -72,37 +73,44 @@
 					</div>
 				</button>
 			</nav>
+
 			<!-- FONT SETTINGS -->
 			<div class="nav" id="settings">
-				<div class="nav-value" onmouseenter="playPercussion('B5')">
+				<div class="nav-value" onmouseenter="playPercussion('A5')">
 					<p class="nav-value-label">Font Size</p>
 					<div class="nav-value-buttons">
 						<button onclick="settingsFontSize(-.5); playPercussion('A5')">-</button>
 						<button onclick="settingsFontSize(.5); playPercussion('B5')">+</button>
 					</div>
 				</div>
-				<div class="nav-value" onmouseenter="playPercussion('F2')">
+				<div class="nav-value" onmouseenter="playPercussion('E2')">
 					<p class="nav-value-label">Tracking</p>
 					<div class="nav-value-buttons">
 						<button onclick="settingsTracking(-.05); playPercussion('E2')">-</button>
 						<button onclick="settingsTracking(.05); playPercussion('F2')">+</button>
 					</div>
 				</div>
-				<div class="nav-value" onmouseenter="playPercussion('C8')">
+				<div class="nav-value" onmouseenter="playPercussion('B7')">
 					<p class="nav-value-label">Leading</p>
 					<div class="nav-value-buttons">
 						<button onclick="settingsLeading(-.05); playPercussion('B7')">-</button>
 						<button onclick="settingsLeading(.05); playPercussion('C8')">+</button>
 					</div>
 				</div>
-				<button class="nav-button" onmouseenter="playPercussion('D3')" onclick="settingsChangeCase(-.1); playPercussion('C3')">
-					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Change Case</textPath></text></svg>
+				<button class="nav-button" onmouseenter="playPercussion('D3')" onclick="settingsSetCase(); playPercussion('C3')">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Set Case</textPath></text></svg>
 					<div class="nav-icon">
 						<p>Aa</p>
 					</div>
 				</button>
-				<button class="nav-button" onmouseenter="playPercussion('G2')" onclick="settingsChangeColor(-.1); playPercussion('A2')">
-					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Change Color</textPath></text></svg>
+				<button class="nav-button" onmouseenter="playPercussion('F0')" onclick="settingsToggleAnimations(); playPercussion('G0')">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Toggle Animations</textPath></text></svg>
+					<div class="nav-icon">
+						<svg viewBox="0 0 24 24"><path d="M16 16c0 1.104-.896 2-2 2h-12c-1.104 0-2-.896-2-2v-8c0-1.104.896-2 2-2h12c1.104 0 2 .896 2 2v8zm8-10l-6 4.223v3.554l6 4.223v-12z"/></svg>
+					</div>
+				</button>
+				<button class="nav-button" onmouseenter="playPercussion('G2')" onclick="settingsSwapColor(); playPercussion('A2')">
+					<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Swap Color</textPath></text></svg>
 					<div class="nav-icon">
 						<svg viewBox="0 0 24 24" fill-rule="evenodd" clip-rule="evenodd"><path d="M1 12.155c2.256 3.97 4.55 7.918 6.879 11.845h-5.379c-.829 0-1.5-.675-1.5-1.5v-10.345zm2.85.859c3.278 1.952 12.866 7.658 13.121 7.805l-5.162 2.98c-.231.132-.49.201-.751.201-.549 0-1.037-.298-1.299-.75l-5.909-10.236zm1.9-12.813c-.23-.133-.489-.201-.75-.201-.524 0-1.026.277-1.299.75l-3.5 6.062c-.133.23-.201.489-.201.749 0 .527.278 1.028.75 1.3 2.936 1.695 14.58 8.7 17.516 10.396.718.413 1.633.168 2.048-.55l3.5-6.062c.133-.23.186-.488.186-.749 0-.52-.257-1.025-.734-1.3l-17.516-10.395m.25 3.944c1.104 0 2 .896 2 2s-.896 2-2 2-2-.896-2-2 .896-2 2-2"/></svg>
 					</div>
@@ -114,6 +122,7 @@
 					</div>
 				</button>
 			</div>
+
 			<!-- PULL TAB -->
 			<button id="nav-toggle" onclick="navHide(); playPercussion('E7')"  onmouseenter="playPercussion('D7')">
 				<svg viewBox="0 0 24 24"><path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z"/></svg>
@@ -217,7 +226,25 @@
 						<strong>Sequencer</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('conversator')" onmouseenter="playTom(160)">
+				<li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('oscillator')" onmouseenter="playTom(160)">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">
+						<svg viewBox="0 0 100 100"><path d="m94.24,31.84c-4.59,5.4-6.29,13.93-7.34,19.14-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-1.8,9.03-3.44,17.2-10.04,24.28l-7.1-7.1c4.59-5.4,6.29-13.93,7.34-19.14,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,1.8-9.03,3.44-17.2,10.04-24.28l7.1,7.1Z"/></svg>
+					</span>
+					<span class="menubox-grid-item-info">
+						<strong>Oscillator</strong>
+					</span>
+				</li>
+				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom(170)">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">
+						<svg viewBox="0 0 100 100"><rect x="15" y="15" width="30" height="30" transform="translate(-2.09 2.24) rotate(-4.14)"/><rect x="55" y="15" width="30" height="30" transform="translate(10.32 -17.31) rotate(15.21)"/><rect x="15" y="55" width="30" height="30" transform="translate(-11.83 6.36) rotate(-10.12)"/><rect x="55" y="55" width="30" height="30" transform="translate(-3.77 3.98) rotate(-3.17)"/></svg>
+					</span>
+					<span class="menubox-grid-item-info">
+						<strong>Scrambler</strong>
+					</span>
+				</li>
+				<li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('conversator')" onmouseenter="playTom(180)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><circle cx="50" cy="85" r="5"/><circle cx="50" cy="67.5" r="5"/><circle cx="65.16" cy="58.75" r="5"/><circle cx="65.15" cy="41.25" r="5"/><circle cx="50" cy="32.5" r="5"/><circle cx="34.84" cy="41.25" r="5"/><circle cx="34.84" cy="58.75" r="5"/><circle cx="50" cy="50" r="5"/><circle cx="67.5" cy="80.31" r="5"/><circle cx="80.31" cy="67.5" r="5"/><circle cx="85" cy="50" r="5"/><circle cx="80.31" cy="32.5" r="5"/><circle cx="67.5" cy="19.69" r="5"/><circle cx="50" cy="15" r="5"/><circle cx="32.5" cy="19.69" r="5"/><circle cx="19.69" cy="32.5" r="5"/><circle cx="15" cy="50" r="5"/><circle cx="19.69" cy="67.5" r="5"/><circle cx="32.5" cy="80.31" r="5"/></svg>
@@ -226,31 +253,13 @@
 						<strong>Conversator</strong>
 					</span>
 				</li>
-				<!-- <li class="menubox-grid-item" onclick="pickInstrument('texturizer')" onmouseenter="playTom(170)">
+				<li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('texturizer')" onmouseenter="playTom(190)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><rect x="10" y="70" width="20" height="20"/><rect x="30" y="50" width="20" height="20"/><rect x="10" y="30" width="20" height="20"/><rect x="50" y="30" width="20" height="20"/><rect x="50" y="70" width="20" height="20"/><rect x="70" y="50" width="20" height="20"/><rect x="70" y="10" width="20" height="20"/><rect x="30" y="10" width="20" height="20"/></svg>
 					</span>
 					<span class="menubox-grid-item-info">
 						<strong>Texturizer</strong>
-					</span>
-				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('oscillator')" onmouseenter="playTom(180)">
-					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
-					<span class="menubox-grid-item-preview">
-						<svg viewBox="0 0 100 100"><path d="m94.24,31.84c-4.59,5.4-6.29,13.93-7.34,19.14-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-1.8,9.03-3.44,17.2-10.04,24.28l-7.1-7.1c4.59-5.4,6.29-13.93,7.34-19.14,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,1.8-9.03,3.44-17.2,10.04-24.28l7.1,7.1Z"/></svg>
-					</span>
-					<span class="menubox-grid-item-info">
-						<strong>Oscillator</strong>
-					</span>
-				</li> -->
-				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom(190)">
-					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
-					<span class="menubox-grid-item-preview">
-						<svg viewBox="0 0 100 100"><rect x="15" y="15" width="30" height="30" transform="translate(-2.09 2.24) rotate(-4.14)"/><rect x="55" y="15" width="30" height="30" transform="translate(10.32 -17.31) rotate(15.21)"/><rect x="15" y="55" width="30" height="30" transform="translate(-11.83 6.36) rotate(-10.12)"/><rect x="55" y="55" width="30" height="30" transform="translate(-3.77 3.98) rotate(-3.17)"/></svg>
-					</span>
-					<span class="menubox-grid-item-info">
-						<strong>Scrambler</strong>
 					</span>
 				</li>
 				<li class="menubox-grid-item" onclick="pickInstrument('analyzer')" onmouseenter="playTom(200)">
@@ -273,7 +282,7 @@
 
 				<!-- DISPLAY -->
 				<div class="instrument-display">
-					<p contenteditable="true" spellcheck="false" class="instrument-display-text">
+					<p contenteditable="true" spellcheck="false" data-toggle="0" class="instrument-display-text">
 						Sequencer
 					</p>
 				</div>
@@ -436,13 +445,86 @@
 				</div>
 			</div>
 
+			<!-- OSCILLATOR -->
+			<div class="instrument instrument-horizontal" id="oscillator">
+				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+
+				<!-- DISPLAY -->
+				<div class="instrument-display">
+					<p contenteditable="true" spellcheck="false" data-toggle="0" class="instrument-display-text">
+						Scrambler
+					</p>
+				</div>
+
+				<!-- CONTROLS -->
+				<div class="instrument-controls">
+					
+					<!-- NO VARIABLE AXES ERROR -->
+					<div class="instrument-error">
+						<span>No variable axes found!</span>
+					</div>
+
+					<!-- SOUND, TEXT, SHUFFLE -->
+					<div class="instrument-button-column instrument-function">
+						<button class="instrument-button" onclick="scramblerSoundAdjust(); playBlock('C3')">
+							<svg viewBox="0 0 100 100"><path d="m52.5,20h-5v39.19c-8.45-1.67-17.5,4.79-17.5,11.83,0,5.92,4.7,8.98,9.8,8.98,6.06,0,12.69-4.32,12.7-13.1v-31.9c7.52,5.56,14.06,8.11,12.65,17.5,3.58-4.32,4.85-7.04,4.85-10.13,0-11.12-17.5-14.79-17.5-22.37Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button class="instrument-button" onclick="scramblerGenerateText(); playBlock('C3')">
+							<svg viewBox="0 0 100 100"><path d="m38.57,74.78l-16.71,3.37,3.37-16.71,13.34,13.34Zm-10.02-16.66l13.34,13.34,36.26-36.26-13.34-13.34S28.54,58.12,28.54,58.12Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button class="instrument-button" onclick="scramblerRandomize()">
+							<svg viewBox="0 0 100 100"><path d="m20,35h-6v-6h6c10.47,0,16.44,3.66,20.47,8.56-1.23,1.96-2.26,3.94-3.16,5.82-3.26-4.93-7.9-8.38-17.3-8.38Zm48,30c-9.25,0-13.81-3.44-17.04-8.36-.91,1.88-1.94,3.85-3.18,5.81,3.98,4.89,9.87,8.55,20.22,8.55v9l18-12-18-12v9Zm0-30v9l18-12-18-12v9c-17.5,0-22.31,10.45-26.55,19.67-4.03,8.76-7.51,16.33-21.45,16.33h-6v6h6c17.78,0,22.63-10.53,26.9-19.83,3.99-8.68,7.44-16.17,21.1-16.17Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+
+					<!-- QUANTITY -->
+					<div class="instrument-button-row instrument-function" data-button-group="scrambler-quantity" data-button-group-type="set">
+						<button data-scrambler-quantity="0.25" data-button-state="1" class="instrument-button" onclick="scramblerQuantityAdjust(this); instrumentButtonGroupPress(this, 'scrambler-quantity'); playBlock('G3')">
+							<svg viewBox="0 0 100 100"><rect x="35" y="35" width="30" height="30" transform="translate(-3.48 3.74) rotate(-4.14)"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-quantity="0.5" data-button-state="0" class="instrument-button" onclick="scramblerQuantityAdjust(this); instrumentButtonGroupPress(this, 'scrambler-quantity'); playBlock('A3')">
+							<svg viewBox="0 0 100 100"><rect x="15.19" y="15" width="30" height="30" transform="translate(-2.09 2.26) rotate(-4.14)"/><rect x="55.19" y="55" width="30" height="30" transform="translate(-3.77 3.99) rotate(-3.17)"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-quantity="0.75" data-button-state="0" class="instrument-button" onclick="scramblerQuantityAdjust(this); instrumentButtonGroupPress(this, 'scrambler-quantity'); playBlock('B3')">
+							<svg viewBox="0 0 100 100"><rect x="16.17" y="17.74" width="30" height="30" transform="translate(-8.44 10.95) rotate(-17.58)"/><rect x="34.5" y="55" width="30" height="30" transform="translate(35.84 -14.64) rotate(26.1)"/><rect x="57.18" y="20.11" width="30" height="30" transform="translate(1.23 -2.42) rotate(1.94)"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-quantity="1" data-button-state="0" class="instrument-button" onclick="scramblerQuantityAdjust(this); instrumentButtonGroupPress(this, 'scrambler-quantity'); playBlock('C4')">
+							<svg viewBox="0 0 100 100"><rect x="55.19" y="15" width="30" height="30" transform="translate(10.33 -17.37) rotate(15.21)"/><rect x="15.19" y="55" width="30" height="30" transform="translate(-11.83 6.39) rotate(-10.12)"/><rect x="55.19" y="55" width="30" height="30" transform="translate(-3.77 3.99) rotate(-3.17)"/><rect x="15.19" y="15" width="30" height="30" transform="translate(-2.09 2.26) rotate(-4.14)"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+
+					<!-- SPEED -->
+					<div class="instrument-button-column instrument-function" data-button-group="scrambler-speed" data-button-group-type="toggle">
+						<button data-scrambler-speed="300" data-button-state="0" class="instrument-button" onclick="scramblerSpeedAdjust(this); instrumentButtonGroupPress(this, 'scrambler-speed'); playBlock('C4')">
+							<svg viewBox="0 0 100 56"><polygon points="8 10 8 46 32 28 8 10"/><polygon points="38 10 38 46 62 28 38 10"/><polygon points="68 10 68 46 92 28 68 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-speed="500" data-button-state="1" class="instrument-button" onclick="scramblerSpeedAdjust(this); instrumentButtonGroupPress(this, 'scrambler-speed'); playBlock('B3')">
+							<svg viewBox="0 0 100 56"><polygon points="23 10 23 46 47 28 23 10"/><polygon points="53 10 53 46 77 28 53 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-scrambler-speed="700" data-button-state="0" class="instrument-button" onclick="scramblerSpeedAdjust(this); instrumentButtonGroupPress(this, 'scrambler-speed'); playBlock('A3')">
+							<svg viewBox="0 0 100 56"><polygon points="38 10 38 46 62 28 38 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+				</div>
+			</div>
+
 			<!-- SCRAMBLER -->
 			<div class="instrument instrument-horizontal" id="scrambler">
 				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 
 				<!-- DISPLAY -->
 				<div class="instrument-display">
-					<p contenteditable="true" spellcheck="false" class="instrument-display-text scrambler-display">
+					<p contenteditable="true" spellcheck="false" data-toggle="0" class="instrument-display-text scrambler-display">
 						Scrambler
 					</p>
 				</div>
@@ -515,7 +597,7 @@
 
 				<!-- DISPLAY -->
 				<div class="instrument-display">
-					<p contenteditable="true" spellcheck="false" class="instrument-display-text scrambler-display">
+					<p contenteditable="true" spellcheck="false" data-toggle="0" class="instrument-display-text">
 						Conversator
 					</p>
 				</div>
@@ -526,6 +608,10 @@
 					<!-- NO VARIABLE AXES ERROR -->
 					<div class="instrument-error">
 						<span>No variable axes found!</span>
+					</div>
+
+					<div class="instrument-button-column instrument-function">
+						<svg class="conversator-grille" viewBox="0 0 80 80"><circle cx="40" cy="75" r="5"/><circle cx="40" cy="57.5" r="5"/><circle cx="55.16" cy="48.75" r="5"/><circle cx="55.15" cy="31.25" r="5"/><circle cx="40" cy="22.5" r="5"/><circle cx="24.84" cy="31.25" r="5"/><circle cx="24.84" cy="48.75" r="5"/><circle cx="40" cy="40" r="5"/><circle cx="57.5" cy="70.31" r="5"/><circle cx="70.31" cy="57.5" r="5"/><circle cx="75" cy="40" r="5"/><circle cx="70.31" cy="22.5" r="5"/><circle cx="57.5" cy="9.69" r="5"/><circle cx="40" cy="5" r="5"/><circle cx="22.5" cy="9.69" r="5"/><circle cx="9.69" cy="22.5" r="5"/><circle cx="5" cy="40" r="5"/><circle cx="9.69" cy="57.5" r="5"/><circle cx="22.5" cy="70.31" r="5"/></svg>
 					</div>
 
 					<!-- SOUND, TEXT, SHUFFLE -->
@@ -597,7 +683,7 @@
 
 				<!-- DISPLAY -->
 				<div class="instrument-display instrument-display-noedit">
-					<p spellcheck="false" class="instrument-display-text analyzer-display">
+					<p spellcheck="false" data-toggle="0" class="instrument-display-text analyzer-display">
 						A
 					</p>
 				</div>

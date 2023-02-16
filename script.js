@@ -169,14 +169,28 @@ function settingsLeading(value) {
 }
 let caseOptions = ["unset", "uppercase", "capitalize", "lowercase"];
 let currentCase = 0;
-function settingsChangeCase() {
+function settingsSetCase() {
 	currentCase++;
 	if (currentCase >= caseOptions.length) {
 		currentCase = 0;
 	}
 	document.querySelector(':root').style.setProperty("--player-texttransform", caseOptions[currentCase]);
 }
-function settingsChangeColor() {
+let toggleAnimations = true;
+function settingsToggleAnimations() {
+	if (toggleAnimations) {
+		toggleAnimations = false;
+		for (i of document.querySelectorAll(".instrument-display-text")) {
+			i.dataset.toggle = "1";
+		}
+	} else {
+		toggleAnimations = true;
+		for (i of document.querySelectorAll(".instrument-display-text")) {
+			i.dataset.toggle = "0";
+		}
+	}
+}
+function settingsSwapColor() {
 	colorCycleToggle = false;
 	currentColor++;
 	if (currentColor >= colors.length) {
@@ -350,6 +364,10 @@ function fontReset() {
 	document.querySelector(':root').style.setProperty(`--player-letterspacing`, `0px`);
 	document.querySelector(':root').style.setProperty(`--player-lineheight`, `1em`);
 	document.querySelector(':root').style.setProperty(`--player-texttransform`, `1em`);
+	toggleAnimations = true;
+	for (i of document.querySelectorAll(".instrument-display-text")) {
+		i.dataset.toggle = "0";
+	}
 }
 
 
@@ -532,38 +550,38 @@ function initializeInstrument() {
 		}
 	}
 	if (activeInstrument == 'conversator') {
-		// Initalize all axes to not show
-		let scamblerAxes = instrumentDOM.querySelectorAll("[data-scrambler-axis]");
-		scamblerAxes[0].dataset.scramblerAxisActive = '0';
-		scamblerAxes[1].dataset.scramblerAxisActive = '0';
-		scamblerAxes[2].dataset.scramblerAxisActive = '0';
-		scamblerAxes[3].dataset.scramblerAxisActive = '0';
+		// // Initalize all axes to not show
+		// let scamblerAxes = instrumentDOM.querySelectorAll("[data-scrambler-axis]");
+		// scamblerAxes[0].dataset.scramblerAxisActive = '0';
+		// scamblerAxes[1].dataset.scramblerAxisActive = '0';
+		// scamblerAxes[2].dataset.scramblerAxisActive = '0';
+		// scamblerAxes[3].dataset.scramblerAxisActive = '0';
 
-		// Randomize display text
-		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
-		displayText.innerHTML = randomLetters(200);
+		// // Randomize display text
+		// let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
+		// displayText.innerHTML = randomLetters(200);
 
-		// Make sure current speed toggle is active
-		let speedToggle = instrumentDOM.querySelector(`[data-scrambler-speed="${scramblerSpeed}"]`);
-		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
-		speedToggle.dataset.buttonState = "1";
+		// // Make sure current speed toggle is active
+		// let speedToggle = instrumentDOM.querySelector(`[data-scrambler-speed="${scramblerSpeed}"]`);
+		// document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${scramblerSpeed*.95}ms`);
+		// speedToggle.dataset.buttonState = "1";
 
-		// Check if font is actually variable and show correct controls
-		if (axesInfo.length == 0) {
-			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
-			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
-				control.style.display = "none";
-			}
-		} else {
-			instrumentDOM.querySelector(".instrument-error").style.display = "none";
-			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
-				control.style.display = "grid";
-			}
-			for (let i=0; i<axesInfo.length && i<4; i++) {
-				scamblerAxes[i].dataset.scramblerAxisActive = '1';
-			}
-			scramblerLoop();
-		}
+		// // Check if font is actually variable and show correct controls
+		// if (axesInfo.length == 0) {
+		// 	instrumentDOM.querySelector(".instrument-error").style.display = "flex";
+		// 	for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+		// 		control.style.display = "none";
+		// 	}
+		// } else {
+		// 	instrumentDOM.querySelector(".instrument-error").style.display = "none";
+		// 	for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+		// 		control.style.display = "grid";
+		// 	}
+		// 	for (let i=0; i<axesInfo.length && i<4; i++) {
+		// 		scamblerAxes[i].dataset.scramblerAxisActive = '1';
+		// 	}
+		// 	scramblerLoop();
+		// }
 	}
 	if (activeInstrument == 'texturizer') {
 		// TO DO ——————————————————————————————————————————————————————————————————————
@@ -1290,3 +1308,27 @@ function playVoice(phrase, pitch, speed) {
 		}, speed)
 	}
 }
+
+
+
+
+// const volumeMeterEl = document.getElementById('volumeMeter');
+// const startButtonEl = document.getElementById('startButton');
+// startButtonEl.onclick = async () => {
+// 	startButtonEl.disabled = true;
+// 	const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+// 	const audioContext = new AudioContext();
+// 	const mediaStreamAudioSourceNode = audioContext.createMediaStreamSource(stream);
+// 	const analyserNode = audioContext.createAnalyser();
+// 	mediaStreamAudioSourceNode.connect(analyserNode);
+
+// 	const pcmData = new Float32Array(analyserNode.fftSize);
+// 	const onFrame = () => {
+// 		analyserNode.getFloatTimeDomainData(pcmData);
+// 		let sumSquares = 0.0;
+// 		for (const amplitude of pcmData) { sumSquares += amplitude*amplitude; }
+// 		volumeMeterEl.value = Math.sqrt(sumSquares / pcmData.length);
+// 		window.requestAnimationFrame(onFrame);
+// 	};
+// 	window.requestAnimationFrame(onFrame);
+// };

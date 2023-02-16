@@ -458,6 +458,10 @@ body:hover .intro-text {
 .menubox-grid-item:active {
 	transform: scale(.9) !important;
 }
+.menubox-grid-item-inactive {
+	opacity: .5;
+	pointer-events: none;
+}
 .menubox-grid-item-preview {
 	font-size: 3.5vw;
 	line-height: 1em;
@@ -874,11 +878,18 @@ body:hover .intro-text {
 	background-color: unset !important;
 	color: var(--dark) !important;
 	-webkit-text-stroke: 0px var(--dark) !important;
+	transition: font-variation-settings var(--player-variation-speed);
 }
 .instrument-display:hover * {
 	background-color: unset !important;
 	color: var(--light) !important;
 	-webkit-text-stroke: 2px var(--dark) !important;
+}
+.instrument-display-text[data-toggle="1"] {
+	transition: unset !important;
+}
+.instrument-display-text[data-toggle="1"] * {
+	transition: unset !important;
 }
 
 /* Controls */
@@ -1169,13 +1180,6 @@ body:hover .intro-text {
 }
 
 /* Scrambler */
-.scrambler-display {
-	flex-direction: row;
-	flex-wrap: wrap;
-}
-.scrambler-display span {
-	transition: font-variation-settings var(--player-variation-speed);
-}
 [data-scrambler-axis-active="0"] {
 	display: none;
 }
@@ -1190,6 +1194,12 @@ body:hover .intro-text {
 }
 [data-scrambler-axis="3"] span::before {
 	content: var(--axis3-name);
+}
+
+/* Conversator */
+.conversator-grille {
+	height: 100%;
+	fill: var(--primary);
 }
 
 /* Analyzer */
