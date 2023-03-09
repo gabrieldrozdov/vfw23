@@ -7,6 +7,7 @@
 	<title>Variable Fonts Workshop / RISD Spring 2023</title>
 	<link rel="icon" type="png" href="graphics/favicon.png">
 	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="fonts.css">
 	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib/unbrotli.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib-font.browser.js" type="module"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
@@ -131,23 +132,41 @@
 
 		<!-- FONT SELECTION MENU -->
 		<div class="menubox" id="fontbox">
+			<button onclick="menuOut(); initializeInstrument(); playPercussion('B2')" onmouseenter="playPercussion('D5')" class="nav-button menubox-close">
+				<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Close Fonts</textPath></text></svg>
+				<div class="nav-icon">
+					<svg viewBox="0 0 24 24"><path d="M23,19.5L15.4,12l7.5-7.6L19.5,1L12,8.6L4.4,1.1L1,4.5L8.6,12l-7.5,7.6L4.5,23l7.6-7.6l7.6,7.5L23,19.5z"/></svg>
+				</div>
+			</button>
 			<ul class="menubox-grid">
 				<li type="file" class="menubox-grid-item" id="menubox-customfont" onmouseenter="playTom(150)"><input id="menubox-customfont-input" type="file" hidden>
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">+</span>
 					<span class="menubox-grid-item-info">
-						Add your own font!
+						Use your own font!
 					</span>
 				</li>
 				<li class="menubox-grid-item" data-font="jost" onclick="pickFont('jost')" onmouseenter="playTom(160)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Future</span>
 					<span class="menubox-grid-item-info">
-						<strong>Jost</strong><br>
+						<strong>Jost*</strong><br>
 						By Owen Earl
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="bashful" onclick="pickFont('bashful')" onmouseenter="playTom(170)">
+				<li class="menubox-grid-item" data-font="jost-remix" onclick="pickFont('jost-remix')" onmouseenter="playTom(170)">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">AaBbCc</span>
+					<span class="menubox-grid-item-info">
+						<strong>Jost* Remixes</strong><br>
+						By Students of the Workshop
+					</span>
+					<span class="menubox-grid-item-credit">
+						Based on <strong>Jost*</strong><br>
+						By Owen Earl
+					</span>
+				</li>
+				<li class="menubox-grid-item" data-font="bashful" onclick="pickFont('bashful')" onmouseenter="playTom(180)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Hide</span>
 					<span class="menubox-grid-item-info">
@@ -155,7 +174,7 @@
 						By Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="powerpack" onclick="pickFont('powerpack')" onmouseenter="playTom(180)">
+				<li class="menubox-grid-item" data-font="powerpack" onclick="pickFont('powerpack')" onmouseenter="playTom(190)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Charge</span>
 					<span class="menubox-grid-item-info">
@@ -163,7 +182,7 @@
 						By Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="that-then-this" onclick="pickFont('thatthenthis')" onmouseenter="playTom(190)">
+				<li class="menubox-grid-item" data-font="that-then-this" onclick="pickFont('thatthenthis')" onmouseenter="playTom(200)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Techno</span>
 					<span class="menubox-grid-item-info">
@@ -171,7 +190,7 @@
 						By Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="mini-mochi" onclick="pickFont('minimochi')" onmouseenter="playTom(200)">
+				<li class="menubox-grid-item" data-font="mini-mochi" onclick="pickFont('minimochi')" onmouseenter="playTom(210)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Squish</span>
 					<span class="menubox-grid-item-info">
@@ -179,7 +198,7 @@
 						By Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="dreidel" onclick="pickFont('dreidel')" onmouseenter="playTom(210)">
+				<li class="menubox-grid-item" data-font="dreidel" onclick="pickFont('dreidel')" onmouseenter="playTom(220)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Spin</span>
 					<span class="menubox-grid-item-info">
@@ -187,7 +206,7 @@
 						By Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="galapagos" onclick="pickFont('galapagos')" onmouseenter="playTom(220)">
+				<li class="menubox-grid-item" data-font="galapagos" onclick="pickFont('galapagos')" onmouseenter="playTom(230)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Island</span>
 					<span class="menubox-grid-item-info">
@@ -199,7 +218,7 @@
 						By Wei Huang
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="authentic-remixed" onclick="pickFont('authenticremixed')" onmouseenter="playTom(230)">
+				<li class="menubox-grid-item" data-font="authentic-remixed" onclick="pickFont('authenticremixed')" onmouseenter="playTom(240)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Peek</span>
 					<span class="menubox-grid-item-info">
@@ -211,11 +230,25 @@
 						By Christina Janus and Desmond Wong
 					</span>
 				</li>
+				<li class="menubox-grid-item" data-font="vfw" onclick="pickFont('vfw')" onmouseenter="playTom(250)">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">A B C D E F</span>
+					<span class="menubox-grid-item-info">
+						<strong>VFW</strong><br>
+						By Students of the Workshop
+					</span>
+				</li>
 			</ul>
 		</div>
 
 		<!-- INSTRUMENT SELECTION MENU -->
 		<div class="menubox" id="instrumentbox">
+			<button onclick="menuOut(); initializeInstrument(); playPercussion('B2')" onmouseenter="playPercussion('D5')" class="nav-button menubox-close">
+				<svg class="nav-text" viewBox="0 0 100 100"><defs><path id="buttonText" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"/></defs><text><textPath xlink:href="#buttonText">Close Instruments</textPath></text></svg>
+				<div class="nav-icon">
+					<svg viewBox="0 0 24 24"><path d="M23,19.5L15.4,12l7.5-7.6L19.5,1L12,8.6L4.4,1.1L1,4.5L8.6,12l-7.5,7.6L4.5,23l7.6-7.6l7.6,7.5L23,19.5z"/></svg>
+				</div>
+			</button>
 			<ul class="menubox-grid">
 				<li class="menubox-grid-item" onclick="pickInstrument('sequencer')" onmouseenter="playTom(150)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
@@ -226,16 +259,7 @@
 						<strong>Sequencer</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('oscillator')" onmouseenter="playTom(160)">
-					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
-					<span class="menubox-grid-item-preview">
-						<svg viewBox="0 0 100 100"><path d="m94.24,31.84c-4.59,5.4-6.29,13.93-7.34,19.14-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-1.8,9.03-3.44,17.2-10.04,24.28l-7.1-7.1c4.59-5.4,6.29-13.93,7.34-19.14,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,1.8-9.03,3.44-17.2,10.04-24.28l7.1,7.1Z"/></svg>
-					</span>
-					<span class="menubox-grid-item-info">
-						<strong>Oscillator</strong>
-					</span>
-				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom(170)">
+				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom(160)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><rect x="15" y="15" width="30" height="30" transform="translate(-2.09 2.24) rotate(-4.14)"/><rect x="55" y="15" width="30" height="30" transform="translate(10.32 -17.31) rotate(15.21)"/><rect x="15" y="55" width="30" height="30" transform="translate(-11.83 6.36) rotate(-10.12)"/><rect x="55" y="55" width="30" height="30" transform="translate(-3.77 3.98) rotate(-3.17)"/></svg>
@@ -244,7 +268,7 @@
 						<strong>Scrambler</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('conversator')" onmouseenter="playTom(180)">
+				<li class="menubox-grid-item" onclick="pickInstrument('conversator')" onmouseenter="playTom(170)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><circle cx="50" cy="85" r="5"/><circle cx="50" cy="67.5" r="5"/><circle cx="65.16" cy="58.75" r="5"/><circle cx="65.15" cy="41.25" r="5"/><circle cx="50" cy="32.5" r="5"/><circle cx="34.84" cy="41.25" r="5"/><circle cx="34.84" cy="58.75" r="5"/><circle cx="50" cy="50" r="5"/><circle cx="67.5" cy="80.31" r="5"/><circle cx="80.31" cy="67.5" r="5"/><circle cx="85" cy="50" r="5"/><circle cx="80.31" cy="32.5" r="5"/><circle cx="67.5" cy="19.69" r="5"/><circle cx="50" cy="15" r="5"/><circle cx="32.5" cy="19.69" r="5"/><circle cx="19.69" cy="32.5" r="5"/><circle cx="15" cy="50" r="5"/><circle cx="19.69" cy="67.5" r="5"/><circle cx="32.5" cy="80.31" r="5"/></svg>
@@ -253,16 +277,16 @@
 						<strong>Conversator</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('texturizer')" onmouseenter="playTom(190)">
+				<li class="menubox-grid-item" onclick="pickInstrument('alphabetizer')" onmouseenter="playTom(180)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
-						<svg viewBox="0 0 100 100"><rect x="10" y="70" width="20" height="20"/><rect x="30" y="50" width="20" height="20"/><rect x="10" y="30" width="20" height="20"/><rect x="50" y="30" width="20" height="20"/><rect x="50" y="70" width="20" height="20"/><rect x="70" y="50" width="20" height="20"/><rect x="70" y="10" width="20" height="20"/><rect x="30" y="10" width="20" height="20"/></svg>
+						<svg viewBox="0 0 100 100"><path d="m87.56,18.16c-16.48.5-29.11,3.27-37.56,8.23-8.45-4.96-21.08-7.73-37.56-8.23l-1.55-.05v58.51l1.45.04c13.85.42,24.9,2.48,32.85,6.12,1.52.7,3.16,1.05,4.8,1.05s3.28-.35,4.81-1.05c7.95-3.64,19-5.69,32.85-6.12l1.45-.04V18.12l-1.55.05Zm-7.72,9.73v39.93c-11.27.91-20.05,3.24-25.2,4.93v-38.31c4.4-2.49,11.31-5.33,25.2-6.55Zm-34.47,6.55v38.3c-5.16-1.69-13.94-4.02-25.2-4.93V27.89c13.87,1.21,20.79,4.06,25.2,6.55Z"/></svg>
 					</span>
 					<span class="menubox-grid-item-info">
-						<strong>Texturizer</strong>
+						<strong>Alphabetizer</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('analyzer')" onmouseenter="playTom(200)">
+				<li class="menubox-grid-item" onclick="pickInstrument('analyzer')" onmouseenter="playTom(190)">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><path d="m85.09,77.59l-21.01-21.01c2.69-4.09,4.26-8.99,4.26-14.25,0-14.36-11.64-26.01-26.01-26.01s-26.01,11.64-26.01,26.01,11.64,26.01,26.01,26.01c5.26,0,10.16-1.57,14.25-4.26l21.01,21.01,7.5-7.5ZM24.99,42.33c0-9.58,7.76-17.34,17.34-17.34s17.34,7.76,17.34,17.34-7.76,17.34-17.34,17.34-17.34-7.76-17.34-17.34Z"/></svg>
@@ -271,6 +295,24 @@
 						<strong>Analyzer</strong>
 					</span>
 				</li>
+				<!-- <li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('oscillator')" onmouseenter="playTom(160)">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">
+						<svg viewBox="0 0 100 100"><path d="m94.24,31.84c-4.59,5.4-6.29,13.93-7.34,19.14-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-1.8,9.03-3.44,17.2-10.04,24.28l-7.1-7.1c4.59-5.4,6.29-13.93,7.34-19.14,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,1.8-9.03,3.44-17.2,10.04-24.28l7.1,7.1Z"/></svg>
+					</span>
+					<span class="menubox-grid-item-info">
+						<strong>Oscillator</strong>
+					</span>
+				</li> -->
+				<!-- <li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('texturizer')" onmouseenter="playTom(190)">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">
+						<svg viewBox="0 0 100 100"><rect x="10" y="70" width="20" height="20"/><rect x="30" y="50" width="20" height="20"/><rect x="10" y="30" width="20" height="20"/><rect x="50" y="30" width="20" height="20"/><rect x="50" y="70" width="20" height="20"/><rect x="70" y="50" width="20" height="20"/><rect x="70" y="10" width="20" height="20"/><rect x="30" y="10" width="20" height="20"/></svg>
+					</span>
+					<span class="menubox-grid-item-info">
+						<strong>Texturizer</strong>
+					</span>
+				</li> -->
 			</ul>
 		</div>
 
@@ -610,33 +652,33 @@
 						<span>No variable axes found!</span>
 					</div>
 
+					<!-- TEXT, INVERT -->
 					<div class="instrument-button-column instrument-function">
-						<svg class="conversator-grille" viewBox="0 0 80 80"><circle cx="40" cy="75" r="5"/><circle cx="40" cy="57.5" r="5"/><circle cx="55.16" cy="48.75" r="5"/><circle cx="55.15" cy="31.25" r="5"/><circle cx="40" cy="22.5" r="5"/><circle cx="24.84" cy="31.25" r="5"/><circle cx="24.84" cy="48.75" r="5"/><circle cx="40" cy="40" r="5"/><circle cx="57.5" cy="70.31" r="5"/><circle cx="70.31" cy="57.5" r="5"/><circle cx="75" cy="40" r="5"/><circle cx="70.31" cy="22.5" r="5"/><circle cx="57.5" cy="9.69" r="5"/><circle cx="40" cy="5" r="5"/><circle cx="22.5" cy="9.69" r="5"/><circle cx="9.69" cy="22.5" r="5"/><circle cx="5" cy="40" r="5"/><circle cx="9.69" cy="57.5" r="5"/><circle cx="22.5" cy="70.31" r="5"/></svg>
-					</div>
-
-					<!-- SOUND, TEXT, SHUFFLE -->
-					<div class="instrument-button-column instrument-function">
-						<button class="instrument-button" onclick="scramblerGenerateText(); playBlock('C3')">
+						<button class="instrument-button" onclick="conversatorGenerateText(); playBlock('C3')">
 							<svg viewBox="0 0 100 100"><path d="m38.57,74.78l-16.71,3.37,3.37-16.71,13.34,13.34Zm-10.02-16.66l13.34,13.34,36.26-36.26-13.34-13.34S28.54,58.12,28.54,58.12Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button class="instrument-button" onclick="conversatorInvertFlip()">
+							<svg viewBox="0 0 100 100"><path d="m50,14c-9.93,0-18.87,4.06-25.38,10.57l-7.44-7.44-3.18,22.02,22.31-2.9-7.47-7.46c5.42-5.42,12.9-8.79,21.16-8.79,16.54,0,30,13.46,30,30s-13.46,30-30,30c-11.62,0-21.69-6.65-26.67-16.33l-5.15,3.14c6.04,11.41,18.02,19.19,31.82,19.19,19.88,0,36-16.12,36-36S69.88,14,50,14Z"/></svg>
 							<div class="instrument-button-fill"></div>
 						</button>
 					</div>
 
 					<!-- AXES TOGGLES -->
-					<div class="instrument-button-column instrument-function" data-button-group="scrambler-axes" data-button-group-type="multiple">
-						<button data-scrambler-axis="0" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('C4')">
+					<div class="instrument-button-column instrument-function" data-button-group="conversator-axes" data-button-group-type="multiple">
+						<button data-conversator-axis="0" data-conversator-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'conversator-axes'); playBlock('C4')">
 							<span></span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button data-scrambler-axis="1" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('B3')">
+						<button data-conversator-axis="1" data-conversator-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'conversator-axes'); playBlock('B3')">
 							<span></span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button data-scrambler-axis="2" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('A3')">
+						<button data-conversator-axis="2" data-conversator-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'conversator-axes'); playBlock('A3')">
 							<span></span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button data-scrambler-axis="3" data-scrambler-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'scrambler-axes'); playBlock('A3')">
+						<button data-conversator-axis="3" data-conversator-axis-active ="1" data-button-state="1" class="instrument-button" onclick="instrumentButtonGroupPress(this, 'conversator-axes'); playBlock('A3')">
 							<span></span>
 							<div class="instrument-button-fill"></div>
 						</button>
@@ -644,47 +686,63 @@
 
 
 					<!-- AXES -->
-					<div id="analyzer-axes" class="instrument-slider-set instrument-function">
+					<div id="conversator-axes" class="instrument-slider-set instrument-function">
 						<div class="instrument-slider-container" data-slider-axis="0" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="0" onmousedown="instrumentSlider(this, analyzerSliderStart);">
+							<button class="instrument-slider" data-slider-value="50" data-conversator-axis="0" onmousedown="instrumentSlider(this, conversatorSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 						<div class="instrument-slider-container" data-slider-axis="1" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="1" onmousedown="instrumentSlider(this, analyzerSliderStart);">
+							<button class="instrument-slider" data-slider-value="50" data-conversator-axis="1" onmousedown="instrumentSlider(this, conversatorSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 						<div class="instrument-slider-container" data-slider-axis="2" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="2" onmousedown="instrumentSlider(this, analyzerSliderStart);">
+							<button class="instrument-slider" data-slider-value="50" data-conversator-axis="2" onmousedown="instrumentSlider(this, conversatorSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 						<div class="instrument-slider-container" data-slider-axis="3" data-slider-active="1">
-							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="3" onmousedown="instrumentSlider(this, analyzerSliderStart);">
+							<button class="instrument-slider" data-slider-value="50" data-conversator-axis="3" onmousedown="instrumentSlider(this, conversatorSliderStart);">
 								<div class="instrument-slider-fill"></div>
 							</button>
 							<p class="instrument-slider-axis-value"></p>
 							<p class="instrument-slider-axis-label"></p>
 						</div>
 					</div>
+
+					<!-- SENSITIVITY -->
+					<div class="instrument-button-column instrument-function" data-button-group="conversator-sensitivity" data-button-group-type="set">
+						<button data-conversator-sensitivity="2" data-button-state="1" class="instrument-button" onclick="conversatorSensitivityAdjust(this); instrumentButtonGroupPress(this, 'conversator-sensitivity'); playBlock('C4')">
+							<svg viewBox="0 0 100 56"><path d="m42.2,19l14.4-9v36l-14.4-9v-18Zm-10.8,18h7.2v-18h-7.2v18Zm36.48-23.88l-2.69,2.69c3.32,3.21,5.37,7.48,5.37,12.18s-2.04,8.97-5.37,12.18l2.7,2.7c4.15-3.88,6.72-9.1,6.72-14.88s-2.57-11-6.72-14.88Zm-.88,14.88c0-3.75-1.65-7.14-4.29-9.7l-2.71,2.71c1.82,1.89,2.95,4.32,2.95,7s-1.12,5.11-2.94,7l2.71,2.71c2.64-2.56,4.29-5.96,4.29-9.71Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-conversator-sensitivity="1" data-button-state="0" class="instrument-button" onclick="conversatorSensitivityAdjust(this); instrumentButtonGroupPress(this, 'conversator-sensitivity'); playBlock('B3')">
+							<svg viewBox="0 0 100 56"><path d="m42.2,19l14.4-9v36l-14.4-9v-18Zm-10.8,18h7.2v-18h-7.2v18Zm35.59-9c0-3.75-1.65-7.14-4.29-9.7l-2.71,2.71c1.82,1.89,2.95,4.32,2.95,7s-1.12,5.11-2.94,7l2.71,2.71c2.64-2.56,4.29-5.96,4.29-9.71Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-conversator-sensitivity="0" data-button-state="0" class="instrument-button" onclick="conversatorSensitivityAdjust(this); instrumentButtonGroupPress(this, 'conversator-sensitivity'); playBlock('A3')">
+							<svg viewBox="0 0 100 56"><path d="m42.2,19l14.4-9v36l-14.4-9v-18Zm-10.8,18h7.2v-18h-7.2v18Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
 				</div>
 			</div>
 
-			<!-- ANALYZER -->
-			<div class="instrument instrument-horizontal" id="analyzer">
+			<!-- ALPHABETIZER -->
+			<div class="instrument instrument-horizontal" id="alphabetizer">
 				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 
 				<!-- DISPLAY -->
 				<div class="instrument-display instrument-display-noedit">
-					<p spellcheck="false" data-toggle="0" class="instrument-display-text analyzer-display">
-						A
+					<p spellcheck="false" data-toggle="0" class="instrument-display-text alphabetizer-display">
+						AAAAAAA<br>AAAAAAA<br>AAAAAAA<br>AAAAAAA<br>AAAAAAA
 					</p>
 				</div>
 
@@ -697,155 +755,236 @@
 					</div>
 
 					<!-- ALPHABET -->
-					<div id="analyzer-alphabet" data-button-group="analyzer-alphabet" data-button-group-type="set" class="instrument-function">
-						<button class="instrument-button" data-analyzer-letter="A" data-button-state="1" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+					<div id="alphabetizer-alphabet" data-button-group="alphabetizer-alphabet" data-button-group-type="set" class="instrument-function">
+						<button class="instrument-button" data-alphabetizer-letter="A" data-button-state="1" onclick="alphabetizerLetterSet('A'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>A</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="B" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="B" data-button-state="0" onclick="alphabetizerLetterSet('B'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>B</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="C" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="C" data-button-state="0" onclick="alphabetizerLetterSet('C'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>C</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="D" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="D" data-button-state="0" onclick="alphabetizerLetterSet('D'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>D</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="E" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="E" data-button-state="0" onclick="alphabetizerLetterSet('E'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>E</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="F" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="F" data-button-state="0" onclick="alphabetizerLetterSet('F'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>F</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="G" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="G" data-button-state="0" onclick="alphabetizerLetterSet('G'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>G</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="H" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="H" data-button-state="0" onclick="alphabetizerLetterSet('H'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>H</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="I" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="I" data-button-state="0" onclick="alphabetizerLetterSet('I'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>I</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="J" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="J" data-button-state="0" onclick="alphabetizerLetterSet('J'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>J</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="K" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="K" data-button-state="0" onclick="alphabetizerLetterSet('K'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>K</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="L" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="L" data-button-state="0" onclick="alphabetizerLetterSet('L'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>L</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="M" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="M" data-button-state="0" onclick="alphabetizerLetterSet('M'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>M</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="N" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="N" data-button-state="0" onclick="alphabetizerLetterSet('N'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>N</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="O" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="O" data-button-state="0" onclick="alphabetizerLetterSet('O'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>O</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="P" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="P" data-button-state="0" onclick="alphabetizerLetterSet('P'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>P</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="Q" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="Q" data-button-state="0" onclick="alphabetizerLetterSet('Q'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>Q</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="R" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="R" data-button-state="0" onclick="alphabetizerLetterSet('R'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>R</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="S" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="S" data-button-state="0" onclick="alphabetizerLetterSet('S'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>S</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="T" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="T" data-button-state="0" onclick="alphabetizerLetterSet('T'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>T</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="U" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="U" data-button-state="0" onclick="alphabetizerLetterSet('U'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>U</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="V" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="V" data-button-state="0" onclick="alphabetizerLetterSet('V'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>V</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="W" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="W" data-button-state="0" onclick="alphabetizerLetterSet('W'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>W</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="X" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="X" data-button-state="0" onclick="alphabetizerLetterSet('X'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>X</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="Y" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="Y" data-button-state="0" onclick="alphabetizerLetterSet('Y'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>Y</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="Z" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="Z" data-button-state="0" onclick="alphabetizerLetterSet('Z'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>Z</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="0" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="0" data-button-state="0" onclick="alphabetizerLetterSet('0'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>0</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="1" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="1" data-button-state="0" onclick="alphabetizerLetterSet('1'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>1</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="2" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="2" data-button-state="0" onclick="alphabetizerLetterSet('2'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>2</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="3" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="3" data-button-state="0" onclick="alphabetizerLetterSet('3'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>3</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="4" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="4" data-button-state="0" onclick="alphabetizerLetterSet('4'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>4</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="5" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="5" data-button-state="0" onclick="alphabetizerLetterSet('5'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>5</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="6" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="6" data-button-state="0" onclick="alphabetizerLetterSet('6'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>6</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="7" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="7" data-button-state="0" onclick="alphabetizerLetterSet('7'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>7</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="8" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="8" data-button-state="0" onclick="alphabetizerLetterSet('8'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>8</span>
 							<div class="instrument-button-fill"></div>
 						</button>
-						<button class="instrument-button" data-analyzer-letter="9" data-button-state="0" onclick="analyzerLetterSet(this); instrumentButtonGroupPress(this, 'analyzer-alphabet');">
+						<button class="instrument-button" data-alphabetizer-letter="9" data-button-state="0" onclick="alphabetizerLetterSet('9'); instrumentButtonGroupPress(this, 'alphabetizer-alphabet');">
 							<span>9</span>
 							<div class="instrument-button-fill"></div>
 						</button>
 					</div>
 
 					<!-- AXES -->
-					<div id="analyzer-axes" class="instrument-slider-set instrument-function">
+					<div id="alphabetizer-axes" class="instrument-slider-set instrument-function">
+						<div class="instrument-slider-container" data-slider-axis="0" data-slider-active="1">
+							<button class="instrument-slider" data-slider-value="50" data-alphabetizer-axis="0" onmousedown="instrumentSlider(this, alphabetizerSliderStart);">
+								<div class="instrument-slider-fill"></div>
+							</button>
+							<p class="instrument-slider-axis-value"></p>
+							<p class="instrument-slider-axis-label"></p>
+						</div>
+						<div class="instrument-slider-container" data-slider-axis="1" data-slider-active="1">
+							<button class="instrument-slider" data-slider-value="50" data-alphabetizer-axis="1" onmousedown="instrumentSlider(this, alphabetizerSliderStart);">
+								<div class="instrument-slider-fill"></div>
+							</button>
+							<p class="instrument-slider-axis-value"></p>
+							<p class="instrument-slider-axis-label"></p>
+						</div>
+						<div class="instrument-slider-container" data-slider-axis="2" data-slider-active="1">
+							<button class="instrument-slider" data-slider-value="50" data-alphabetizer-axis="2" onmousedown="instrumentSlider(this, alphabetizerSliderStart);">
+								<div class="instrument-slider-fill"></div>
+							</button>
+							<p class="instrument-slider-axis-value"></p>
+							<p class="instrument-slider-axis-label"></p>
+						</div>
+						<div class="instrument-slider-container" data-slider-axis="3" data-slider-active="1">
+							<button class="instrument-slider" data-slider-value="50" data-alphabetizer-axis="3" onmousedown="instrumentSlider(this, alphabetizerSliderStart);">
+								<div class="instrument-slider-fill"></div>
+							</button>
+							<p class="instrument-slider-axis-value"></p>
+							<p class="instrument-slider-axis-label"></p>
+						</div>
+					</div>
+
+					<!-- SPEED -->
+					<div class="instrument-button-column instrument-function" data-button-group="alphabetizer-speed" data-button-group-type="toggle">
+						<button data-alphabetizer-speed="300" data-button-state="0" class="instrument-button" onclick="alphabetizerSpeedAdjust(this); instrumentButtonGroupPress(this, 'alphabetizer-speed'); playBlock('C4')">
+							<svg viewBox="0 0 100 56"><polygon points="8 10 8 46 32 28 8 10"/><polygon points="38 10 38 46 62 28 38 10"/><polygon points="68 10 68 46 92 28 68 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-alphabetizer-speed="500" data-button-state="1" class="instrument-button" onclick="alphabetizerSpeedAdjust(this); instrumentButtonGroupPress(this, 'alphabetizer-speed'); playBlock('B3')">
+							<svg viewBox="0 0 100 56"><polygon points="23 10 23 46 47 28 23 10"/><polygon points="53 10 53 46 77 28 53 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button data-alphabetizer-speed="700" data-button-state="0" class="instrument-button" onclick="alphabetizerSpeedAdjust(this); instrumentButtonGroupPress(this, 'alphabetizer-speed'); playBlock('A3')">
+							<svg viewBox="0 0 100 56"><polygon points="38 10 38 46 62 28 38 10"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- ANALYZER -->
+			<div class="instrument instrument-vertical" id="analyzer">
+				<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+
+				<!-- DISPLAY -->
+				<div class="instrument-display">
+					<p contenteditable="true" spellcheck="false" data-toggle="0" class="instrument-display-text">
+						Analyzer
+					</p>
+				</div>
+
+				<!-- CONTROLS -->
+				<div class="instrument-controls">
+					
+					<!-- NO VARIABLE AXES ERROR -->
+					<div class="instrument-error">
+						<span>No variable axes found!</span>
+					</div>
+					
+					<!-- TEXT, SHUFFLE -->
+					<div class="instrument-button-row-vertical instrument-function">
+						<button class="instrument-button" onclick="analyzerGenerateText(); playBlock('C3')">
+							<svg viewBox="0 0 100 100"><path d="m38.57,74.78l-16.71,3.37,3.37-16.71,13.34,13.34Zm-10.02-16.66l13.34,13.34,36.26-36.26-13.34-13.34S28.54,58.12,28.54,58.12Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+						<button class="instrument-button" onclick="analyzerRandomize()">
+							<svg viewBox="0 0 100 100"><path d="m20,35h-6v-6h6c10.47,0,16.44,3.66,20.47,8.56-1.23,1.96-2.26,3.94-3.16,5.82-3.26-4.93-7.9-8.38-17.3-8.38Zm48,30c-9.25,0-13.81-3.44-17.04-8.36-.91,1.88-1.94,3.85-3.18,5.81,3.98,4.89,9.87,8.55,20.22,8.55v9l18-12-18-12v9Zm0-30v9l18-12-18-12v9c-17.5,0-22.31,10.45-26.55,19.67-4.03,8.76-7.51,16.33-21.45,16.33h-6v6h6c17.78,0,22.63-10.53,26.9-19.83,3.99-8.68,7.44-16.17,21.1-16.17Z"/></svg>
+							<div class="instrument-button-fill"></div>
+						</button>
+					</div>
+
+					<!-- AXES -->
+					<div id="analyzer-axes" class="instrument-slider-set-vertical instrument-function">
 						<div class="instrument-slider-container" data-slider-axis="0" data-slider-active="1">
 							<button class="instrument-slider" data-slider-value="50" data-analyzer-axis="0" onmousedown="instrumentSlider(this, analyzerSliderStart);">
 								<div class="instrument-slider-fill"></div>
