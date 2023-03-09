@@ -444,7 +444,7 @@ function randomLettersRepeat(quantity) {
 // —————————————————————————————————————————————————————————————————————
 
 let playerState = false; // If instrument is currently playing, equals true
-let instrumentOptions = ['sequencer', 'scrambler', 'conversator', 'alphabetizer', 'analyzer']; // ['oscillator', 'colorizer', 'texturizer']
+let instrumentOptions = ['sequencer', 'scrambler', 'conversator', 'alphabetizer', 'analyzer'];
 let activeInstrument = "";
 
 function instrumentIn() {
@@ -584,8 +584,8 @@ function initializeInstrument() {
 				let axisSlider = instrumentDOM.querySelectorAll(`[data-conversator-axis="${i}"]`)[1];
 				let axisSliderValue = axisSlider.dataset.sliderValue;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
-				conversatorActivate();
 			}
+			conversatorActivate();
 		}
 	}
 	if (activeInstrument == 'alphabetizer') {
@@ -657,12 +657,6 @@ function initializeInstrument() {
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
 			}
 		}
-	}
-	if (activeInstrument == 'texturizer') {
-		// TO DO ——————————————————————————————————————————————————————————————————————
-	}
-	if (activeInstrument == 'oscillator') {
-		// TO DO ——————————————————————————————————————————————————————————————————————
 	}
 }
 
@@ -1152,11 +1146,9 @@ function conversatorInvertFlip() {
 }
 
 // Code adapted from https://stackoverflow.com/questions/33322681/checking-microphone-volume-in-javascript/64650826#64650826
-let audioStream = null;
-let volumeInterval = null;
+let audioStream, volumeInterval, volumeCallback, audioSource, soundAnalyser = null;
 function conversatorActivate() {
 	(async () => {
-		let volumeCallback = null;
 
 		// Initialize
 		try {
@@ -1166,8 +1158,8 @@ function conversatorActivate() {
 				}
 			});
 			audioContext = new AudioContext();
-			const audioSource = audioContext.createMediaStreamSource(audioStream);
-			const soundAnalyser = audioContext.createAnalyser();
+			audioSource = audioContext.createMediaStreamSource(audioStream);
+			soundAnalyser = audioContext.createAnalyser();
 			soundAnalyser.fftSize = 512;
 			soundAnalyser.minDecibels = -127;
 			soundAnalyser.maxDecibels = 0;
@@ -1175,6 +1167,7 @@ function conversatorActivate() {
 			audioSource.connect(soundAnalyser);
 			const volumes = new Uint8Array(soundAnalyser.frequencyBinCount);
 			volumeCallback = () => {
+				console.log("hi")
 				soundAnalyser.getByteFrequencyData(volumes);
 				let volumeSum = 0;
 				for (const volume of volumes)
@@ -1244,10 +1237,12 @@ function conversatorReadInput(amp) {
 
 // Disable mic input monitoring
 function conversatorDeactivate() {
-	if (audioStream != null) {
+	clearInterval(volumeInterval);
+	if (audioStream) {
 		audioStream.getTracks().forEach(function(track) {
 			track.stop();
 		});
+		audioStream, volumeInterval, volumeCallback, audioSource, soundAnalyser = null;
 	}
 }
 
