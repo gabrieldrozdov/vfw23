@@ -1153,9 +1153,7 @@ function conversatorActivate() {
 		// Initialize
 		try {
 			audioStream = await navigator.mediaDevices.getUserMedia({
-				audio: {
-					echoCancellation: true
-				}
+				audio: true
 			});
 			audioContext = new AudioContext();
 			audioSource = audioContext.createMediaStreamSource(audioStream);
@@ -1167,7 +1165,6 @@ function conversatorActivate() {
 			audioSource.connect(soundAnalyser);
 			const volumes = new Uint8Array(soundAnalyser.frequencyBinCount);
 			volumeCallback = () => {
-				console.log("hi")
 				soundAnalyser.getByteFrequencyData(volumes);
 				let volumeSum = 0;
 				for (const volume of volumes)
@@ -1242,7 +1239,6 @@ function conversatorDeactivate() {
 		audioStream.getTracks().forEach(function(track) {
 			track.stop();
 		});
-		audioStream, volumeInterval, volumeCallback, audioSource, soundAnalyser = null;
 	}
 }
 

@@ -659,7 +659,7 @@ body:hover .intro-text {
 	width: 100%;
 	max-height: 100%;
 	min-height: 50px;
-	padding: 10px;
+	padding: 40px 10px;
 	overflow-wrap: anywhere;
 	overflow: scroll;
 	text-align: center;
