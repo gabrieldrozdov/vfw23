@@ -616,8 +616,9 @@ function initializeInstrument() {
 			for (let i=0; i<axesInfo.length && i<4; i++) {
 				alphabetizerAxes[i].dataset.sliderActive = '1';
 				let axisSlider = instrumentDOM.querySelector(`[data-alphabetizer-axis="${i}"]`);
-				let axisSliderValue = axisSlider.dataset.sliderValue;
+				let axisSliderValue = 50;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
+				instrumentSliderAdjust(axisSlider, axisSliderValue);
 			}
 
 			// Start loop
@@ -653,8 +654,9 @@ function initializeInstrument() {
 			for (let i=0; i<axesInfo.length && i<4; i++) {
 				analyzerAxes[i].dataset.sliderActive = '1';
 				let axisSlider = instrumentDOM.querySelector(`[data-analyzer-axis="${i}"]`);
-				let axisSliderValue = axisSlider.dataset.sliderValue;
+				let axisSliderValue = 50;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
+				instrumentSliderAdjust(axisSlider, axisSliderValue);
 			}
 		}
 	}
@@ -1299,6 +1301,72 @@ window.addEventListener('keydown', function (e) {
 		}
 	}
 });
+
+// Set case
+function alphabetizerChangeCase() {
+	if (currentCase == 0 || currentCase == 1) {
+		currentCase = 3;
+		document.querySelector(':root').style.setProperty("--player-texttransform", caseOptions[currentCase]);
+	} else {
+		currentCase = 1;
+		document.querySelector(':root').style.setProperty("--player-texttransform", caseOptions[currentCase]);
+	}
+}
+
+// Randomize scramble values
+function alphabetizerRandomize() {
+	let alphabetizerDOM = document.querySelector("#alphabetizer");
+	let axisSlider0 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="0"]`);
+	let axisSlider1 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="1"]`);
+	let axisSlider2 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="2"]`);
+	let axisSlider3 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="3"]`);
+	let values = [Math.random(), Math.random(), Math.random(), Math.random()];
+	axisSlider0.dataset.sliderValue = values[0];
+	axisSlider1.dataset.sliderValue = values[1];
+	axisSlider2.dataset.sliderValue = values[2];
+	axisSlider3.dataset.sliderValue = values[3];
+	instrumentSliderAdjust(axisSlider0, values[0]*100);
+	instrumentSliderAdjust(axisSlider1, values[1]*100);
+	instrumentSliderAdjust(axisSlider2, values[2]*100);
+	instrumentSliderAdjust(axisSlider3, values[3]*100);
+	document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
+	document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
+	document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
+	document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
+	playBlock(Math.random()*200+100);
+	setTimeout(() => {
+		values = [Math.random(), Math.random(), Math.random(), Math.random()];
+		axisSlider0.dataset.sliderValue = values[0];
+		axisSlider1.dataset.sliderValue = values[1];
+		axisSlider2.dataset.sliderValue = values[2];
+		axisSlider3.dataset.sliderValue = values[3];
+		instrumentSliderAdjust(axisSlider0, values[0]*100);
+		instrumentSliderAdjust(axisSlider1, values[1]*100);
+		instrumentSliderAdjust(axisSlider2, values[2]*100);
+		instrumentSliderAdjust(axisSlider3, values[3]*100);
+		document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
+		document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
+		document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
+		document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
+		playBlock(Math.random()*200+100);
+	}, 100);
+	setTimeout(() => {
+		values = [Math.random(), Math.random(), Math.random(), Math.random()];
+		axisSlider0.dataset.sliderValue = values[0];
+		axisSlider1.dataset.sliderValue = values[1];
+		axisSlider2.dataset.sliderValue = values[2];
+		axisSlider3.dataset.sliderValue = values[3];
+		instrumentSliderAdjust(axisSlider0, values[0]*100);
+		instrumentSliderAdjust(axisSlider1, values[1]*100);
+		instrumentSliderAdjust(axisSlider2, values[2]*100);
+		instrumentSliderAdjust(axisSlider3, values[3]*100);
+		document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
+		document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
+		document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
+		document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
+		playBlock(Math.random()*200+100);
+	}, 200);
+}
 
 // Set variable axes on slider change
 let alphabetizerSlider;

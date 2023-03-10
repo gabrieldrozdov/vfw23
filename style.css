@@ -784,6 +784,12 @@ body:hover .intro-text {
 .instrument-button[data-button-state="1"] .instrument-button-fill {
 	background-color: var(--primary);
 }
+.instrument-button-text {
+	text-transform: initial;
+	font-weight: 450;
+	font-size: calc(12px + 1.5vw);
+	z-index: 9;
+}
 .instrument-button-fill {
 	top: 2px;
 	left: 2px;
@@ -1026,9 +1032,13 @@ body:hover .intro-text {
 /* Alphabetizer */
 #alphabetizer-alphabet {
 	flex: 5 1 auto;
+	max-width: 50%;
 	display: grid;
 	grid-template-columns: repeat(9, 1fr);
 	gap: 2px;
+}
+#alphabetizer-alphabet * {
+	text-transform: var(--player-texttransform);
 }
 .alphabetizer-display {
 	font-size: calc(var(--player-fontsize) * 3);
