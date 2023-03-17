@@ -448,6 +448,7 @@ body:hover .intro-text {
 	text-align: center;
 	transition: background-color .2s, color .2s, fill .2s, transform 1s;
 	position: relative;
+	overflow: hidden;
 }
 .menubox-grid-item:hover {
 	background-color: var(--primary);

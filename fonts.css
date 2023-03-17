@@ -238,6 +238,123 @@
 	animation: 3s preview-vfw infinite ease-in-out;
 }
 
+/* CAFFEINE */
+@font-face {
+	font-family: caffeine;
+	src: url("fonts/caffeine.ttf");
+}
+@keyframes preview-caffeine {
+	0% {
+		font-variation-settings: "SCRI" 0, "SCRA" 0;
+	}
+	20% {
+		font-variation-settings: "SCRI" 100, "SCRA" 0;
+	}
+	40% {
+		font-variation-settings: "SCRI" 100, "SCRA" 100;
+	}
+	60% {
+		font-variation-settings: "SCRI" 0, "SCRA" 100;
+	}
+	80% {
+		font-variation-settings: "SCRI" 0, "SCRA" 0;
+	}
+}
+[data-font="caffeine"] .menubox-grid-item-preview {
+	font-family: caffeine, sans-serif;
+}
+[data-font="caffeine"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-caffeine infinite ease-in-out;
+}
+
+/* SCRIBBLE SURPRISE */
+@font-face {
+	font-family: scribblesurprise;
+	src: url("fonts/scribblesurprise.ttf");
+}
+@keyframes preview-scribblesurprise {
+	0% {
+		font-variation-settings: "SHFT" 0;
+	}
+	100% {
+		font-variation-settings: "SHFT" 100;
+	}
+}
+[data-font="scribblesurprise"] .menubox-grid-item-preview {
+	font-family: scribblesurprise, sans-serif;
+}
+[data-font="scribblesurprise"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-scribblesurprise infinite alternate ease-in-out;
+}
+
+/* SPAGHETTI SANS */
+@font-face {
+	font-family: spaghettisans;
+	src: url("fonts/spaghettisans.ttf");
+}
+@keyframes preview-spaghettisans {
+	0% {
+		font-variation-settings: "SPGH" 100;
+	}
+	100% {
+		font-variation-settings: "SPGH" 0;
+	}
+}
+[data-font="spaghettisans"] .menubox-grid-item-preview {
+	font-family: spaghettisans, sans-serif;
+}
+[data-font="spaghettisans"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-spaghettisans infinite alternate ease-in-out;
+}
+
+/* STUDIO DISPLAY */
+@font-face {
+	font-family: studiodisplay;
+	src: url("fonts/studiodisplay.ttf");
+}
+@keyframes preview-studiodisplay {
+	0% {
+		font-variation-settings: "wght" 400;
+	}
+	100% {
+		font-variation-settings: "wght" 900;
+	}
+}
+[data-font="studiodisplay"] .menubox-grid-item-preview {
+	font-family: studiodisplay, sans-serif;
+}
+[data-font="studiodisplay"]:hover .menubox-grid-item-preview {
+	animation: .5s preview-studiodisplay infinite alternate ease-in-out;
+}
+
+/* NOCTURNAL SPACE INVADERS */
+@font-face {
+	font-family: nocturnalspaceinvaders;
+	src: url("fonts/nocturnalspaceinvaders.ttf");
+}
+@keyframes preview-nocturnalspaceinvaders {
+	0% {
+		font-variation-settings: "DIVE" 0, "LINE" 0;
+	}
+	20% {
+		font-variation-settings: "DIVE" 100, "LINE" 0;
+	}
+	40% {
+		font-variation-settings: "DIVE" 100, "LINE" 100;
+	}
+	60% {
+		font-variation-settings: "DIVE" 0, "LINE" 100;
+	}
+	80% {
+		font-variation-settings: "DIVE" 0, "LINE" 0;
+	}
+}
+[data-font="nocturnalspaceinvaders"] .menubox-grid-item-preview {
+	font-family: nocturnalspaceinvaders, sans-serif;
+}
+[data-font="nocturnalspaceinvaders"]:hover .menubox-grid-item-preview {
+	animation: 3s preview-nocturnalspaceinvaders infinite ease-in-out;
+}
 
 
 /* ———————————————————————————————————————————————————————————————————————— */
