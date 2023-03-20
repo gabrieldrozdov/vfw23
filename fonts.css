@@ -209,12 +209,12 @@
 	animation: 3s preview-authenticremixed infinite alternate ease-in-out;
 }
 
-/* VFW */
+/* SELF-PORTRAITS */
 @font-face {
-	font-family: vfw;
-	src: url("fonts/vfw.ttf");
+	font-family: selfportraits;
+	src: url("fonts/selfportraits.ttf");
 }
-@keyframes preview-vfw {
+@keyframes preview-selfportraits {
 	0% {
 		font-variation-settings: "ANIM" 0, "PIXL" 0;
 	}
@@ -231,11 +231,11 @@
 		font-variation-settings: "ANIM" 0, "PIXL" 0;
 	}
 }
-[data-font="vfw"] .menubox-grid-item-preview {
-	font-family: vfw, sans-serif;
+[data-font="selfportraits"] .menubox-grid-item-preview {
+	font-family: selfportraits, sans-serif;
 }
-[data-font="vfw"]:hover .menubox-grid-item-preview {
-	animation: 3s preview-vfw infinite ease-in-out;
+[data-font="selfportraits"]:hover .menubox-grid-item-preview {
+	animation: 3s preview-selfportraits infinite ease-in-out;
 }
 
 /* CAFFEINE */
@@ -247,24 +247,21 @@
 	0% {
 		font-variation-settings: "SCRI" 0, "SCRA" 0;
 	}
-	20% {
+	25% {
 		font-variation-settings: "SCRI" 100, "SCRA" 0;
 	}
-	40% {
+	50% {
 		font-variation-settings: "SCRI" 100, "SCRA" 100;
 	}
-	60% {
+	75% {
 		font-variation-settings: "SCRI" 0, "SCRA" 100;
-	}
-	80% {
-		font-variation-settings: "SCRI" 0, "SCRA" 0;
 	}
 }
 [data-font="caffeine"] .menubox-grid-item-preview {
 	font-family: caffeine, sans-serif;
 }
 [data-font="caffeine"]:hover .menubox-grid-item-preview {
-	animation: 1s preview-caffeine infinite ease-in-out;
+	animation: 1s preview-caffeine infinite steps(1, end);
 }
 
 /* SCRIBBLE SURPRISE */
@@ -294,14 +291,15 @@
 }
 @keyframes preview-spaghettisans {
 	0% {
-		font-variation-settings: "SPGH" 100;
+		font-variation-settings: "SPGH" 0;
 	}
 	100% {
-		font-variation-settings: "SPGH" 0;
+		font-variation-settings: "SPGH" 100;
 	}
 }
 [data-font="spaghettisans"] .menubox-grid-item-preview {
 	font-family: spaghettisans, sans-serif;
+	font-variation-settings: "SPGH" 0;
 }
 [data-font="spaghettisans"]:hover .menubox-grid-item-preview {
 	animation: 1s preview-spaghettisans infinite alternate ease-in-out;
@@ -356,6 +354,105 @@
 	animation: 3s preview-nocturnalspaceinvaders infinite ease-in-out;
 }
 
+/* CLORIS */
+@font-face {
+	font-family: cloris;
+	src: url("fonts/cloris.ttf");
+}
+@keyframes preview-cloris {
+	0% {
+		font-variation-settings: "SRFF" 0;
+	}
+	100% {
+		font-variation-settings: "SRFF" 100;
+	}
+}
+[data-font="cloris"] .menubox-grid-item-preview {
+	font-family: cloris, sans-serif;
+}
+[data-font="cloris"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-cloris infinite alternate ease-in-out;
+}
+
+/* JUMP */
+@font-face {
+	font-family: jump;
+	src: url("fonts/jump.ttf");
+}
+@keyframes preview-jump {
+	0% {
+		font-variation-settings: "JUMP" 0;
+	}
+	100% {
+		font-variation-settings: "JUMP" 100;
+	}
+}
+[data-font="jump"] .menubox-grid-item-preview {
+	font-family: jump, sans-serif;
+}
+[data-font="jump"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-jump infinite alternate ease-in-out;
+}
+
+/* FUNGUS */
+@font-face {
+	font-family: fungus;
+	src: url("fonts/fungus.ttf");
+}
+@keyframes preview-fungus {
+	0% {
+		font-variation-settings: "GROW" 0;
+	}
+	100% {
+		font-variation-settings: "GROW" 100;
+	}
+}
+[data-font="fungus"] .menubox-grid-item-preview {
+	font-family: fungus, sans-serif;
+}
+[data-font="fungus"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-fungus infinite alternate ease-in-out;
+}
+
+/* FUNKY SERIF */
+@font-face {
+	font-family: funkyserif;
+	src: url("fonts/funkyserif.ttf");
+}
+@keyframes preview-funkyserif {
+	0% {
+		font-variation-settings: "SRFF" 0;
+	}
+	100% {
+		font-variation-settings: "SRFF" 100;
+	}
+}
+[data-font="funkyserif"] .menubox-grid-item-preview {
+	font-family: funkyserif, sans-serif;
+}
+[data-font="funkyserif"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-funkyserif infinite alternate ease-in-out;
+}
+
+/* LITTLE MONSTER */
+@font-face {
+	font-family: littlemonster;
+	src: url("fonts/littlemonster.ttf");
+}
+@keyframes preview-littlemonster {
+	0% {
+		font-variation-settings: "VARI" 0;
+	}
+	100% {
+		font-variation-settings: "VARI" 100;
+	}
+}
+[data-font="littlemonster"] .menubox-grid-item-preview {
+	font-family: littlemonster, sans-serif;
+}
+[data-font="littlemonster"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-littlemonster infinite alternate ease-in-out;
+}
 
 /* ———————————————————————————————————————————————————————————————————————— */
 /* JOST REMIXES */

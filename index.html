@@ -8,10 +8,24 @@
 	<link rel="icon" type="png" href="graphics/favicon.png">
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="fonts.css">
+
+	<!-- Preload background gifs -->
+	<link rel="preload" as="image" href="graphics/background-neutral.gif">
+	<link rel="preload" as="image" href="graphics/background-purple.gif">
+	<link rel="preload" as="image" href="graphics/background-yellow.gif">
+	<link rel="preload" as="image" href="graphics/background-green.gif">
+	<link rel="preload" as="image" href="graphics/background-pink.gif">
+	<link rel="preload" as="image" href="graphics/background-red.gif">
+	<link rel="preload" as="image" href="graphics/background-blue.gif">
+
+	<!-- Font libraries for detecting variable axes -->
 	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib/unbrotli.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/lib-font@2.4.0/lib-font.browser.js" type="module"></script>
+
+	<!-- Tone.js for audio -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
 </head>
+
 <body>
 	<main class="container">
 		<!-- PRESS START TO BEGIN TEXT -->
@@ -139,143 +153,199 @@
 				</div>
 			</button>
 			<ul class="menubox-grid">
-				<li type="file" class="menubox-grid-item" id="menubox-customfont" onmouseenter="playTom(150)"><input id="menubox-customfont-input" type="file" hidden>
+				<li type="file" class="menubox-grid-item" id="menubox-customfont" onmouseenter="playTom('random')"><input id="menubox-customfont-input" type="file" hidden>
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">+</span>
 					<span class="menubox-grid-item-info">
 						Use your own font!
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="jost" onclick="pickFont('jost')" onmouseenter="playTom(160)">
+				<li class="menubox-grid-item" data-font="jost" onclick="pickFont('jost')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Future</span>
 					<span class="menubox-grid-item-info">
 						<strong>Jost*</strong><br>
-						By Owen Earl
+						by Owen Earl
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="jost-remix" onclick="pickFont('jost-remix')" onmouseenter="playTom(170)">
+				<li class="menubox-grid-item" data-font="jost-remix" onclick="pickFont('jost-remix')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">AaBbCc</span>
 					<span class="menubox-grid-item-info">
 						<strong>Jost* Remixes</strong><br>
-						By Students of the Workshop
+						by Students of the Workshop
 					</span>
 					<span class="menubox-grid-item-credit">
 						Based on <strong>Jost*</strong><br>
-						By Owen Earl
+						by Owen Earl
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="bashful" onclick="pickFont('bashful')" onmouseenter="playTom(180)">
+				<li class="menubox-grid-item" data-font="bashful" onclick="pickFont('bashful')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Hide</span>
 					<span class="menubox-grid-item-info">
 						<strong>Bashful</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="powerpack" onclick="pickFont('powerpack')" onmouseenter="playTom(190)">
+				<li class="menubox-grid-item" data-font="powerpack" onclick="pickFont('powerpack')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Charge</span>
 					<span class="menubox-grid-item-info">
 						<strong>PowerPack</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="that-then-this" onclick="pickFont('thatthenthis')" onmouseenter="playTom(200)">
+				<li class="menubox-grid-item" data-font="that-then-this" onclick="pickFont('thatthenthis')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Techno</span>
 					<span class="menubox-grid-item-info">
 						<strong>That Then This</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="mini-mochi" onclick="pickFont('minimochi')" onmouseenter="playTom(210)">
+				<li class="menubox-grid-item" data-font="mini-mochi" onclick="pickFont('minimochi')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Squish</span>
 					<span class="menubox-grid-item-info">
 						<strong>Mini Mochi</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="dreidel" onclick="pickFont('dreidel')" onmouseenter="playTom(220)">
+				<li class="menubox-grid-item" data-font="dreidel" onclick="pickFont('dreidel')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Spin</span>
 					<span class="menubox-grid-item-info">
 						<strong>Dreidel</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="galapagos" onclick="pickFont('galapagos')" onmouseenter="playTom(230)">
+				<li class="menubox-grid-item" data-font="galapagos" onclick="pickFont('galapagos')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Island</span>
 					<span class="menubox-grid-item-info">
 						<strong>Work Sans Galápagos</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 					<span class="menubox-grid-item-credit">
 						Based on <strong>Work Sans</strong><br>
-						By Wei Huang
+						by Wei Huang
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="authentic-remixed" onclick="pickFont('authenticremixed')" onmouseenter="playTom(240)">
+				<li class="menubox-grid-item" data-font="authentic-remixed" onclick="pickFont('authenticremixed')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Peek</span>
 					<span class="menubox-grid-item-info">
 						<strong>AUTHENTIC Remixed</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 					<span class="menubox-grid-item-credit">
 						Based on <strong>AUTHENTIC Sans</strong><br>
-						By Christina Janus and Desmond Wong
+						by Christina Janus and Desmond Wong
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="vfw" onclick="pickFont('vfw')" onmouseenter="playTom(250)">
+				<li class="menubox-grid-item" data-font="selfportraits" onclick="pickFont('selfportraits')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">A B C D E F</span>
 					<span class="menubox-grid-item-info">
-						<strong>VFW</strong><br>
-						By Students of the Workshop
+						<strong>Self-Portraits</strong><br>
+						by Students of the Workshop
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="caffeine" onclick="pickFont('caffeine')" onmouseenter="playTom(250)">
+				<li class="menubox-grid-item" data-font="caffeine" onclick="pickFont('caffeine')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Awake</span>
 					<span class="menubox-grid-item-info">
 						<strong>Caffeine</strong><br>
-						By Gabriel Drozdov
+						by Gabriel Drozdov
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="scribblesurprise" onclick="pickFont('scribblesurprise')" onmouseenter="playTom(250)">
+				<li class="menubox-grid-item" data-font="scribblesurprise" onclick="pickFont('scribblesurprise')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">ABCDEF<br>GHIJKL<br>MNOPQR</span>
 					<span class="menubox-grid-item-info">
 						<strong>Scribble Surprise</strong><br>
-						By Rita Wang
+						by Rita Wang
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="spaghettisans" onclick="pickFont('spaghettisans')" onmouseenter="playTom(250)">
+				<li class="menubox-grid-item" data-font="spaghettisans" onclick="pickFont('spaghettisans')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Wiggle</span>
 					<span class="menubox-grid-item-info">
 						<strong>Spaghetti Sans</strong><br>
-						By Gina Kang
+						by Gina Kang
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="studiodisplay" onclick="pickFont('studiodisplay')" onmouseenter="playTom(250)">
+				<li class="menubox-grid-item" data-font="studiodisplay" onclick="pickFont('studiodisplay')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
-					<span class="menubox-grid-item-preview">Wiggle</span>
+					<span class="menubox-grid-item-preview">Refine</span>
 					<span class="menubox-grid-item-info">
 						<strong>STUDIO Display</strong><br>
-						By Husna Abubakar
+						by Husna Abubakar
 					</span>
 				</li>
-				<li class="menubox-grid-item" data-font="nocturnalspaceinvaders" onclick="pickFont('nocturnalspaceinvaders')" onmouseenter="playTom(250)">
+				<li class="menubox-grid-item" data-font="nocturnalspaceinvaders" onclick="pickFont('nocturnalspaceinvaders')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">Invade</span>
 					<span class="menubox-grid-item-info">
 						<strong>Nocturnal Space Invaders</strong><br>
-						By Kryeol Chen
+						by Kryeol Chen
+					</span>
+					<span class="menubox-grid-item-credit">
+						Based on a pixel font<br>
+						from <strong>Mario Paint</strong>
+					</span>
+				</li>
+				<li class="menubox-grid-item" data-font="cloris" onclick="pickFont('cloris')" onmouseenter="playTom('random')">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">Astute</span>
+					<span class="menubox-grid-item-info">
+						<strong>Cloris</strong><br>
+						by Alex Zhu
+					</span>
+				</li>
+				<li class="menubox-grid-item" data-font="jump" onclick="pickFont('jump')" onmouseenter="playTom('random')">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">Bouncy</span>
+					<span class="menubox-grid-item-info">
+						<strong>Jump</strong><br>
+						by Jinhong Cai
+					</span>
+					<span class="menubox-grid-item-credit">
+						Based on <strong>Barlow Black</strong><br>
+						by Jeremy Tribby
+					</span>
+				</li>
+				<li class="menubox-grid-item" data-font="fungus" onclick="pickFont('fungus')" onmouseenter="playTom('random')">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">Mutate</span>
+					<span class="menubox-grid-item-info">
+						<strong>Fungus</strong><br>
+						by Plato Peng
+					</span>
+					<span class="menubox-grid-item-credit">
+						Based on <strong>Kumbh Sans</strong><br>
+						by Saurabh Sharma
+					</span>
+				</li>
+				<li class="menubox-grid-item" data-font="funkyserif" onclick="pickFont('funkyserif')" onmouseenter="playTom('random')">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">Bones</span>
+					<span class="menubox-grid-item-info">
+						<strong>Funky Serif</strong><br>
+						by Ivy Zhang
+					</span>
+				</li>
+				<li class="menubox-grid-item" data-font="littlemonster" onclick="pickFont('littlemonster')" onmouseenter="playTom('random')">
+					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
+					<span class="menubox-grid-item-preview">Growl</span>
+					<span class="menubox-grid-item-info">
+						<strong>Little Monster</strong><br>
+						by Yining Li
+					</span>
+					<span class="menubox-grid-item-credit">
+						Based on <strong>Jost*</strong><br>
+						by Owen Earl
 					</span>
 				</li>
 			</ul>
@@ -290,7 +360,7 @@
 				</div>
 			</button>
 			<ul class="menubox-grid">
-				<li class="menubox-grid-item" onclick="pickInstrument('sequencer')" onmouseenter="playTom(150)">
+				<li class="menubox-grid-item" onclick="pickInstrument('sequencer')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><polygon points="10 40.36 10 59.64 22.85 50 10 40.36"/><polygon points="27.51 32.33 27.51 67.67 51.07 50 27.51 32.33"/><polygon points="55.74 24.3 55.74 75.7 90 50 55.74 24.3"/></svg>
@@ -299,7 +369,7 @@
 						<strong>Sequencer</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom(160)">
+				<li class="menubox-grid-item" onclick="pickInstrument('scrambler')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><rect x="15" y="15" width="30" height="30" transform="translate(-2.09 2.24) rotate(-4.14)"/><rect x="55" y="15" width="30" height="30" transform="translate(10.32 -17.31) rotate(15.21)"/><rect x="15" y="55" width="30" height="30" transform="translate(-11.83 6.36) rotate(-10.12)"/><rect x="55" y="55" width="30" height="30" transform="translate(-3.77 3.98) rotate(-3.17)"/></svg>
@@ -308,7 +378,7 @@
 						<strong>Scrambler</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('conversator')" onmouseenter="playTom(170)">
+				<li class="menubox-grid-item" onclick="pickInstrument('conversator')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><circle cx="50" cy="85" r="5"/><circle cx="50" cy="67.5" r="5"/><circle cx="65.16" cy="58.75" r="5"/><circle cx="65.15" cy="41.25" r="5"/><circle cx="50" cy="32.5" r="5"/><circle cx="34.84" cy="41.25" r="5"/><circle cx="34.84" cy="58.75" r="5"/><circle cx="50" cy="50" r="5"/><circle cx="67.5" cy="80.31" r="5"/><circle cx="80.31" cy="67.5" r="5"/><circle cx="85" cy="50" r="5"/><circle cx="80.31" cy="32.5" r="5"/><circle cx="67.5" cy="19.69" r="5"/><circle cx="50" cy="15" r="5"/><circle cx="32.5" cy="19.69" r="5"/><circle cx="19.69" cy="32.5" r="5"/><circle cx="15" cy="50" r="5"/><circle cx="19.69" cy="67.5" r="5"/><circle cx="32.5" cy="80.31" r="5"/></svg>
@@ -317,7 +387,7 @@
 						<strong>Conversator</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('alphabetizer')" onmouseenter="playTom(180)">
+				<li class="menubox-grid-item" onclick="pickInstrument('alphabetizer')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><path d="m87.56,18.16c-16.48.5-29.11,3.27-37.56,8.23-8.45-4.96-21.08-7.73-37.56-8.23l-1.55-.05v58.51l1.45.04c13.85.42,24.9,2.48,32.85,6.12,1.52.7,3.16,1.05,4.8,1.05s3.28-.35,4.81-1.05c7.95-3.64,19-5.69,32.85-6.12l1.45-.04V18.12l-1.55.05Zm-7.72,9.73v39.93c-11.27.91-20.05,3.24-25.2,4.93v-38.31c4.4-2.49,11.31-5.33,25.2-6.55Zm-34.47,6.55v38.3c-5.16-1.69-13.94-4.02-25.2-4.93V27.89c13.87,1.21,20.79,4.06,25.2,6.55Z"/></svg>
@@ -326,7 +396,7 @@
 						<strong>Alphabetizer</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('analyzer')" onmouseenter="playTom(190)">
+				<li class="menubox-grid-item" onclick="pickInstrument('analyzer')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><path d="m85.09,77.59l-21.01-21.01c2.69-4.09,4.26-8.99,4.26-14.25,0-14.36-11.64-26.01-26.01-26.01s-26.01,11.64-26.01,26.01,11.64,26.01,26.01,26.01c5.26,0,10.16-1.57,14.25-4.26l21.01,21.01,7.5-7.5ZM24.99,42.33c0-9.58,7.76-17.34,17.34-17.34s17.34,7.76,17.34,17.34-7.76,17.34-17.34,17.34-17.34-7.76-17.34-17.34Z"/></svg>
@@ -335,7 +405,7 @@
 						<strong>Analyzer</strong>
 					</span>
 				</li>
-				<!-- <li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('oscillator')" onmouseenter="playTom(160)">
+				<!-- <li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('oscillator')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><path d="m94.24,31.84c-4.59,5.4-6.29,13.93-7.34,19.14-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-2.57,12.89-4.8,24.02-12.9,24.02s-10.33-11.13-12.9-24.02c-.78-3.87-1.92-9.56-3.1-13.22-1.18,3.66-2.32,9.35-3.1,13.22-1.8,9.03-3.44,17.2-10.04,24.28l-7.1-7.1c4.59-5.4,6.29-13.93,7.34-19.14,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,2.57-12.89,4.8-24.02,12.9-24.02s10.33,11.13,12.9,24.02c.78,3.87,1.92,9.56,3.1,13.22,1.18-3.66,2.32-9.35,3.1-13.22,1.8-9.03,3.44-17.2,10.04-24.28l7.1,7.1Z"/></svg>
@@ -344,7 +414,7 @@
 						<strong>Oscillator</strong>
 					</span>
 				</li> -->
-				<!-- <li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('texturizer')" onmouseenter="playTom(190)">
+				<!-- <li class="menubox-grid-item menubox-grid-item-inactive" onclick="pickInstrument('texturizer')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><rect x="10" y="70" width="20" height="20"/><rect x="30" y="50" width="20" height="20"/><rect x="10" y="30" width="20" height="20"/><rect x="50" y="30" width="20" height="20"/><rect x="50" y="70" width="20" height="20"/><rect x="70" y="50" width="20" height="20"/><rect x="70" y="10" width="20" height="20"/><rect x="30" y="10" width="20" height="20"/></svg>

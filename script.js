@@ -211,9 +211,20 @@ function menuIn(menuName) {
 	colorCycleToggle = false;
 	instrumentOut();
 	navOut();
+	conversatorDeactivate();
 	currentMenu = "#"+menuName;
 	let menuTarget = document.querySelector(currentMenu);
 	menuTarget.style.transform = "translateX(0) rotate(0deg)";
+
+	// Randomize font order
+	if (currentMenu == "#fontbox") {
+		let menuList = menuTarget.querySelector("ul");
+		for (let i = 1; i <= menuList.children.length; i++) {
+			menuList.appendChild(menuList.children[Math.random() * i | 1]);
+		}
+	}
+
+	// Randomize menu button transforms
 	if (currentMenu == '#fontbox' || currentMenu == '#instrumentbox') {
 		let grid = menuTarget.querySelectorAll('li');
 		for (let item of grid) {
@@ -255,7 +266,18 @@ let fontOptions = [
 	'minimochi',
 	'dreidel',
 	'galapagos',
-	'authenticremixed'
+	'authenticremixed',
+	'caffeine',
+	'jump',
+	'nocturnalspaceinvaders',
+	'spaghettisans',
+	'funkyserif',
+	'scribblesurprise',
+	'studiodisplay',
+	'cloris',
+	'fungus',
+	'selfportraits',
+	'littlemonster',
 ]
 
 // Select font from menu
@@ -271,6 +293,9 @@ let jostRemixes = [
 	"jost-ml",
 	"jost-negativespace",
 	"jost-sleepy",
+	"jost-nn",
+	"jost-ha",
+	"jost-hu",
 ]
 function pickFont(selectedFont) {
 	let fontPath = selectedFont;
@@ -454,11 +479,6 @@ function instrumentIn() {
 	}
 	document.querySelector("#"+activeInstrument).style.display = "grid"; // Show active instrument
 	document.querySelector(".instrument-container").style.transform = `translateY(0) rotate(0)`; // Slide in container
-
-	// Deactive microphone if Conversator not in use
-	if (activeInstrument != "conversator") {
-		conversatorDeactivate();
-	}
 }
 function instrumentOut() {
 	document.querySelector(".instrument-container").style.transform = "translateY(100vh) rotate(10deg)";
@@ -601,6 +621,11 @@ function initializeInstrument() {
 		alphabetizerAxes[1].dataset.sliderActive = '0';
 		alphabetizerAxes[2].dataset.sliderActive = '0';
 		alphabetizerAxes[3].dataset.sliderActive = '0';
+
+		// Make sure current speed toggle is active
+		let speedToggle = instrumentDOM.querySelector(`[data-alphabetizer-speed="${alphabetizerSpeed}"]`);
+		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `${alphabetizerSpeed*.95}ms`);
+		speedToggle.dataset.buttonState = "1";
 		
 		// Check if font is actually variable and show correct controls
 		if (axesInfo.length == 0) {
@@ -728,6 +753,7 @@ function instrumentButtonGroupPress(e, group) {
 	}
 }
 
+// Sliders
 let activeSlider;
 function instrumentSlider(slider, funct) {
 	activeSlider = slider; 
@@ -764,6 +790,21 @@ function instrumentSliderStop() {
 function instrumentSliderAdjust(e, percent) {
 	sliderFill = e.querySelector(".instrument-slider-fill");
 	sliderFill.style.height = percent + "%";
+}
+
+// Prevent formatting on content paste
+let instrumentDisplays = document.querySelectorAll("[contenteditable='true']")
+for (let instrument of instrumentDisplays) {
+	instrument.addEventListener("paste", function(e) {
+		// cancel paste
+		e.preventDefault();
+
+		// get text representation of clipboard
+		var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+
+		// insert text manually
+		document.execCommand("insertHTML", false, text);
+	});
 }
 
 
@@ -1693,7 +1734,11 @@ const tomSampler = new Tone.Sampler({
 	volume: -10,
 }).toDestination();
 function playTom(freq) {
-	tomSampler.triggerAttackRelease(freq, 1);
+	if (freq == "random") {
+		tomSampler.triggerAttackRelease(Math.random()*100+100, 1);
+	} else {
+		tomSampler.triggerAttackRelease(freq, 1);
+	}
 }
 
 // Pitched woodblock sampler
