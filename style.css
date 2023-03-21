@@ -418,7 +418,7 @@ body:hover .intro-text {
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	transform: translateX(-120vw) rotate(-15deg);
+	transform: translateX(-120vw);
 	transition: transform 1s;
 	z-index: 9;
 }

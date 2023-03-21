@@ -454,6 +454,28 @@
 	animation: 1s preview-littlemonster infinite alternate ease-in-out;
 }
 
+/* GILBERTO */
+@font-face {
+	font-family: gilberto;
+	src: url("fonts/gilberto.ttf");
+}
+@keyframes preview-gilberto {
+	0% {
+		font-variation-settings: "SMBA" 0;
+	}
+	100% {
+		font-variation-settings: "SMBA" 100;
+	}
+}
+[data-font="gilberto"] .menubox-grid-item-preview {
+	font-family: gilberto, sans-serif;
+}
+[data-font="gilberto"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-gilberto infinite alternate ease-in-out;
+}
+
+
+
 /* ———————————————————————————————————————————————————————————————————————— */
 /* JOST REMIXES */
 /* ———————————————————————————————————————————————————————————————————————— */
@@ -466,58 +488,39 @@
 	animation: 2s preview-jostremix infinite linear;
 }
 @keyframes preview-jostremix {
-	20% {
+	10% {
 		font-family: jost-yl, sans-serif;
 	}
-	40% {
+	20% {
 		font-family: jost-jc, sans-serif;
 	}
-	60% {
+	30% {
 		font-family: jost-pointy, sans-serif;
 	}
-	80% {
+	40% {
 		font-family: jost-ml, sans-serif;
 	}
-}
-
-[data-font="jost-amputation"] .menubox-grid-item-preview {
-	font-family: jost-amputation, sans-serif;
-}
-[data-font="jost-kilter"] .menubox-grid-item-preview {
-	font-family: jost-kilter, sans-serif;
-}
-[data-font="jost-pointy"] .menubox-grid-item-preview {
-	font-family: jost-pointy, sans-serif;
-}
-[data-font="jost-squint"] .menubox-grid-item-preview {
-	font-family: jost-squint, sans-serif;
-}
-[data-font="jost-jc"] .menubox-grid-item-preview {
-	font-family: jost-jc, sans-serif;
-}
-[data-font="jost-scone"] .menubox-grid-item-preview {
-	font-family: jost-scone, sans-serif;
-}
-[data-font="jost-mmb"] .menubox-grid-item-preview {
-	font-family: jost-mmb, sans-serif;
-}
-[data-font="jost-ml"] .menubox-grid-item-preview {
-	font-family: jost-ml, sans-serif;
-}
-[data-font="jost-negativespace"] .menubox-grid-item-preview {
-	font-family: jost-negativespace, sans-serif;
-}
-[data-font="jost-sleepy"] .menubox-grid-item-preview {
-	font-family: jost-sleepy, sans-serif;
-}
-[data-font="jost-yl"] .menubox-grid-item-preview {
-	font-family: jost-yl, sans-serif;
+	50% {
+		font-family: jost-nn, sans-serif;
+	}
+	60% {
+		font-family: jost-ha, sans-serif;
+	}
+	70% {
+		font-family: jost-hu, sans-serif;
+	}
+	80% {
+		font-family: jost-sleepy, sans-serif;
+	}
+	90% {
+		font-family: jost-amputation, sans-serif;
+	}
 }
 .jost-remix:hover .menubox-grid-item-preview {
-	animation: 1s preview-jostremix infinite alternate ease-in-out;
+	animation: 1s preview-jostremix infinite alternate;
 }
 
-
+/* SECTION 01 REMIXES */
 @font-face {
 	font-family: jost-amputation;
 	src: url("fonts/remixes/jost-amputation.ttf");
@@ -561,4 +564,16 @@
 @font-face {
 	font-family: jost-yl;
 	src: url("fonts/remixes/jost-yl.ttf");
+}
+@font-face {
+	font-family: jost-nn;
+	src: url("fonts/remixes/jost-nn.ttf");
+}
+@font-face {
+	font-family: jost-ha;
+	src: url("fonts/remixes/jost-ha.ttf");
+}
+@font-face {
+	font-family: jost-hu;
+	src: url("fonts/remixes/jost-hu.ttf");
 }

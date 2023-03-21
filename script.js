@@ -214,7 +214,7 @@ function menuIn(menuName) {
 	conversatorDeactivate();
 	currentMenu = "#"+menuName;
 	let menuTarget = document.querySelector(currentMenu);
-	menuTarget.style.transform = "translateX(0) rotate(0deg)";
+	menuTarget.style.transform = "translateX(0)";
 
 	// Randomize font order
 	if (currentMenu == "#fontbox") {
@@ -241,7 +241,7 @@ function menuIn(menuName) {
 }
 function menuOut() {
 	let menuTarget = document.querySelector(currentMenu);
-	menuTarget.style.transform = "translateX(-120vw) rotate(-15deg)";
+	menuTarget.style.transform = "translateX(-120vw)";
 	if (currentMenu == '#fontbox') {
 		let fonts = menuTarget.querySelectorAll('li');
 		for (let font of fonts) {
@@ -278,6 +278,7 @@ let fontOptions = [
 	'fungus',
 	'selfportraits',
 	'littlemonster',
+	'gilberto',
 ]
 
 // Select font from menu
