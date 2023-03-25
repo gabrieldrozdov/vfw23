@@ -195,6 +195,7 @@ body {
 	border-radius: .5em;
 	fill: var(--dark);
 	pointer-events: none;
+	box-shadow: var(--shadow);
 	transition: color .5s, background-color .5s, transform 1s, fill .5s;
 }
 .intro-text span {
@@ -234,39 +235,32 @@ body:hover .intro-text {
 
 #credits {
 	position: absolute;
-	top: 20px;
-	left: 50%;
-	transform: translate(-50%, -150px);
-	padding: 0 40px;
-	height: 40px;
-	border-radius: 20px;
-	background-color: var(--dark);
-	fill: var(--primary);
+	top: 0;
+	width: 100%;
+	text-align: center;
+	transform: translateY(-200%);
+	background-color: var(--primary);
+	font-weight: 400;
+	color: var(--dark);
+	font-size: 14px;
+	padding: 15px 30px;
+	line-height: 1em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	text-align: center;
-	color: var(--light);
+	height: 40px;
+	border-radius: 0 0 20em 20em;
+	transition: transform 1s, fill .2s, background-color .2s, color .2s;
 	box-shadow: var(--shadow);
-	transform-origin: center;
-	transition: transform 1s, fill .2s;
+	z-index: 9;
+	cursor: pointer;
 }
 #credits p {
-	overflow: hidden;
 	white-space: nowrap;
-	font-weight: 300;
 }
-#credits svg {
-	width: 10px;
-	position: absolute;
-}
-#credits .corner-circle-1 {
-	top: 15px;
-	left: 10px;
-}
-#credits .corner-circle-2 {
-	top: 15px;
-	right: 10px;
+#credits:hover {
+	background-color: var(--dark);
+	color: var(--primary);
 }
 
 /* ———————————————————————————————————————————————————————————————————————— */

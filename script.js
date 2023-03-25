@@ -127,11 +127,11 @@ setTimeout(() => {
 // Credits in and out
 function creditsIn() {
 	let credits = document.querySelector("#credits");
-	credits.style.transform = "translate(-50%, 0) rotate(0deg)";
+	credits.style.transform = "translateY(0%)";
 }
 function creditsOut() {
 	let credits = document.querySelector("#credits");
-	credits.style.transform = "translate(-50%, -150px) rotate(5deg)";
+	credits.style.transform = "translateY(-200%)";
 }
 
 // Credit info
@@ -368,6 +368,7 @@ let jostRemixes = [
 
 // Select font from menu
 function pickFont(selectedFont) {
+	settingsSwapColor();
 	let fontPath = selectedFont;
 	if (selectedFont == "jost-remix") {
 		selectedFont = jostRemixes[Math.floor(Math.random()*jostRemixes.length)];
@@ -379,7 +380,6 @@ function pickFont(selectedFont) {
 	playPercussion('C2');
 	creditInfo(selectedFont);
 	menuOut();
-	settingsSwapColor();
 }
 
 // Read user-inputted font
