@@ -18,7 +18,7 @@
 
 	/* Player settings */
 	--activefont: Jost;
-	--player-fontsize: 4vw;
+	--player-fontsize: 4vmax;
 	--player-letterspacing: 0px;
 	--player-lineheight: 1em;
 	--player-texttransform: unset;
@@ -73,11 +73,18 @@ body {
 	overflow: hidden;
 }
 .container {
-	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	overflow: scroll;
+}
+.content {
+	position: relative;
 	top: 0;
 	left: 0;
 	width: 100vw;
+	min-width: 800px;
 	height: 100vh;
+	min-height: 800px;
 	overflow: hidden;
 }
 
@@ -222,6 +229,47 @@ body:hover .intro-text {
 
 
 /* ———————————————————————————————————————————————————————————————————————— */
+/* CREDITS */
+/* ———————————————————————————————————————————————————————————————————————— */
+
+#credits {
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translate(-50%, -150px);
+	padding: 0 40px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: var(--dark);
+	fill: var(--primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: var(--light);
+	box-shadow: var(--shadow);
+	transform-origin: center;
+	transition: transform 1s, fill .2s;
+}
+#credits p {
+	overflow: hidden;
+	white-space: nowrap;
+	font-weight: 300;
+}
+#credits svg {
+	width: 10px;
+	position: absolute;
+}
+#credits .corner-circle-1 {
+	top: 15px;
+	left: 10px;
+}
+#credits .corner-circle-2 {
+	top: 15px;
+	right: 10px;
+}
+
+/* ———————————————————————————————————————————————————————————————————————— */
 /* NAVIGATION AND SETTINGS */
 /* ———————————————————————————————————————————————————————————————————————— */
 
@@ -229,8 +277,8 @@ body:hover .intro-text {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 }
 .nav {
 	display: flex;
@@ -486,7 +534,7 @@ body:hover .intro-text {
 	width: 60%;
 }
 .menubox-grid-item-info {
-	font-weight: 500;
+	font-weight: 300;
 	font-size: 16px;
 	color: var(--light);
 	line-height: 1.2em;
@@ -494,7 +542,7 @@ body:hover .intro-text {
 	bottom: 20px;
 }
 .menubox-grid-item-credit {
-	font-weight: 500;
+	font-weight: 400;
 	font-size: 12px;
 	color: var(--light);
 	line-height: 1.2em;
@@ -569,8 +617,8 @@ body:hover .intro-text {
 
 /* Container */
 .instrument-container {
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -588,8 +636,8 @@ body:hover .intro-text {
 	background-color: var(--primary);
 	fill: var(--dark);
 	box-shadow: var(--shadow);
-	height: 80vh;
-	width: 70vw;
+	height: 80%;
+	width: 75%;
 	border-radius: 20px;
 	display: none;
 	position: relative;
@@ -665,6 +713,7 @@ body:hover .intro-text {
 	overflow: scroll;
 	text-align: center;
 	font-variation-settings: var(--player-variation);
+	background-color: unset;
 	transition: font-variation-settings var(--player-variation-speed);
 }
 .instrument-display-text:focus {
@@ -777,7 +826,7 @@ body:hover .intro-text {
 .instrument-button-text {
 	text-transform: initial;
 	font-weight: 450;
-	font-size: calc(12px + 1.5vw);
+	font-size: calc(12px + 1.5vmax);
 	z-index: 9;
 }
 .instrument-button-fill {
@@ -1057,7 +1106,12 @@ body:hover .intro-text {
 		font-size: 4.5vw;
 	}
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1050px) {
+	.instrument {
+		width: 90%;
+	}
+}
+@media only screen and (max-width: 800px) {
 	.logo {
 		font-size: 10vw;
 	}
@@ -1071,27 +1125,18 @@ body:hover .intro-text {
 	.menubox-grid-item-preview {
 		font-size: 7vw;
 	}
-	.instrument {
-		height: 90vh;
-		width: 90vw;
-	}
 }
 @media only screen and (max-width: 600px) {
 	.logo {
 		font-size: 12vw;
 	}
 	.intro-text {
-		font-size: 10px;
-		padding: 5px 15px;
+		font-size: 12px;
 	}
 	.menubox-grid {
 		grid-template-columns: 1fr;
 	}
 	.menubox-grid-item-preview {
-		font-size: 12vw;
-	}
-	.instrument {
-		height: 95vh;
-		width: 95vw;
+		font-size: 10vw;
 	}
 }

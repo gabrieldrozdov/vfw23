@@ -1,3 +1,11 @@
+// TO DO
+// Add mute button
+// Waterfall instrument? Something with multiple sizes
+// Hover intrument(s)?
+// Drag font into window
+// Random font button
+// Documentation menu
+
 // —————————————————————————————————————————————————————————————————————
 // INTRO AND LOGO
 // —————————————————————————————————————————————————————————————————————
@@ -19,6 +27,9 @@ function logoOut() {
 	let logo = document.querySelector(".logo");
 	logo.style.transform = "translateY(-120vh) rotate(10deg)";
 	logoAnimationLoop = false;
+	setTimeout(() => {
+		logo.style.display = "none";
+	}, 1200);
 }
 let logoAnimationLoop = true;
 let logoFontVariation = true;
@@ -110,6 +121,63 @@ setTimeout(() => {
 
 
 // —————————————————————————————————————————————————————————————————————
+// CREDITS
+// —————————————————————————————————————————————————————————————————————
+
+// Credits in and out
+function creditsIn() {
+	let credits = document.querySelector("#credits");
+	credits.style.transform = "translate(-50%, 0) rotate(0deg)";
+}
+function creditsOut() {
+	let credits = document.querySelector("#credits");
+	credits.style.transform = "translate(-50%, -150px) rotate(5deg)";
+}
+
+// Credit info
+let creditList = {
+	jost: "<strong>Jost*</strong> by Owen Earl",
+	bashful: "<strong>Bashful</strong> by Gabriel Drozdov",
+	powerpack: "<strong>PowerPack</strong> by Gabriel Drozdov",
+	thatthenthis: "<strong>That Then This</strong> by Gabriel Drozdov",
+	minimochi: "<strong>Mini Mochi</strong> by Gabriel Drozdov",
+	dreidel: "<strong>Dreidel</strong> by Gabriel Drozdov",
+	galapagos: "<strong>Work Sans Galápagos</strong> by Gabriel Drozdov, based on <strong>Work Sans</strong> by Wei Huang",
+	authenticremixed: "<strong>AUTHENTIC Remixed</strong> by Gabriel Drozdov, based on <strong>AUTHENTIC Sans</strong> by Christina Janus and Desmond Wong",
+	caffeine: "<strong>Caffeine</strong> by Gabriel Drozdov",
+	jump: "<strong>Jump</strong> by Jinhong Cai, based on <strong>Barlow Black</strong> by Jeremy Tribby",
+	nocturnalspaceinvaders: "<strong>Nocturnal Space Invaders</strong> by Kryeol Chen, based on a pixel font from <strong>Mario Paint</strong>",
+	spaghettisans: "<strong>Spaghetti Sans</strong> by Gina Kang",
+	funkyserif: "<strong>Funky Serif</strong> by Ivy Zhang, based on <strong>Adobe Caslon Pro</strong> by Carol Twombly",
+	scribblesurprise: "<strong>Scribble Surprise</strong> by Rita Wang",
+	studiodisplay: "<strong>STUDIO Display</strong> by Husna Abubakar",
+	cloris: "<strong>Cloris</strong> by Alex Zhu",
+	fungus: "<strong>Fungus</strong> by Plato Peng, based on <strong>Kumbh Sans</strong> by Saurabh Sharma",
+	selfportraits: "<strong>Self-Portraits</strong> by Students of the Workshop",
+	littlemonster: "<strong>Little Monster</strong> by Yining Li, based on <strong>Jost*</strong> by Owen Earl",
+	gilberto: "<strong>Gilberto</strong> by Cameron Astles",
+	"jost-amputation": "<strong>Jost*</strong>, as remixed by Alex Zhu",
+	"jost-kilter": "<strong>Jost*</strong>, as remixed by Cameron Astles",
+	"jost-pointy": "<strong>Jost*</strong>, as remixed by Gina Kang",
+	"jost-squint": "<strong>Jost*</strong>, as remixed by Ivy Zhang",
+	"jost-yl": "<strong>Jost*</strong>, as remixed by Yining Li",
+	"jost-jc": "<strong>Jost*</strong>, as remixed by Jinhong Cai",
+	"jost-scone": "<strong>Jost*</strong>, as remixed by Kryeol Chen",
+	"jost-mmb": "<strong>Jost*</strong>, as remixed by Max Mainio Beidler",
+	"jost-ml": "<strong>Jost*</strong>, as remixed by Moritz Lonyay",
+	"jost-negativespace": "<strong>Jost*</strong>, as remixed by Plato Peng",
+	"jost-sleepy": "<strong>Jost*</strong>, as remixed by Rita Wang",
+	"jost-nn": "<strong>Jost*</strong>, as remixed by Nishtha Nanda",
+	"jost-ha": "<strong>Jost*</strong>, as remixed by Husna Abubakar",
+	"jost-hu": "<strong>Jost*</strong>, as remixed by Raven Hu",
+}
+function creditInfo(credit) {
+	let credits = document.querySelector("#credits");
+	credits.querySelector("p").innerHTML = creditList[credit];
+}
+
+
+// —————————————————————————————————————————————————————————————————————
 // NAVIGATION AND SETTINGS
 // —————————————————————————————————————————————————————————————————————
 
@@ -157,7 +225,7 @@ function settingsOut() {
 // Settings functions
 function settingsFontSize(value) {
 	let currentValue = getComputedStyle(document.documentElement).getPropertyValue('--player-fontsize');
-	document.querySelector(':root').style.setProperty("--player-fontsize", parseFloat(currentValue) + value + "vw");
+	document.querySelector(':root').style.setProperty("--player-fontsize", parseFloat(currentValue) + value + "vmax");
 }
 function settingsTracking(value) {
 	let currentValue = getComputedStyle(document.documentElement).getPropertyValue('--player-letterspacing');
@@ -205,24 +273,24 @@ function settingsSwapColor() {
 	body.style.backgroundSize = `${Math.random()*50+50}px ${Math.random()*50+50}px`;
 }
 
+// Randomize font order in menu
+let fontMenu = document.querySelector("#fontbox");
+let fontMenuList = fontMenu.querySelector("ul");
+for (let i = 1; i <= fontMenuList.children.length; i++) {
+	fontMenuList.appendChild(fontMenuList.children[Math.random() * i | 1]);
+}
+
 // Menus
 let currentMenu = "";
 function menuIn(menuName) {
 	colorCycleToggle = false;
 	instrumentOut();
+	creditsOut();
 	navOut();
 	conversatorDeactivate();
 	currentMenu = "#"+menuName;
 	let menuTarget = document.querySelector(currentMenu);
 	menuTarget.style.transform = "translateX(0)";
-
-	// Randomize font order
-	if (currentMenu == "#fontbox") {
-		let menuList = menuTarget.querySelector("ul");
-		for (let i = 1; i <= menuList.children.length; i++) {
-			menuList.appendChild(menuList.children[Math.random() * i | 1]);
-		}
-	}
 
 	// Randomize menu button transforms
 	if (currentMenu == '#fontbox' || currentMenu == '#instrumentbox') {
@@ -242,13 +310,14 @@ function menuIn(menuName) {
 function menuOut() {
 	let menuTarget = document.querySelector(currentMenu);
 	menuTarget.style.transform = "translateX(-120vw)";
-	if (currentMenu == '#fontbox') {
-		let fonts = menuTarget.querySelectorAll('li');
-		for (let font of fonts) {
-			font.style.transform = `translate(${Math.random()*-500}px, ${Math.random()*-200+100}px) rotate(${Math.random()*20-10}deg)`;
+	if (currentMenu == '#fontbox' || currentMenu == '#instrumentbox') {
+		let grid = menuTarget.querySelectorAll('li');
+		for (let item of grid) {
+			item.style.transform = `translate(${Math.random()*-500}px, ${Math.random()*-200+100}px) rotate(${Math.random()*20-10}deg)`;
 		}
 	}
 	instrumentIn();
+	creditsIn();
 	navIn();
 }
 
@@ -280,8 +349,6 @@ let fontOptions = [
 	'littlemonster',
 	'gilberto',
 ]
-
-// Select font from menu
 let jostRemixes = [
 	"jost-amputation",
 	"jost-kilter",
@@ -298,6 +365,8 @@ let jostRemixes = [
 	"jost-ha",
 	"jost-hu",
 ]
+
+// Select font from menu
 function pickFont(selectedFont) {
 	let fontPath = selectedFont;
 	if (selectedFont == "jost-remix") {
@@ -308,6 +377,7 @@ function pickFont(selectedFont) {
 	fontReset();
 	getAxisInfo(selectedFont, `fonts/${fontPath}.ttf`);
 	playPercussion('C2');
+	creditInfo(selectedFont);
 	menuOut();
 	settingsSwapColor();
 }
@@ -405,7 +475,7 @@ function getAxisInfo(fontFamily, fontUrl) {
 
 // Reset font settings
 function fontReset() {
-	document.querySelector(':root').style.setProperty(`--player-fontsize`, `4vw`);
+	document.querySelector(':root').style.setProperty(`--player-fontsize`, `4vmax`);
 	document.querySelector(':root').style.setProperty(`--player-letterspacing`, `0px`);
 	document.querySelector(':root').style.setProperty(`--player-lineheight`, `1em`);
 	document.querySelector(':root').style.setProperty(`--player-texttransform`, `unset`);
@@ -758,6 +828,7 @@ function instrumentButtonGroupPress(e, group) {
 let activeSlider;
 function instrumentSlider(slider, funct) {
 	activeSlider = slider; 
+	instrumentSliderSet();
 	document.onmousemove = instrumentSliderSet;
     document.onmouseup = instrumentSliderStop;
 	funct(slider);
@@ -1574,6 +1645,7 @@ async function startAudioContext() {
 	let randomFont = fontOptions[Math.floor(Math.random()*fontOptions.length)];
 	document.querySelector(':root').style.setProperty("--activefont", `${randomFont}`);
 	getAxisInfo(randomFont, `fonts/${randomFont}.ttf`);
+	creditInfo(randomFont);
 
 	// Pick random instrument
 	let randomInstrument = instrumentOptions[Math.floor(Math.random()*instrumentOptions.length)]
@@ -1581,6 +1653,7 @@ async function startAudioContext() {
 	console.log(activeInstrument);
 	instrumentIn();
 
+	creditsIn();
 	navIn();
 }
 setTimeout(() => {
