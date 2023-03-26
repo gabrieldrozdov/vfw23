@@ -1092,6 +1092,41 @@ body:hover .intro-text {
 /* MOBILE STYLES */
 /* ———————————————————————————————————————————————————————————————————————— */
 
+/* Mobile notice */
+.mobile-alert {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0,0,0,.9);
+	color: var(--light);
+	font-size: 24px;
+	text-align: center;
+	z-index: 99999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	font-weight: 300;
+	opacity: 0;
+	animation-duration: 5s;
+	pointer-events: none;
+	padding: 20px;
+	gap: 10px;
+}
+@keyframes mobile-alert {
+	0% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
 @media only screen and (max-width: 1200px) {
 	.menubox-grid {
 		grid-template-columns: 1fr 1fr 1fr;
@@ -1118,6 +1153,9 @@ body:hover .intro-text {
 	}
 	.menubox-grid-item-preview {
 		font-size: 7vw;
+	}
+	.mobile-alert {
+		animation-name: mobile-alert;
 	}
 }
 @media only screen and (max-width: 600px) {

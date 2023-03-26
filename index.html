@@ -33,6 +33,12 @@
 <body>
 	<main class="container">
 
+		<!-- DISCLAIMER FOR SMALLER SCREEN SIZES -->
+		<div class="mobile-alert">
+			<span>This website works best on <strong>larger&nbsp;screen&nbsp;sizes</strong>.</span>
+			<span>At this size, you’ll have to scroll to see&nbsp;the&nbsp;full&nbsp;page.</span>
+		</div>
+
 		<!-- PRESS START TO BEGIN TEXT -->
 		<p class="intro-text">
 			<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
@@ -355,7 +361,7 @@
 		<div class="content">
 
 			<!-- CREDITS -->
-			<div id="credits" onclick="menuIn('fontbox')">
+			<div id="credits" onclick="menuIn('fontbox'); playPercussion('G1')" onmouseenter="playPercussion('F1')">
 				<p>Font Name by Designer Name</p>
 			</div>
 		
