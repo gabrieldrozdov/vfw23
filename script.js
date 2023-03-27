@@ -5,6 +5,7 @@
 // Drag font into window
 // Random font button
 // Documentation menu
+// Make analyzer more interesting now that oscillator is basically the same thing
 
 // —————————————————————————————————————————————————————————————————————
 // INTRO AND LOGO
@@ -540,7 +541,8 @@ function randomLettersRepeat(quantity) {
 // —————————————————————————————————————————————————————————————————————
 
 let playerState = false; // If instrument is currently playing, equals true
-let instrumentOptions = ['sequencer', 'scrambler', 'conversator', 'alphabetizer', 'analyzer'];
+// let instrumentOptions = ['oscillator', 'sequencer', 'scrambler', 'conversator', 'alphabetizer', 'analyzer'];
+let instrumentOptions = ['oscillator'];
 let activeInstrument = "";
 
 function instrumentIn() {
@@ -573,6 +575,44 @@ function pickInstrument(selectedInstrument) {
 function initializeInstrument() {
 	playerState = true;
 	let instrumentDOM = document.querySelector("#"+activeInstrument);
+
+	if (activeInstrument == 'oscillator') {
+		// Set transition to 100ms
+		document.querySelector(':root').style.setProperty(`--player-variation-speed`, `linear 100ms`);
+
+		// Initialize play values
+		oscillatorInitialize();
+
+		// Randomize display text
+		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
+		displayText.innerText = randomSentence();
+
+		// Initalize all axes to not show
+		let oscillatorAxes = instrumentDOM.querySelectorAll(".instrument-slider-container");
+		oscillatorAxes[0].dataset.sliderActive = '0';
+		oscillatorAxes[1].dataset.sliderActive = '0';
+		oscillatorAxes[2].dataset.sliderActive = '0';
+		oscillatorAxes[3].dataset.sliderActive = '0';
+		
+		// Check if font is actually variable and show correct controls
+		if (axesInfo.length == 0) {
+			instrumentDOM.querySelector(".instrument-error").style.display = "flex";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "none";
+			}
+		} else {
+			instrumentDOM.querySelector(".instrument-error").style.display = "none";
+			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
+				control.style.display = "grid";
+			}
+			for (let i=0; i<axesInfo.length && i<4; i++) {
+				oscillatorAxes[i].dataset.sliderActive = '1';
+				let axisSliderValue = 50;
+				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
+			}
+			oscillatorLoop();
+		}
+	}
 	if (activeInstrument == 'sequencer') {
 		// Initalize all axes to not show
 		let sequencerAxes = instrumentDOM.querySelectorAll(".sequencer-beats-axis");
@@ -711,10 +751,8 @@ function initializeInstrument() {
 			}
 			for (let i=0; i<axesInfo.length && i<4; i++) {
 				alphabetizerAxes[i].dataset.sliderActive = '1';
-				let axisSlider = instrumentDOM.querySelector(`[data-alphabetizer-axis="${i}"]`);
 				let axisSliderValue = 50;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
-				instrumentSliderAdjust(axisSlider, axisSliderValue);
 			}
 
 			// Start loop
@@ -749,10 +787,8 @@ function initializeInstrument() {
 			}
 			for (let i=0; i<axesInfo.length && i<4; i++) {
 				analyzerAxes[i].dataset.sliderActive = '1';
-				let axisSlider = instrumentDOM.querySelector(`[data-analyzer-axis="${i}"]`);
 				let axisSliderValue = 50;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
-				instrumentSliderAdjust(axisSlider, axisSliderValue);
 			}
 		}
 	}
@@ -826,12 +862,13 @@ function instrumentButtonGroupPress(e, group) {
 
 // Sliders
 let activeSlider;
-function instrumentSlider(slider, funct) {
-	activeSlider = slider; 
+let activeSliderAxis;
+function instrumentSlider(slider, axis) {
+	activeSlider = slider;
+	activeSliderAxis = axis;
 	instrumentSliderSet();
 	document.onmousemove = instrumentSliderSet;
     document.onmouseup = instrumentSliderStop;
-	funct(slider);
 }
 function instrumentSliderSet() {
 	let e = window.event;
@@ -839,29 +876,30 @@ function instrumentSliderSet() {
 	let mousePos = e.clientY;
 	let sliderHeight = activeSlider.offsetHeight - 8;
 	let sliderTop = activeSlider.getBoundingClientRect().top + 4;
-	let sliderFill = activeSlider.querySelector(".instrument-slider-fill");
 	let sliderCalc = (-((mousePos-sliderTop)/sliderHeight)+1)*100;
 	if (sliderCalc < 1) {
 		activeSlider.dataset.sliderValue = "0";
-		sliderFill.style.height = "0%";
-		playMono(260);
 	} else if (sliderCalc > 100) {
 		activeSlider.dataset.sliderValue = "100";
-		sliderFill.style.height = "100%";
-		playMono(520);
 	} else {
 		activeSlider.dataset.sliderValue = sliderCalc;
-		sliderFill.style.height = sliderCalc + "%";
-		playMono(260+(sliderCalc/100)*260);
+	}
+	document.querySelector(':root').style.setProperty(`--axis${activeSliderAxis}-percent`, `${activeSlider.dataset.sliderValue/100}`);
+
+	// Play synth
+	if (activeSliderAxis == 0) {
+		playMono0(130+(activeSlider.dataset.sliderValue/100)*130);
+	} else if (activeSliderAxis == 1) {
+		playMono1(165+(activeSlider.dataset.sliderValue/100)*165);
+	} else if (activeSliderAxis == 2) {
+		playMono2(196+(activeSlider.dataset.sliderValue/100)*196);
+	} else if (activeSliderAxis == 3) {
+		playMono3(262+(activeSlider.dataset.sliderValue/100)*262);
 	}
 }
 function instrumentSliderStop() {
 	document.onmouseup = null;
 	document.onmousemove = null;
-}
-function instrumentSliderAdjust(e, percent) {
-	sliderFill = e.querySelector(".instrument-slider-fill");
-	sliderFill.style.height = percent + "%";
 }
 
 // Prevent formatting on content paste
@@ -879,6 +917,251 @@ for (let instrument of instrumentDisplays) {
 	});
 }
 
+// Randomize text
+function generateText() {
+	let selection = Math.floor(Math.random()*3);
+	let instrumentDOM = document.querySelector("#"+activeInstrument);
+	let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
+	if (selection == 0) {
+		displayText.innerText = randomSentence();
+	} else if (selection == 1) {
+		displayText.innerText = randomLetters(50);
+	} else {
+		displayText.innerText = randomLettersRepeat(50);
+	}
+}
+
+// Randomize slider values
+function randomizeSliders() {
+	let instrumentDOM = document.querySelector("#"+activeInstrument);
+	let axisSlider0 = instrumentDOM.querySelector(`[data-slider-axis="0"] .instrument-slider`);
+	let axisSlider1 = instrumentDOM.querySelector(`[data-slider-axis="1"] .instrument-slider`);
+	let axisSlider2 = instrumentDOM.querySelector(`[data-slider-axis="2"] .instrument-slider`);
+	let axisSlider3 = instrumentDOM.querySelector(`[data-slider-axis="3"] .instrument-slider`);
+	let values = [Math.random(), Math.random(), Math.random(), Math.random()];
+	axisSlider0.dataset.sliderValue = values[0];
+	axisSlider1.dataset.sliderValue = values[1];
+	axisSlider2.dataset.sliderValue = values[2];
+	axisSlider3.dataset.sliderValue = values[3];
+	document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
+	document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
+	document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
+	document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
+	playBlock(Math.random()*200+100);
+}
+
+
+
+// —————————————————————————————————————————————————————————————————————
+// OSCILLATOR
+// —————————————————————————————————————————————————————————————————————
+
+// Type, speed, direction, value
+let oscillatorInfo = [
+	[0, 5, 1, 0],
+	[0, 5, 1, 0],
+	[0, 5, 1, 0],
+	[0, 5, 1, 0]
+]
+
+// Initialization function
+function oscillatorInitialize() {
+	oscillatorInfo = [
+		[0, 5, 1, 0],
+		[0, 5, 1, 0],
+		[0, 5, 1, 0],
+		[0, 5, 1, 0]
+	]
+	for (let e of document.querySelectorAll("#oscillator .oscillator-type")) {
+		e.dataset.oscillatorType = 0;
+	}
+	for (let e of document.querySelectorAll("#oscillator .oscillator-speed")) {
+		e.dataset.oscillatorSpeed = 1;
+	}
+}
+
+// Randomize oscillator settings
+function oscillatorRandomize() {
+	oscillatorInfo = [
+		[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+		[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+		[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+		[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0]
+	]
+	let types = document.querySelectorAll("#oscillator .oscillator-type");
+	let speeds = document.querySelectorAll("#oscillator .oscillator-speed");
+	for (let i=0; i<4; i++) {
+		types[i].dataset.oscillatorType = oscillatorInfo[i][0];
+		speeds[i].dataset.oscillatorSpeed = oscillatorInfo[i][1]/5;
+	}
+	randomizeSliders();
+	setTimeout(() => {
+		oscillatorInfo = [
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0]
+		]
+		let types = document.querySelectorAll("#oscillator .oscillator-type");
+		let speeds = document.querySelectorAll("#oscillator .oscillator-speed");
+		for (let i=0; i<4; i++) {
+			types[i].dataset.oscillatorType = oscillatorInfo[i][0];
+			speeds[i].dataset.oscillatorSpeed = oscillatorInfo[i][1]/5;
+		}
+		randomizeSliders();
+	}, 100);
+	setTimeout(() => {
+		oscillatorInfo = [
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0],
+			[Math.floor(Math.random()*6), Math.floor(Math.random()*4)*5, Math.sign(Math.random()-.5), 0]
+		]
+		let types = document.querySelectorAll("#oscillator .oscillator-type");
+		let speeds = document.querySelectorAll("#oscillator .oscillator-speed");
+		for (let i=0; i<4; i++) {
+			types[i].dataset.oscillatorType = oscillatorInfo[i][0];
+			speeds[i].dataset.oscillatorSpeed = oscillatorInfo[i][1]/5;
+		}
+		randomizeSliders();
+	}, 200);
+}
+
+// Change oscillator type for axis
+let oscillatorNotes = ['C3','D3','E3','F3','G3','A3','B3']
+function oscillatorTypeAdjust(e, axis) {
+	e.dataset.oscillatorType = parseInt(e.dataset.oscillatorType)+1;
+	if (parseInt(e.dataset.oscillatorType) >= 6) {
+		e.dataset.oscillatorType = 0;
+	}
+	playBlock(oscillatorNotes[e.dataset.oscillatorType]);
+	oscillatorInfo[axis][0] = e.dataset.oscillatorType;
+}
+
+// Change oscillator speed for axis
+function oscillatorSpeedAdjust(e, axis) {
+	e.dataset.oscillatorSpeed = parseInt(e.dataset.oscillatorSpeed)+1;
+	if (parseInt(e.dataset.oscillatorSpeed) >= 4) {
+		e.dataset.oscillatorSpeed = 0;
+	}
+	playBlock(oscillatorNotes[e.dataset.oscillatorSpeed]);
+	oscillatorInfo[axis][1] = e.dataset.oscillatorSpeed*5;
+}
+
+// Restart all axes
+function oscillatorRestart() {
+	oscillatorInfo[0][3] = 0;
+	oscillatorInfo[0][2] = 1;
+	document.querySelector(':root').style.setProperty(`--axis0-percent`, 0);
+	oscillatorInfo[1][3] = 0;
+	oscillatorInfo[1][2] = 1;
+	document.querySelector(':root').style.setProperty(`--axis1-percent`, 0);
+	oscillatorInfo[2][3] = 0;
+	oscillatorInfo[2][2] = 1;
+	document.querySelector(':root').style.setProperty(`--axis2-percent`, 0);
+	oscillatorInfo[3][3] = 0;
+	oscillatorInfo[3][2] = 1;
+	document.querySelector(':root').style.setProperty(`--axis3-percent`, 0);
+}
+
+// Set variable axes on slider change
+let oscillatorSlider;
+let oscillatorAxis = 0;
+function oscillatorSliderStart(slider, axis) {
+	oscillatorSlider = slider;
+	oscillatorAxis = axis;
+	oscillatorSliderSet();
+	document.addEventListener('mousemove', oscillatorSliderSet);
+	document.addEventListener('mouseup', oscillatorSliderStop);
+}
+function oscillatorSliderSet() {
+	oscillatorInfo[oscillatorAxis][3] = parseInt(oscillatorSlider.dataset.sliderValue);
+}
+function oscillatorSliderStop() {
+	document.removeEventListener('mousemove', oscillatorSliderSet);
+	document.removeEventListener('mouseup', oscillatorSliderStop);
+}
+
+// Main oscillation loop
+function oscillatorLoop() {
+	for (let i=0; i<axesInfo.length && i<4; i++) {
+		let currentAxis = oscillatorInfo[i];
+
+		if (currentAxis[1] != 0) { // If not paused
+			// Set correct direction and correct bounds
+			if (currentAxis[3] > 100) {
+				currentAxis[3] = 100;
+				currentAxis[2] = -1;
+				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, 1);
+			} else if (currentAxis[3] < 0) {
+				currentAxis[3] = 0;
+				currentAxis[2] = 1;
+				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, 0);
+			}
+
+			// Wave functions
+			let easedValue = Math.round(currentAxis[3])/100;
+			if (currentAxis[0] == 0) { // sine (actually quad)
+				easedValue = oscillatorEaseInOutQuad(Math.round(currentAxis[3])/100);
+				currentAxis[3] += currentAxis[1]*currentAxis[2];
+			} else if (currentAxis[0] == 1) { // triangle
+				currentAxis[3] += currentAxis[1]*currentAxis[2];
+			}  else if (currentAxis[0] == 2) { // square (actually expo)
+				easedValue = oscillatorEaseInOutExpo(Math.round(currentAxis[3])/100);
+				currentAxis[3] += currentAxis[1]*currentAxis[2];
+			} else if (currentAxis[0] == 3) { // sawtooth up
+				currentAxis[2] = 1;
+				if (currentAxis[3] == 100) {
+					currentAxis[3] = 0;
+				} else {
+					currentAxis[3] += currentAxis[1]*currentAxis[2];
+				}
+			} else if (currentAxis[0] == 4) { // sawtooth down
+				currentAxis[2] = -1;
+				if (currentAxis[3] == 0) {
+					currentAxis[3] = 100;
+				} else {
+					currentAxis[3] += currentAxis[1]*currentAxis[2];
+				}
+			} else if (currentAxis[0] == 5) { // noise
+				currentAxis[3] = currentAxis[3] += (Math.random()*50-25);
+			}
+
+			// Play correct audio
+			if (i==0) {
+				playMono0(130+(easedValue)*130);
+			} else if (i==1) {
+				playMono1(165+(easedValue)*165);
+			} else if (i==2) {
+				playMono2(196+(easedValue)*196);
+			} else if (i==3) {
+				playMono3(262+(easedValue)*262);
+			}
+
+			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${easedValue}`);
+		}
+	}
+	setTimeout(() => {
+		if (playerState != false) {
+			oscillatorLoop();
+		}
+	}, 100)
+}
+function oscillatorEaseInOutSine(x) {
+	return -(Math.cos(Math.PI * x) - 1) / 2;
+}
+function oscillatorEaseInOutQuad(x) {
+	return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+}
+function oscillatorEaseInOutExpo(x) {
+	return x === 0
+		? 0
+		: x === 1
+		? 1
+		: x < 0.5 ? Math.pow(2, 20 * x - 10) / 2
+		: (2 - Math.pow(2, -20 * x + 10)) / 2;
+}
+	
 
 
 // —————————————————————————————————————————————————————————————————————
@@ -921,20 +1204,6 @@ function sequencerSoundAdjust() {
 	sequencerSound++;
 	if (sequencerSound >= 5) {
 		sequencerSound = 0;
-	}
-}
-
-// Generate random text
-function sequencerGenerateText() {
-	let selection = Math.floor(Math.random()*3);
-	let sequencerDOM = document.querySelector("#sequencer");
-	let displayText = sequencerDOM.querySelector(`.instrument-display-text`);
-	if (selection == 0) {
-		displayText.innerText = randomSentence();
-	} else if (selection == 1) {
-		displayText.innerText = randomLetters(50);
-	} else {
-		displayText.innerText = randomLettersRepeat(50);
 	}
 }
 
@@ -1091,21 +1360,6 @@ function scramblerRandomize() {
 	}, 200);
 }
 
-// Generate random text
-function scramblerGenerateText() {
-	let selection = Math.floor(Math.random()*3);
-	let scramblerDOM = document.querySelector("#scrambler");
-	let displayText = scramblerDOM.querySelector(`.instrument-display-text`);
-	if (selection == 0) {
-		displayText.innerText = randomSentence();
-	} else if (selection == 1) {
-		displayText.innerText = randomLetters(50);
-	} else {
-		displayText.innerText = randomLettersRepeat(50);
-	}
-	displayText.innerHTML = wrapLetters(displayText.innerText);
-}
-
 // Adjust quantity
 let scramblerQuantity = 0.25;
 function scramblerQuantityAdjust(e) {
@@ -1236,20 +1490,7 @@ function scramblerLoop() {
 // CONVERSATOR
 // —————————————————————————————————————————————————————————————————————
 
-// Generate random text
-function conversatorGenerateText() {
-	let selection = Math.floor(Math.random()*3);
-	let conversatorDOM = document.querySelector("#conversator");
-	let displayText = conversatorDOM.querySelector(`.instrument-display-text`);
-	if (selection == 0) {
-		displayText.innerText = randomSentence();
-	} else if (selection == 1) {
-		displayText.innerText = randomLetters(50);
-	} else {
-		displayText.innerText = randomLettersRepeat(50);
-	}
-}
-
+// Invert direction of response to sound
 let conversatorInvert = false;
 function conversatorInvertFlip() {
 	if (conversatorInvert) {
@@ -1341,7 +1582,6 @@ function conversatorReadInput(amp) {
 		let axisSlider = axisControls[1];
 		if (axisToggle.dataset.buttonState == "1") {
 			axisSlider.dataset.sliderValue = scaler*100;
-			instrumentSliderAdjust(axisSlider, scaler*100);
 			document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${scaler}`);
 		}
 	}
@@ -1355,24 +1595,6 @@ function conversatorDeactivate() {
 			track.stop();
 		});
 	}
-}
-
-// Set variable axes on slider change
-let conversatorSlider;
-let conversatorAxis = 0;
-function conversatorSliderStart(slider) {
-	conversatorSlider = slider;
-	conversatorAxis = conversatorSlider.dataset.conversatorAxis;
-	document.addEventListener('mousemove', conversatorSliderSet);
-	document.addEventListener('mouseup', conversatorSliderStop);
-}
-function conversatorSliderSet() {
-	let axisValue = conversatorSlider.dataset.sliderValue/100;
-	document.querySelector(':root').style.setProperty(`--axis${conversatorAxis}-percent`, `${axisValue}`);
-}
-function conversatorSliderStop() {
-	document.removeEventListener('mousemove', conversatorSliderSet);
-	document.removeEventListener('mouseup', conversatorSliderStop);
 }
 
 // Set sensitivity
@@ -1428,75 +1650,13 @@ function alphabetizerChangeCase() {
 
 // Randomize scramble values
 function alphabetizerRandomize() {
-	let alphabetizerDOM = document.querySelector("#alphabetizer");
-	let axisSlider0 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="0"]`);
-	let axisSlider1 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="1"]`);
-	let axisSlider2 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="2"]`);
-	let axisSlider3 = alphabetizerDOM.querySelector(`[data-alphabetizer-axis="3"]`);
-	let values = [Math.random(), Math.random(), Math.random(), Math.random()];
-	axisSlider0.dataset.sliderValue = values[0];
-	axisSlider1.dataset.sliderValue = values[1];
-	axisSlider2.dataset.sliderValue = values[2];
-	axisSlider3.dataset.sliderValue = values[3];
-	instrumentSliderAdjust(axisSlider0, values[0]*100);
-	instrumentSliderAdjust(axisSlider1, values[1]*100);
-	instrumentSliderAdjust(axisSlider2, values[2]*100);
-	instrumentSliderAdjust(axisSlider3, values[3]*100);
-	document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
-	document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
-	document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
-	document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
-	playBlock(Math.random()*200+100);
+	randomizeSliders();
 	setTimeout(() => {
-		values = [Math.random(), Math.random(), Math.random(), Math.random()];
-		axisSlider0.dataset.sliderValue = values[0];
-		axisSlider1.dataset.sliderValue = values[1];
-		axisSlider2.dataset.sliderValue = values[2];
-		axisSlider3.dataset.sliderValue = values[3];
-		instrumentSliderAdjust(axisSlider0, values[0]*100);
-		instrumentSliderAdjust(axisSlider1, values[1]*100);
-		instrumentSliderAdjust(axisSlider2, values[2]*100);
-		instrumentSliderAdjust(axisSlider3, values[3]*100);
-		document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
-		document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
-		document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
-		document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
-		playBlock(Math.random()*200+100);
+		randomizeSliders();
 	}, 100);
 	setTimeout(() => {
-		values = [Math.random(), Math.random(), Math.random(), Math.random()];
-		axisSlider0.dataset.sliderValue = values[0];
-		axisSlider1.dataset.sliderValue = values[1];
-		axisSlider2.dataset.sliderValue = values[2];
-		axisSlider3.dataset.sliderValue = values[3];
-		instrumentSliderAdjust(axisSlider0, values[0]*100);
-		instrumentSliderAdjust(axisSlider1, values[1]*100);
-		instrumentSliderAdjust(axisSlider2, values[2]*100);
-		instrumentSliderAdjust(axisSlider3, values[3]*100);
-		document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
-		document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
-		document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
-		document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
-		playBlock(Math.random()*200+100);
+		randomizeSliders();
 	}, 200);
-}
-
-// Set variable axes on slider change
-let alphabetizerSlider;
-let alphabetizerAxis = 0;
-function alphabetizerSliderStart(slider) {
-	alphabetizerSlider = slider;
-	alphabetizerAxis = alphabetizerSlider.dataset.alphabetizerAxis;
-	document.addEventListener('mousemove', alphabetizerSliderSet);
-	document.addEventListener('mouseup', alphabetizerSliderStop);
-}
-function alphabetizerSliderSet() {
-	let axisValue = alphabetizerSlider.dataset.sliderValue/100;
-	document.querySelector(':root').style.setProperty(`--axis${alphabetizerAxis}-percent`, `${axisValue}`);
-}
-function alphabetizerSliderStop() {
-	document.removeEventListener('mousemove', alphabetizerSliderSet);
-	document.removeEventListener('mouseup', alphabetizerSliderStop);
 }
 
 // Main loop
@@ -1538,91 +1698,15 @@ function alphabetizerSpeedAdjust(e) {
 // ANALYZER
 // —————————————————————————————————————————————————————————————————————
 
-// Generate random text
-function analyzerGenerateText() {
-	let selection = Math.floor(Math.random()*3);
-	let analyzerDOM = document.querySelector("#analyzer");
-	let displayText = analyzerDOM.querySelector(`.instrument-display-text`);
-	if (selection == 0) {
-		displayText.innerText = randomSentence();
-	} else if (selection == 1) {
-		displayText.innerText = randomLetters(50);
-	} else {
-		displayText.innerText = randomLettersRepeat(50);
-	}
-}
-
 // Randomize scramble values
 function analyzerRandomize() {
-	let analyzerDOM = document.querySelector("#analyzer");
-	let axisSlider0 = analyzerDOM.querySelector(`[data-analyzer-axis="0"]`);
-	let axisSlider1 = analyzerDOM.querySelector(`[data-analyzer-axis="1"]`);
-	let axisSlider2 = analyzerDOM.querySelector(`[data-analyzer-axis="2"]`);
-	let axisSlider3 = analyzerDOM.querySelector(`[data-analyzer-axis="3"]`);
-	let values = [Math.random(), Math.random(), Math.random(), Math.random()];
-	axisSlider0.dataset.sliderValue = values[0];
-	axisSlider1.dataset.sliderValue = values[1];
-	axisSlider2.dataset.sliderValue = values[2];
-	axisSlider3.dataset.sliderValue = values[3];
-	instrumentSliderAdjust(axisSlider0, values[0]*100);
-	instrumentSliderAdjust(axisSlider1, values[1]*100);
-	instrumentSliderAdjust(axisSlider2, values[2]*100);
-	instrumentSliderAdjust(axisSlider3, values[3]*100);
-	document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
-	document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
-	document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
-	document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
-	playBlock(Math.random()*200+100);
+	randomizeSliders();
 	setTimeout(() => {
-		values = [Math.random(), Math.random(), Math.random(), Math.random()];
-		axisSlider0.dataset.sliderValue = values[0];
-		axisSlider1.dataset.sliderValue = values[1];
-		axisSlider2.dataset.sliderValue = values[2];
-		axisSlider3.dataset.sliderValue = values[3];
-		instrumentSliderAdjust(axisSlider0, values[0]*100);
-		instrumentSliderAdjust(axisSlider1, values[1]*100);
-		instrumentSliderAdjust(axisSlider2, values[2]*100);
-		instrumentSliderAdjust(axisSlider3, values[3]*100);
-		document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
-		document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
-		document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
-		document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
-		playBlock(Math.random()*200+100);
+		randomizeSliders();
 	}, 100);
 	setTimeout(() => {
-		values = [Math.random(), Math.random(), Math.random(), Math.random()];
-		axisSlider0.dataset.sliderValue = values[0];
-		axisSlider1.dataset.sliderValue = values[1];
-		axisSlider2.dataset.sliderValue = values[2];
-		axisSlider3.dataset.sliderValue = values[3];
-		instrumentSliderAdjust(axisSlider0, values[0]*100);
-		instrumentSliderAdjust(axisSlider1, values[1]*100);
-		instrumentSliderAdjust(axisSlider2, values[2]*100);
-		instrumentSliderAdjust(axisSlider3, values[3]*100);
-		document.querySelector(':root').style.setProperty(`--axis0-percent`, `${values[0]}`);
-		document.querySelector(':root').style.setProperty(`--axis1-percent`, `${values[1]}`);
-		document.querySelector(':root').style.setProperty(`--axis2-percent`, `${values[2]}`);
-		document.querySelector(':root').style.setProperty(`--axis3-percent`, `${values[3]}`);
-		playBlock(Math.random()*200+100);
+		randomizeSliders();
 	}, 200);
-}
-
-// Set variable axes on slider change
-let analyzerSlider;
-let analyzerAxis = 0;
-function analyzerSliderStart(slider) {
-	analyzerSlider = slider;
-	analyzerAxis = analyzerSlider.dataset.analyzerAxis;
-	document.addEventListener('mousemove', analyzerSliderSet);
-	document.addEventListener('mouseup', analyzerSliderStop);
-}
-function analyzerSliderSet() {
-	let axisValue = analyzerSlider.dataset.sliderValue/100;
-	document.querySelector(':root').style.setProperty(`--axis${analyzerAxis}-percent`, `${axisValue}`);
-}
-function analyzerSliderStop() {
-	document.removeEventListener('mousemove', analyzerSliderSet);
-	document.removeEventListener('mouseup', analyzerSliderStop);
 }
 
 
@@ -1662,32 +1746,11 @@ setTimeout(() => {
 	document.querySelector('body').addEventListener('click', startAudioContext);
 }, 2000)
 
-// Menu synth
-let synth = new Tone.PolySynth();
-synth.set({
+// Mono synths
+let monoSynth0 = new Tone.MonoSynth();
+monoSynth0.set({
 	oscillator: {
-		type: "sawtooth12"
-	},
-	envelope: {
-		attack: 0.05,
-		decay: 0.2,
-		sustain: .5,
-		release: .5
-	},
-	volume: -6
-}).toDestination();
-function playNote(freq) {
-	synth.triggerAttackRelease(freq, .15);
-}
-function changeSynth(synthType) {
-	synth.set({oscillator: {type: synthType}});
-}
-
-// Mono synth
-let monoSynth = new Tone.MonoSynth();
-monoSynth.set({
-	oscillator: {
-		type: "sawtooth8"
+		type: "sine"
 	},
 	envelope: {
 		attack: 0.01,
@@ -1695,11 +1758,62 @@ monoSynth.set({
 		sustain: 1,
 		release: 0.05
 	},
-	portamento: 0.01,
-	volume: -12
+	portamento: 0.1,
+	volume: -18
 }).toDestination();
-function playMono(freq) {
-	monoSynth.triggerAttackRelease(freq, .1);
+function playMono0(freq) {
+	monoSynth0.triggerAttackRelease(freq, .2);
+}
+let monoSynth1 = new Tone.MonoSynth();
+monoSynth1.set({
+	oscillator: {
+		type: "triangle"
+	},
+	envelope: {
+		attack: 0.01,
+		decay: 0.01,
+		sustain: 1,
+		release: 0.05
+	},
+	portamento: 0.1,
+	volume: -18
+}).toDestination();
+function playMono1(freq) {
+	monoSynth1.triggerAttackRelease(freq, .2);
+}
+let monoSynth2 = new Tone.MonoSynth();
+monoSynth2.set({
+	oscillator: {
+		type: "square"
+	},
+	envelope: {
+		attack: 0.01,
+		decay: 0.01,
+		sustain: 1,
+		release: 0.05
+	},
+	portamento: 0.1,
+	volume: -18
+}).toDestination();
+function playMono2(freq) {
+	monoSynth2.triggerAttackRelease(freq, .2);
+}
+let monoSynth3 = new Tone.MonoSynth();
+monoSynth3.set({
+	oscillator: {
+		type: "sawtooth"
+	},
+	envelope: {
+		attack: 0.01,
+		decay: 0.01,
+		sustain: 1,
+		release: 0.05
+	},
+	portamento: 0.1,
+	volume: -18
+}).toDestination();
+function playMono3(freq) {
+	monoSynth3.triggerAttackRelease(freq, .2);
 }
 
 // Piano sampler

@@ -800,6 +800,7 @@ body:hover .intro-text {
 .instrument-button svg {
 	min-width: 20px;
 	max-height: 100%;
+	width: 100%;
 	max-width: 50px;
 	z-index: 1;
 }
@@ -885,6 +886,9 @@ body:hover .intro-text {
 	flex-direction: column;
 	gap: 2px;
 }
+.instrument-slider-container-alt {
+	flex-direction: row;
+}
 .instrument-slider {
 	flex-grow: 1;
 	border: 2px solid var(--primary);
@@ -907,6 +911,18 @@ body:hover .intro-text {
 	background-color: var(--primary);
 	transition: background-color .2s;
 }
+.instrument-slider-container[data-slider-axis="0"] .instrument-slider-fill {
+	height: calc(var(--axis0-percent)*100%);
+}
+.instrument-slider-container[data-slider-axis="1"] .instrument-slider-fill {
+	height: calc(var(--axis1-percent)*100%);
+}
+.instrument-slider-container[data-slider-axis="2"] .instrument-slider-fill {
+	height: calc(var(--axis2-percent)*100%);
+}
+.instrument-slider-container[data-slider-axis="3"] .instrument-slider-fill {
+	height: calc(var(--axis3-percent)*100%);
+}
 .instrument-slider-axis-value, .instrument-slider-axis-label {
 	font-weight: 500;
 	letter-spacing: .02em;
@@ -926,6 +942,11 @@ body:hover .intro-text {
 }
 .instrument-slider-axis-value {
 	background-color: var(--light);
+}
+.instrument-slider-axis-alt {
+	writing-mode: vertical-rl;
+	text-orientation: mixed;
+	transform: rotate(-180deg);
 }
 .instrument-slider-container[data-slider-axis="0"] .instrument-slider-axis-label::before {
 	content: var(--axis0-name);
@@ -957,6 +978,47 @@ body:hover .intro-text {
 }
 .instrument-slider-container[data-slider-active="0"] {
 	display: none;
+}
+
+/* Oscillator */
+#oscillator .instrument-slider-fill {
+	transition: background-color .2s, height linear .1s;
+}
+.oscillator-type svg {
+	display: none;
+}
+.oscillator-type[data-oscillator-type="0"] .oscillator-type-0 {
+	display: block;
+}
+.oscillator-type[data-oscillator-type="1"] .oscillator-type-1 {
+	display: block;
+}
+.oscillator-type[data-oscillator-type="2"] .oscillator-type-2 {
+	display: block;
+}
+.oscillator-type[data-oscillator-type="3"] .oscillator-type-3 {
+	display: block;
+}
+.oscillator-type[data-oscillator-type="4"] .oscillator-type-4 {
+	display: block;
+}
+.oscillator-type[data-oscillator-type="5"] .oscillator-type-5 {
+	display: block;
+}
+.oscillator-speed svg {
+	display: none;
+}
+.oscillator-speed[data-oscillator-speed="0"] .oscillator-speed-0 {
+	display: block;
+}
+.oscillator-speed[data-oscillator-speed="1"] .oscillator-speed-1 {
+	display: block;
+}
+.oscillator-speed[data-oscillator-speed="2"] .oscillator-speed-2 {
+	display: block;
+}
+.oscillator-speed[data-oscillator-speed="3"] .oscillator-speed-3 {
+	display: block;
 }
 
 /* Sequencer */
@@ -1170,5 +1232,12 @@ body:hover .intro-text {
 	}
 	.menubox-grid-item-preview {
 		font-size: 10vw;
+	}
+}
+
+/* Height breakpoint */
+@media only screen and (max-height: 800px) {
+	.mobile-alert {
+		animation-name: mobile-alert;
 	}
 }
