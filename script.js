@@ -5,7 +5,6 @@
 // Drag font into window
 // Random font button
 // Documentation menu
-// Make analyzer more interesting now that oscillator is basically the same thing
 
 // —————————————————————————————————————————————————————————————————————
 // INTRO AND LOGO
@@ -30,6 +29,7 @@ function logoOut() {
 	logoAnimationLoop = false;
 	setTimeout(() => {
 		logo.style.display = "none";
+		document.querySelector('.intro-text').style.display = "none";
 	}, 1200);
 }
 let logoAnimationLoop = true;
@@ -390,12 +390,17 @@ function openDialog() {
 	document.getElementById('menubox-customfont-input').click();
 }
 var newStyle = document.createElement('style');
-if (window.FileList && window.File && window.FileReader) {
-	document.getElementById('menubox-customfont-input').addEventListener('change', event => {
+function handleFileSelect(event) {
+	if (window.FileList && window.File && window.FileReader) {
 		newStyle.remove();
 
 		// Validate file type
-		const file = event.target.files[0];
+		let file;
+		if (event.dataTransfer.files) {
+			file = event.dataTransfer.files[0]; // select via drag and drop
+		} else {
+			event.target.files[0]; // select via font menu
+		}
 		let fileType = file.name.split('.').pop().toLowerCase();
 		if (fileType != 'ttf' && fileType != 'otf' && fileType != 'woff' && fileType != 'woff2') {
 			window.alert('That’s not a valid font file! Try a .ttf, .otf, .woff, or .woff2 file.');
@@ -415,9 +420,35 @@ if (window.FileList && window.File && window.FileReader) {
 
 		// Transition out
 		getAxisInfo("user", userFont);
-		menuOut();
-	}); 
+		if (currentMenu != "") {
+			menuOut();
+		}
+	}
 }
+
+// Drag and drop font files
+let dropArea = document.getElementById('drop-area');
+let dropAreaHighlight = document.querySelector('.drop-area-highlight');
+;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+	dropArea.addEventListener(eventName, preventDefaults, false)
+})
+function preventDefaults (e) {
+	e.preventDefault()
+	e.stopPropagation()
+}
+;['dragenter', 'dragover'].forEach(eventName => {
+	dropArea.addEventListener(eventName, dropHighlight, false)
+})
+;['dragleave', 'drop'].forEach(eventName => {
+	dropArea.addEventListener(eventName, dropUnhighlight, false)
+})
+function dropHighlight(e) {
+	dropAreaHighlight.classList.add('drop-area-highlight-active')
+}
+function dropUnhighlight(e) {
+	dropAreaHighlight.classList.remove('drop-area-highlight-active')
+}
+dropArea.addEventListener('drop', handleFileSelect, false);
 
 // Detect variable axes and limits
 let axesInfo = [];
@@ -541,8 +572,7 @@ function randomLettersRepeat(quantity) {
 // —————————————————————————————————————————————————————————————————————
 
 let playerState = false; // If instrument is currently playing, equals true
-// let instrumentOptions = ['oscillator', 'sequencer', 'scrambler', 'conversator', 'alphabetizer', 'analyzer'];
-let instrumentOptions = ['oscillator'];
+let instrumentOptions = ['oscillator', 'sequencer', 'scrambler', 'conversator', 'alphabetizer', 'analyzer'];
 let activeInstrument = "";
 
 function instrumentIn() {
@@ -573,7 +603,6 @@ function pickInstrument(selectedInstrument) {
 
 // Initalize instrument to work with font axes
 function initializeInstrument() {
-	playerState = true;
 	let instrumentDOM = document.querySelector("#"+activeInstrument);
 
 	if (activeInstrument == 'oscillator') {
@@ -610,7 +639,10 @@ function initializeInstrument() {
 				let axisSliderValue = 50;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
 			}
-			oscillatorLoop();
+			if (playerState == false) {
+				playerState = true;
+				oscillatorLoop();
+			}
 		}
 	}
 	if (activeInstrument == 'sequencer') {
@@ -647,7 +679,10 @@ function initializeInstrument() {
 			for (let i=0; i<axesInfo.length && i<4; i++) {
 				sequencerAxes[i].dataset.sequencerAxisActive = '1';
 			}
-			sequencerLoop();
+			if (playerState == false) {
+				playerState = true;
+				sequencerLoop();
+			}
 		}
 	}
 	if (activeInstrument == 'scrambler') {
@@ -675,7 +710,10 @@ function initializeInstrument() {
 			for (let control of instrumentDOM.querySelectorAll(".instrument-function")) {
 				control.style.display = "grid";
 			}
-			scramblerLoop();
+			if (playerState == false) {
+				playerState = true;
+				scramblerLoop();
+			}
 		}
 	}
 	if (activeInstrument == 'conversator') {
@@ -716,7 +754,10 @@ function initializeInstrument() {
 				let axisSliderValue = axisSlider.dataset.sliderValue;
 				document.querySelector(':root').style.setProperty(`--axis${i}-percent`, `${axisSliderValue/100}`);
 			}
-			conversatorActivate();
+			if (playerState == false) {
+				playerState = true;
+				conversatorActivate();
+			}
 		}
 	}
 	if (activeInstrument == 'alphabetizer') {
@@ -756,7 +797,10 @@ function initializeInstrument() {
 			}
 
 			// Start loop
-			alphabetizerLoopStart();
+			if (playerState == false) {
+				playerState = true;
+				alphabetizerLoopStart();
+			}
 		}
 	}
 	if (activeInstrument == 'analyzer') {
@@ -766,6 +810,10 @@ function initializeInstrument() {
 		// Randomize display text
 		let displayText = instrumentDOM.querySelector(`.instrument-display-text`);
 		displayText.innerText = randomSentence();
+
+		// Set zoom to default
+		let display = instrumentDOM.querySelector(".analyzer-display");
+		display.dataset.analyzerZoom = 0;
 
 		// Initalize all axes to not show
 		let analyzerAxes = instrumentDOM.querySelectorAll(".instrument-slider-container");
@@ -1430,7 +1478,7 @@ function scramblerLoop() {
 	if (scramblerLetters.length != 0) {
 		let scrambleSize = scramblerLetters.length*scramblerQuantity;
 		// Sounds
-		for (let i=0; i<scramblerQuantity*4; i++) {
+		for (let i=0; i<scramblerQuantity*4 && i<axesInfo.length*4; i++) {
 			if (scramblerSound == 0) { // Percussion
 				setTimeout(() => {
 					playPercussion("random");
@@ -1707,6 +1755,15 @@ function analyzerRandomize() {
 	setTimeout(() => {
 		randomizeSliders();
 	}, 200);
+}
+
+// Zoom in and out display
+function analyzerZoom() {
+	let display = document.querySelector(".analyzer-display");
+	display.dataset.analyzerZoom = parseInt(display.dataset.analyzerZoom) + 1;
+	if (parseInt(display.dataset.analyzerZoom) > 2) {
+		display.dataset.analyzerZoom = 0;
+	}
 }
 
 

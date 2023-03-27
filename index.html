@@ -31,7 +31,11 @@
 </head>
 
 <body>
-	<main class="container">
+	<main class="container" id="drop-area">
+		<!-- DROP AREA FOR FONT UPLOAD -->
+		<div class="drop-area-highlight">
+			Drop your font anywhere to use&nbsp;it!
+		</div>
 
 		<!-- DISCLAIMER FOR SMALLER SCREEN SIZES -->
 		<div class="mobile-alert">
@@ -72,7 +76,7 @@
 				</div>
 			</button>
 			<ul class="menubox-grid">
-				<li type="file" class="menubox-grid-item" id="menubox-customfont" onmouseenter="playTom('random')"><input id="menubox-customfont-input" type="file" hidden>
+				<li type="file" class="menubox-grid-item" id="menubox-customfont" onmouseenter="playTom('random')"><input id="menubox-customfont-input" type="file" hidden onchange="handleFileSelect(event);">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">+</span>
 					<span class="menubox-grid-item-info">
@@ -318,7 +322,7 @@
 						<strong>Scrambler</strong>
 					</span>
 				</li>
-				<li class="menubox-grid-item" onclick="pickInstrument('texturizer')" onmouseenter="playTom('random')">
+				<!-- <li class="menubox-grid-item" onclick="pickInstrument('texturizer')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
 						<svg viewBox="0 0 100 100"><rect x="10" y="70" width="20" height="20"/><rect x="30" y="50" width="20" height="20"/><rect x="10" y="30" width="20" height="20"/><rect x="50" y="30" width="20" height="20"/><rect x="50" y="70" width="20" height="20"/><rect x="70" y="50" width="20" height="20"/><rect x="70" y="10" width="20" height="20"/><rect x="30" y="10" width="20" height="20"/></svg>
@@ -326,7 +330,7 @@
 					<span class="menubox-grid-item-info">
 						<strong>Texturizer</strong>
 					</span>
-				</li>
+				</li> -->
 				<li class="menubox-grid-item" onclick="pickInstrument('conversator')" onmouseenter="playTom('random')">
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 					<span class="menubox-grid-item-preview">
@@ -488,7 +492,7 @@
 								<svg viewBox="0 0 100 100"><path d="m20,35h-6v-6h6c10.47,0,16.44,3.66,20.47,8.56-1.23,1.96-2.26,3.94-3.16,5.82-3.26-4.93-7.9-8.38-17.3-8.38Zm48,30c-9.25,0-13.81-3.44-17.04-8.36-.91,1.88-1.94,3.85-3.18,5.81,3.98,4.89,9.87,8.55,20.22,8.55v9l18-12-18-12v9Zm0-30v9l18-12-18-12v9c-17.5,0-22.31,10.45-26.55,19.67-4.03,8.76-7.51,16.33-21.45,16.33h-6v6h6c17.78,0,22.63-10.53,26.9-19.83,3.99-8.68,7.44-16.17,21.1-16.17Z"/></svg>
 								<div class="instrument-button-fill"></div>
 							</button>
-							<button class="instrument-button" onclick="oscillatorRestart(); playBlock('E3')">
+							<button class="instrument-button" onclick="oscillatorRestart(); playBlock('C3')">
 								<svg viewBox="0 0 100 100"><path d="m50,14c-9.93,0-18.87,4.06-25.38,10.57l-7.44-7.44-3.18,22.02,22.31-2.9-7.47-7.46c5.42-5.42,12.9-8.79,21.16-8.79,16.54,0,30,13.46,30,30s-13.46,30-30,30c-11.62,0-21.69-6.65-26.67-16.33l-5.15,3.14c6.04,11.41,18.02,19.19,31.82,19.19,19.88,0,36-16.12,36-36S69.88,14,50,14Z"/></svg>
 								<div class="instrument-button-fill"></div>
 							</button>
@@ -1254,7 +1258,7 @@
 					<svg class="corner-circle-1" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-2" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-3" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg><svg class="corner-circle-4" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10"/></svg>
 
 					<!-- DISPLAY -->
-					<div class="instrument-display">
+					<div class="instrument-display analyzer-display" data-analyzer-zoom="0">
 						<p contenteditable="true" spellcheck="false" data-toggle="0" class="instrument-display-text">
 							Analyzer
 						</p>
@@ -1268,7 +1272,7 @@
 							<span>No variable axes found!</span>
 						</div>
 						
-						<!-- TEXT, SHUFFLE -->
+						<!-- TEXT, SHUFFLE, INSPECT -->
 						<div class="instrument-button-row-vertical instrument-function">
 							<button class="instrument-button" onclick="generateText(); playBlock('C3')">
 								<svg viewBox="0 0 100 100"><path d="m38.57,74.78l-16.71,3.37,3.37-16.71,13.34,13.34Zm-10.02-16.66l13.34,13.34,36.26-36.26-13.34-13.34S28.54,58.12,28.54,58.12Z"/></svg>
@@ -1276,6 +1280,10 @@
 							</button>
 							<button class="instrument-button" onclick="analyzerRandomize()">
 								<svg viewBox="0 0 100 100"><path d="m20,35h-6v-6h6c10.47,0,16.44,3.66,20.47,8.56-1.23,1.96-2.26,3.94-3.16,5.82-3.26-4.93-7.9-8.38-17.3-8.38Zm48,30c-9.25,0-13.81-3.44-17.04-8.36-.91,1.88-1.94,3.85-3.18,5.81,3.98,4.89,9.87,8.55,20.22,8.55v9l18-12-18-12v9Zm0-30v9l18-12-18-12v9c-17.5,0-22.31,10.45-26.55,19.67-4.03,8.76-7.51,16.33-21.45,16.33h-6v6h6c17.78,0,22.63-10.53,26.9-19.83,3.99-8.68,7.44-16.17,21.1-16.17Z"/></svg>
+								<div class="instrument-button-fill"></div>
+							</button>
+							<button class="instrument-button" onclick="analyzerZoom(); playBlock('C3')">
+								<svg viewBox="0 0 100 100"><path d="m85.09,77.59l-21.01-21.01c2.69-4.09,4.26-8.99,4.26-14.25,0-14.36-11.64-26.01-26.01-26.01s-26.01,11.64-26.01,26.01,11.64,26.01,26.01,26.01c5.26,0,10.16-1.57,14.25-4.26l21.01,21.01,7.5-7.5ZM24.99,42.33c0-9.58,7.76-17.34,17.34-17.34s17.34,7.76,17.34,17.34-7.76,17.34-17.34,17.34-17.34-7.76-17.34-17.34Z"/></svg>
 								<div class="instrument-button-fill"></div>
 							</button>
 						</div>

@@ -595,6 +595,32 @@ body:hover .intro-text {
 	transform: rotate(180deg) scale(1.3);
 }
 
+/* Drop area highlight indication */
+.drop-area-highlight {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	z-index: 99999;
+	pointer-events: none;
+	border: 0px solid var(--primary);
+	transition: border .5s, opacity .2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: var(--light);
+	font-size: 4vmax;
+	padding: 40px;
+	opacity: 0;
+}
+.drop-area-highlight-active {
+	border: 25px solid var(--primary);
+	background-color: rgba(0,0,0,.8);
+	opacity: 1;
+}
+
 /* Close button */
 .menubox-close {
 	position: absolute;
@@ -743,6 +769,7 @@ body:hover .intro-text {
 .instrument-error {
 	align-items: center;
 	justify-content: center;
+	text-align: center;
 	font-size: 18px;
 	display: none;
 	flex-grow: 1;
@@ -1150,6 +1177,16 @@ body:hover .intro-text {
 	white-space: nowrap;
 	transition: font-size .2s, letter-spacing .2s, line-height .2s, background-color .2s, border .2s, color .2s, -webkit-text-stroke .2s;
 }
+
+/* Analyzer */
+.analyzer-display[data-analyzer-zoom="1"] {
+	font-size: calc(var(--player-fontsize) * 5);
+}
+.analyzer-display[data-analyzer-zoom="2"] {
+	font-size: calc(var(--player-fontsize) * .2);
+}
+
+
 
 /* ———————————————————————————————————————————————————————————————————————— */
 /* MOBILE STYLES */
