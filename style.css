@@ -822,7 +822,7 @@ body:hover .intro-text {
 }
 .instrument-button:active {
 	color: var(--dark);
-	fill: var(--dark);
+	fill: var(--dark) !important;
 }
 .instrument-button svg {
 	min-width: 20px;
