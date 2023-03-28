@@ -2,7 +2,6 @@
 // Add mute button
 // Waterfall instrument? Something with multiple sizes
 // Hover intrument(s)?
-// Drag font into window
 // Random font button
 // Documentation menu
 

@@ -216,26 +216,29 @@
 }
 @keyframes preview-selfportraits {
 	0% {
-		font-variation-settings: "ANIM" 0, "PIXL" 0;
+		font-variation-settings: "POSI" 0, "SHPE" 0;
 	}
 	20% {
-		font-variation-settings: "ANIM" 100, "PIXL" 0;
+		font-variation-settings: "POSI" 100, "SHPE" 0;
 	}
 	40% {
-		font-variation-settings: "ANIM" 100, "PIXL" 100;
+		font-variation-settings: "POSI" 100, "SHPE" 100;
 	}
 	60% {
-		font-variation-settings: "ANIM" 0, "PIXL" 100;
+		font-variation-settings: "POSI" 200, "SHPE" 100;
 	}
 	80% {
-		font-variation-settings: "ANIM" 0, "PIXL" 0;
+		font-variation-settings: "POSI" 200, "SHPE" 0;
+	}
+	100% {
+		font-variation-settings: "POSI" 200, "SHPE" 0;
 	}
 }
 [data-font="selfportraits"] .menubox-grid-item-preview {
 	font-family: selfportraits, sans-serif;
 }
 [data-font="selfportraits"]:hover .menubox-grid-item-preview {
-	animation: 3s preview-selfportraits infinite ease-in-out;
+	animation: 3s preview-selfportraits infinite alternate ease-in-out;
 }
 
 /* CAFFEINE */
