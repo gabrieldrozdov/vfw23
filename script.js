@@ -288,6 +288,16 @@ function menuIn(menuName) {
 	creditsOut();
 	navOut();
 	conversatorDeactivate();
+
+	// Move settings out if shown
+	let settings = document.querySelector("#settings");
+	settings.style.transform = "translateX(400px) rotate(-30deg)";
+
+	// Move handle out if shown
+	let navToggle = document.querySelector("#nav-toggle");
+	navToggle.style.right = "-200px";
+	navState = true;
+
 	currentMenu = "#"+menuName;
 	let menuTarget = document.querySelector(currentMenu);
 	menuTarget.style.transform = "translateX(0)";
@@ -395,10 +405,10 @@ function handleFileSelect(event) {
 
 		// Validate file type
 		let file;
-		if (event.dataTransfer.files) {
+		if (event.dataTransfer) {
 			file = event.dataTransfer.files[0]; // select via drag and drop
 		} else {
-			event.target.files[0]; // select via font menu
+			file = event.target.files[0]; // select via font menu
 		}
 		let fileType = file.name.split('.').pop().toLowerCase();
 		if (fileType != 'ttf' && fileType != 'otf' && fileType != 'woff' && fileType != 'woff2') {
