@@ -477,6 +477,357 @@
 	animation: 1s preview-gilberto infinite alternate ease-in-out;
 }
 
+/* CORRUPTION */
+@font-face {
+	font-family: corruption;
+	src: url("fonts/corruption.ttf");
+}
+@keyframes preview-corruption {
+	0% {
+		font-variation-settings: "wght" 0, "CRPT" 0;
+	}
+	33% {
+		font-variation-settings: "wght" 100, "CRPT" 0;
+	}
+	66% {
+		font-variation-settings: "wght" 100, "CRPT" 100;
+	}
+	100% {
+		font-variation-settings: "wght" 0, "CRPT" 100;
+	}
+}
+[data-font="corruption"] .menubox-grid-item-preview {
+	font-family: corruption, sans-serif;
+	font-variation-settings: "wght" 0, "CRPT" 0;
+}
+[data-font="corruption"]:hover .menubox-grid-item-preview {
+	animation: 2s preview-corruption infinite alternate ease-in-out;
+}
+
+/* EMOTYPE */
+@font-face {
+	font-family: emotype;
+	src: url("fonts/emotype.ttf");
+}
+@keyframes preview-emotype {
+	0% {
+		font-variation-settings: "VOLM" 0, "EMOT" 0;
+	}
+	25% {
+		font-variation-settings: "VOLM" 100, "EMOT" 0;
+	}
+	50% {
+		font-variation-settings: "VOLM" 100, "EMOT" 100;
+	}
+	75% {
+		font-variation-settings: "VOLM" 0, "EMOT" 100;
+	}
+	100% {
+		font-variation-settings: "VOLM" 0, "EMOT" 0;
+	}
+}
+[data-font="emotype"] .menubox-grid-item-preview {
+	font-family: emotype, sans-serif;
+}
+[data-font="emotype"]:hover .menubox-grid-item-preview {
+	animation: 4s preview-emotype infinite alternate ease-in-out;
+}
+
+/* GARDEN */
+@font-face {
+	font-family: garden;
+	src: url("fonts/garden.ttf");
+}
+@keyframes preview-garden {
+	0% {
+		font-variation-settings: "wght" 0;
+	}
+	100% {
+		font-variation-settings: "wght" 1000;
+	}
+}
+[data-font="garden"] .menubox-grid-item-preview {
+	font-family: garden, sans-serif;
+	font-variation-settings: "wght" 0;
+}
+[data-font="garden"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-garden infinite alternate ease-in-out;
+}
+
+/* LAVA */
+@font-face {
+	font-family: lava;
+	src: url("fonts/lava.ttf");
+}
+@keyframes preview-lava {
+	0% {
+		font-variation-settings: "DIST" 500;
+	}
+	100% {
+		font-variation-settings: "DIST" 100;
+	}
+}
+[data-font="lava"] .menubox-grid-item-preview {
+	font-family: lava, sans-serif;
+}
+[data-font="lava"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-lava infinite alternate ease-in-out;
+}
+
+/* MACARONI */
+@font-face {
+	font-family: macaroni;
+	src: url("fonts/macaroni.ttf");
+}
+@keyframes preview-macaroni {
+	0% {
+		font-variation-settings: "BEND" 0;
+	}
+	100% {
+		font-variation-settings: "BEND" 100;
+	}
+}
+[data-font="macaroni"] .menubox-grid-item-preview {
+	font-family: macaroni, sans-serif;
+}
+[data-font="macaroni"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-macaroni infinite alternate ease-in-out;
+}
+
+/* NATO ALPHABET */
+@font-face {
+	font-family: natoalphabet;
+	src: url("fonts/natoalphabet.ttf");
+}
+@keyframes preview-natoalphabet {
+	0% {
+		font-variation-settings: "NATO" 0;
+	}
+	100% {
+		font-variation-settings: "NATO" 100;
+	}
+}
+[data-font="natoalphabet"] .menubox-grid-item-preview {
+	font-family: natoalphabet, sans-serif;
+}
+[data-font="natoalphabet"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-natoalphabet infinite alternate ease-in-out;
+}
+
+/* NOAH */
+@font-face {
+	font-family: noah;
+	src: url("fonts/noah.ttf");
+}
+@keyframes preview-noah {
+	0% {
+		font-variation-settings: "wght" 100;
+	}
+	100% {
+		font-variation-settings: "wght" 0;
+	}
+}
+[data-font="noah"] .menubox-grid-item-preview {
+	font-family: noah, sans-serif;
+}
+[data-font="noah"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-noah infinite alternate ease-in-out;
+}
+
+/* PHROM PHONG */
+@font-face {
+	font-family: phromphong;
+	src: url("fonts/phromphong.ttf");
+}
+@keyframes preview-phromphong {
+	0% {
+		font-variation-settings: "SHRP" 0;
+	}
+	100% {
+		font-variation-settings: "SHRP" 100;
+	}
+}
+[data-font="phromphong"] .menubox-grid-item-preview {
+	font-family: phromphong, sans-serif;
+}
+[data-font="phromphong"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-phromphong infinite alternate ease-in-out;
+}
+
+/* POP UP */
+@font-face {
+	font-family: popup;
+	src: url("fonts/popup.ttf");
+}
+@keyframes preview-popup {
+	0% {
+		font-variation-settings: "hght" 100;
+	}
+	100% {
+		font-variation-settings: "hght" 0;
+	}
+}
+[data-font="popup"] .menubox-grid-item-preview {
+	font-family: popup, sans-serif;
+}
+[data-font="popup"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-popup infinite alternate ease-in-out;
+}
+
+/* STAR FONT */
+@font-face {
+	font-family: starfont;
+	src: url("fonts/starfont.ttf");
+}
+@keyframes preview-starfont {
+	0% {
+		font-variation-settings: "STAR" 0;
+	}
+	100% {
+		font-variation-settings: "STAR" 100;
+	}
+}
+[data-font="starfont"] .menubox-grid-item-preview {
+	font-family: starfont, sans-serif;
+}
+[data-font="starfont"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-starfont infinite alternate ease-in-out;
+}
+
+/* TETRIS */
+@font-face {
+	font-family: tetris;
+	src: url("fonts/tetris.ttf");
+}
+@keyframes preview-tetris {
+	0% {
+		font-variation-settings: "PXLR" 0;
+	}
+	50% {
+		font-variation-settings: "PXLR" -100;
+	}
+	100% {
+		font-variation-settings: "PXLR" 100;
+	}
+}
+[data-font="tetris"] .menubox-grid-item-preview {
+	font-family: tetris, sans-serif;
+}
+[data-font="tetris"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-tetris infinite alternate ease-in-out;
+}
+
+/* USELESS */
+@font-face {
+	font-family: useless;
+	src: url("fonts/useless.ttf");
+}
+@keyframes preview-useless {
+	0% {
+		font-variation-settings: "HAND" 0;
+	}
+	100% {
+		font-variation-settings: "HAND" 100;
+	}
+}
+[data-font="useless"] .menubox-grid-item-preview {
+	font-family: useless, sans-serif;
+}
+[data-font="useless"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-useless infinite alternate ease-in-out;
+}
+
+/* WHATS THE POINT */
+@font-face {
+	font-family: whatsthepoint;
+	src: url("fonts/whatsthepoint.ttf");
+}
+@keyframes preview-whatsthepoint {
+	0% {
+		font-variation-settings: "ANIM" 0;
+	}
+	100% {
+		font-variation-settings: "ANIM" 100;
+	}
+}
+[data-font="whatsthepoint"] .menubox-grid-item-preview {
+	font-family: whatsthepoint, sans-serif;
+}
+[data-font="whatsthepoint"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-whatsthepoint infinite alternate ease-in-out;
+}
+
+/* WINDY DAY */
+@font-face {
+	font-family: windyday;
+	src: url("fonts/windyday.ttf");
+}
+@keyframes preview-windyday {
+	0% {
+		font-variation-settings: "WIND" 0;
+	}
+	100% {
+		font-variation-settings: "WIND" 100;
+	}
+}
+[data-font="windyday"] .menubox-grid-item-preview {
+	font-family: windyday, sans-serif;
+}
+[data-font="windyday"]:hover .menubox-grid-item-preview {
+	animation: 1s preview-windyday infinite alternate ease-in-out;
+}
+
+/* XO PUZZLES */
+@font-face {
+	font-family: xopuzzles;
+	src: url("fonts/xopuzzles.ttf");
+}
+@keyframes preview-xopuzzles {
+	0% {
+		font-variation-settings: "PUZZ" 200;
+	}
+	33% {
+		font-variation-settings: "PUZZ" 400;
+	}
+	66% {
+		font-variation-settings: "PUZZ" 0;
+	}
+	100% {
+		font-variation-settings: "PUZZ" 200;
+	}
+}
+[data-font="xopuzzles"] .menubox-grid-item-preview {
+	font-family: xopuzzles, sans-serif;
+	font-variation-settings: "PUZZ" 200;
+}
+[data-font="xopuzzles"]:hover .menubox-grid-item-preview {
+	animation: 4s preview-xopuzzles infinite alternate ease-in-out;
+}
+
+/* NEW IVY */
+@font-face {
+	font-family: newivy;
+	src: url("fonts/newivy.ttf");
+}
+@keyframes preview-newivy {
+	0% {
+		font-variation-settings: "OFST" 0;
+	}
+	50% {
+		font-variation-settings: "OFST" -100;
+	}
+	100% {
+		font-variation-settings: "OFST" 100;
+	}
+}
+[data-font="newivy"] .menubox-grid-item-preview {
+	font-family: newivy, sans-serif;
+	font-variation-settings: "OFST" 0;
+}
+[data-font="newivy"]:hover .menubox-grid-item-preview {
+	animation: 2s preview-newivy infinite alternate ease-in-out;
+}
+
 
 
 /* ———————————————————————————————————————————————————————————————————————— */

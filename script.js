@@ -156,6 +156,22 @@ let creditList = {
 	selfportraits: "<strong>Self-Portraits</strong> by Students of the Workshop",
 	littlemonster: "<strong>Little Monster</strong> by Yining Li, based on <strong>Jost*</strong> by Owen Earl",
 	gilberto: "<strong>Gilberto</strong> by Cameron Astles",
+	corruption: "<strong>Corruption</strong> by Haoyuan Liu",
+	emotype: "<strong>Emo Type</strong> by Mehek Vohra",
+	garden: "<strong>Garden</strong> by Alex Kim",
+	lava: "<strong>Lava</strong> by Victoria Liang",
+	macaroni: "<strong>Macaroni</strong> by Truman Lesak",
+	natoalphabet: "<strong>NATO Alphabet</strong> by Christine Wang",
+	noah: "<strong>NOAH</strong> by Helen Peng",
+	phromphong: "<strong>Phrom Phong</strong> by Varissara Patiparnprechavut",
+	popup: "<strong>Pop-up</strong> by Jisu Chang",
+	starfont: "<strong>Star Font</strong> by Sharlene Deng",
+	tetris: "<strong>Tetris</strong> by Brianna Cheng",
+	useless: "<strong>Useless</strong> by Wenqing Ma",
+	whatsthepoint: "<strong>What’s The Point</strong> by Harshal Duddalwar",
+	windyday: "<strong>Windy Day</strong> by Ashley Kim",
+	xopuzzles: "<strong>XO Puzzles</strong> by Li Huang",
+	newivy: "<strong>New Ivy</strong> by Max Beidler",
 	"jost-amputation": "<strong>Jost*</strong>, as remixed by Alex Zhu",
 	"jost-kilter": "<strong>Jost*</strong>, as remixed by Cameron Astles",
 	"jost-pointy": "<strong>Jost*</strong>, as remixed by Gina Kang",
@@ -170,6 +186,7 @@ let creditList = {
 	"jost-nn": "<strong>Jost*</strong>, as remixed by Nishtha Nanda",
 	"jost-ha": "<strong>Jost*</strong>, as remixed by Husna Abubakar",
 	"jost-hu": "<strong>Jost*</strong>, as remixed by Raven Hu",
+	"userupload": "<strong>Something</strong>, you uploaded!",
 }
 function creditInfo(credit) {
 	let credits = document.querySelector("#credits");
@@ -358,6 +375,22 @@ let fontOptions = [
 	'selfportraits',
 	'littlemonster',
 	'gilberto',
+	'corruption',
+	'emotype',
+	'garden',
+	'lava',
+	'macaroni',
+	'natoalphabet',
+	'noah',
+	'phromphong',
+	'popup',
+	'starfont',
+	'tetris',
+	'useless',
+	'whatsthepoint',
+	'windyday',
+	'xopuzzles',
+	'newivy',
 ]
 let jostRemixes = [
 	"jost-amputation",
@@ -429,6 +462,7 @@ function handleFileSelect(event) {
 
 		// Transition out
 		getAxisInfo("user", userFont);
+		creditInfo("userupload");
 		if (currentMenu != "") {
 			menuOut();
 		}
@@ -593,7 +627,7 @@ function instrumentIn() {
 	document.querySelector(".instrument-container").style.transform = `translateY(0) rotate(0)`; // Slide in container
 }
 function instrumentOut() {
-	document.querySelector(".instrument-container").style.transform = "translateY(100vh) rotate(10deg)";
+	document.querySelector(".instrument-container").style.transform = "translateY(150vh) rotate(10deg)";
 	playerState = false;
 
 	// Stop microphone input
