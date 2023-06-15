@@ -1,7 +1,9 @@
 // TO DO
 // Add mute button
 // Waterfall instrument? Something with multiple sizes
-// Hover intrument(s)?
+// Hover instrument(s)?
+// Comparison instrument(s)?
+// Crop variable range?
 // Random font button
 // Documentation menu
 
